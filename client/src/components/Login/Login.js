@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -28,14 +29,36 @@ function Copyright(props) {
 }
 
 function Login(props) {
-  
-  let {type, sign} = props;
-  const handleSubmit = (event) => {
+  const [fullname, setFullName] = useState();
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
+  const [password2, setPassword2] = useState();
+  let {type} = props;
+
+  async function loginUser(credentials) {
+    return fetch('http://localhost:8080/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    })
+      .then(data => data.json())
+  }
+
+  const handleSubmit =async (event) => {
     event.preventDefault();
     if (type == "Sign In") {
       console.log('si da sign In');
     }else{
-      console.log('si da sign Up');
+      const token2 = '123456789';
+      /* const token = await loginUser({
+        fullname,
+        username,
+        password,
+        password2
+      }); */
+      setToken(token2);
     }
   };
   return (
@@ -62,22 +85,46 @@ function Login(props) {
               required
               fullWidth
               id='email'
-              label='New Email'
+              label= {type == 'Sign Up'? 'New Email':'Email'}
+              onChange={e => setUserName(e.target.value)}
               name='email'
               autoFocus
             />
+            {type == "Sign Up" &&
+              <>
+                <TextField
+                margin='normal'
+                required
+                fullWidth
+                id='email'
+                label= {type == 'Sign Up'? 'New User Name':'User Name'}
+                onChange={e => setFullName(e.target.value)}
+                name='text'
+                autoFocus
+                />
+                <LoginSelector />
+                <TextField
+                margin='normal'
+                required
+                fullWidth
+                name='password'
+                label= {type == 'Sign Up'? 'New Password':'Password'}
+                onChange={e => setPassword2(e.target.value)}
+                type='password'
+                id='password'
+                />
+              </>
+            }
             <TextField
               margin='normal'
               required
               fullWidth
               name='password'
-              label='New Password'
+              label= {type == 'Sign Up'? 'Repeat Password':'Password'}
+              onChange={e => setPassword(e.target.value)}
               type='password'
               id='password'
             />
-            {type == "Sign Up" &&
-              <LoginSelector />
-            }
             <Button
               type='submit'
               fullWidth
