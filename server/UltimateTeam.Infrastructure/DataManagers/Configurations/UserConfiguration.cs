@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using UltimateTeam.Domain.Models;
 
 namespace UltimateTeam.Infrastructure.DataManagers.Configurations
@@ -12,17 +13,20 @@ namespace UltimateTeam.Infrastructure.DataManagers.Configurations
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id)
-            .HasColumnName("Id");
+            builder.Property<Guid>(x => x.Id)
+                .HasColumnName("Id");
 
-            builder.Property(x => x.UserName)
-            .HasColumnName("UserName");
+            builder.Property<string>(x => x.UserName)
+                .HasColumnName("UserName");
 
-            builder.Property(x => x.Password)
-            .HasColumnName("Password");
+            builder.Property<string>(x => x.FullName)
+                .HasColumnName("FullName");
 
-            builder.Property(x => x.Email)
-            .HasColumnName("Email");
+            builder.Property<string>(x => x.Password)
+                .HasColumnName("Password");
+
+            builder.Property<string>(x => x.Email)
+                .HasColumnName("Email");
         }
     }
 }

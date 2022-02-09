@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using UltimateTeam.Domain.Contracts.Repositories;
+using UltimateTeam.Application.Contracts.Repositories;
 using UltimateTeam.Infrastructure.DataManagers;
 
 namespace UltimateTeam.Infrastructure.Repositories

@@ -1,23 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateTeam.Domain", "UltimateTeam.Domain\UltimateTeam.Domain.csproj", "{19E17C6F-3004-405A-BCDA-B198AA5F06D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateTeam.Domain", "UltimateTeam.Domain\UltimateTeam.Domain.csproj", "{19E17C6F-3004-405A-BCDA-B198AA5F06D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateTeam.Api", "UltimateTeam.Api\UltimateTeam.Api.csproj", "{31AAD5D6-2A61-49C5-BB1F-BA5C449BC190}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateTeam.Api", "UltimateTeam.Api\UltimateTeam.Api.csproj", "{31AAD5D6-2A61-49C5-BB1F-BA5C449BC190}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateTeam.Infrastructure", "UltimateTeam.Infrastructure\UltimateTeam.Infrastructure.csproj", "{0F776264-7B8B-48CF-B10D-8C0AFA68710B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateTeam.Infrastructure", "UltimateTeam.Infrastructure\UltimateTeam.Infrastructure.csproj", "{0F776264-7B8B-48CF-B10D-8C0AFA68710B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateTeam.Tests", "UltimateTeam.Tests\UltimateTeam.Tests.csproj", "{A829D7E7-8FBB-446B-8C1F-B98B25A5A1A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateTeam.Tests", "UltimateTeam.Tests\UltimateTeam.Tests.csproj", "{A829D7E7-8FBB-446B-8C1F-B98B25A5A1A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateTeam.Application", "UltimateTeam.Application\UltimateTeam.Application.csproj", "{21EE1B32-7C8E-453E-9540-E862D801EECF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{19E17C6F-3004-405A-BCDA-B198AA5F06D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -36,5 +35,15 @@ Global
 		{A829D7E7-8FBB-446B-8C1F-B98B25A5A1A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A829D7E7-8FBB-446B-8C1F-B98B25A5A1A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A829D7E7-8FBB-446B-8C1F-B98B25A5A1A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21EE1B32-7C8E-453E-9540-E862D801EECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21EE1B32-7C8E-453E-9540-E862D801EECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21EE1B32-7C8E-453E-9540-E862D801EECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21EE1B32-7C8E-453E-9540-E862D801EECF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C81737EC-C7C8-4C38-95D3-8E3D3C229DC6}
 	EndGlobalSection
 EndGlobal
