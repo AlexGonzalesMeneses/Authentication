@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import SignUp from './components/Login/SignUp';
 import SignIn from './components/Login/SignIn';
-import Dashboard from './components/dashboard';
+import Dashboard from './components/dashboard/Dashboard';
 import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {

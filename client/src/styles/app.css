@@ -1,0 +1,9 @@
+body{
+  display: flex;
+  flex : 0 0 680px;
+  height: calc(100vh - 140px);
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  transform: translateY(-50%);
+}

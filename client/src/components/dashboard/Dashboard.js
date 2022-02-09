@@ -1,16 +1,16 @@
 import { Box } from '@mui/system';
 import React from 'react';
 import Header from '../../layout/Header';
-import Body from '../../layout/Body';
+import General from '../../layout/General';
 
-function index() {
+function Dashboard() {
   return (
     <>
       <Header />
-      <Body />
+      <General />
     </>
     
   )
 }
 
-export default index
+export default Dashboard;
