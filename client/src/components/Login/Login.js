@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,8 +12,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
 import CreateTheme from '../../styles/index';
-import { Link as Href } from 'react-router-dom';
 import LoginSelector from './LoginSelector';
+import UserContext from '../../context/UserContext';
+
 
 function Copyright(props) {
   return (
@@ -28,12 +29,13 @@ function Copyright(props) {
   );
 }
 
-function Login(props) {
+function Login() {
   const [fullname, setFullName] = useState();
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const [password2, setPassword2] = useState();
-  let {type} = props;
+  const [signin, setSignin] = useState(true);
+  const { login } = useContext(UserContext);
 
   async function loginUser(credentials) {
     return fetch('http://localhost:8080/login', {
@@ -48,17 +50,11 @@ function Login(props) {
 
   const handleSubmit =async (event) => {
     event.preventDefault();
-    if (type == "Sign In") {
-      console.log('si da sign In');
+    if (signin) {
+      login();
     }else{
-      const token2 = '123456789';
-      /* const token = await loginUser({
-        fullname,
-        username,
-        password,
-        password2
-      }); */
-      setToken(token2);
+      // To do POST Method
+      login();
     }
   };
   return (
@@ -77,7 +73,7 @@ function Login(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component='h1' variant='h5'>
-            {type}
+            {signin ? 'Sign In' : 'Sign Up'}
           </Typography>
           <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -85,19 +81,19 @@ function Login(props) {
               required
               fullWidth
               id='email'
-              label= {type == 'Sign Up'? 'New Email':'Email'}
+              label= {signin ? 'New Email':'Email'}
               onChange={e => setUserName(e.target.value)}
               name='email'
               autoFocus
             />
-            {type == "Sign Up" &&
+            {!signin &&
               <>
                 <TextField
                 margin='normal'
                 required
                 fullWidth
                 id='email'
-                label= {type == 'Sign Up'? 'New User Name':'User Name'}
+                label= {!signin ? 'New User Name':'User Name'}
                 onChange={e => setFullName(e.target.value)}
                 name='text'
                 autoFocus
@@ -108,7 +104,7 @@ function Login(props) {
                 required
                 fullWidth
                 name='password'
-                label= {type == 'Sign Up'? 'New Password':'Password'}
+                label= {!signin ? 'New Password':'Password'}
                 onChange={e => setPassword2(e.target.value)}
                 type='password'
                 id='password'
@@ -120,7 +116,7 @@ function Login(props) {
               required
               fullWidth
               name='password'
-              label= {type == 'Sign Up'? 'Repeat Password':'Password'}
+              label= {!signin ? 'Repeat Password':'Password'}
               onChange={e => setPassword(e.target.value)}
               type='password'
               id='password'
@@ -135,22 +131,20 @@ function Login(props) {
                 },
                 mt: 3, mb: 2, bgcolor: 'tertiary.main', color: '#fff'} }
             >
-              {type == "Sign Up" ? "Confirm" : "Sign In" }
+              {!signin ? 'Confirm' : 'Sign In' }
             </Button>
-            {type == "Sign In" &&
+            {signin &&
             <Grid container>
               <Grid item>
-                <Href to='/signup' variant='body2'>
-                  <Box sx={{ color:'tertiary.main', textDecoration: 'none' }}>
+                  <Button onClick={e => setSignin(false)} sx={{ color:'tertiary.main', textDecoration: 'none' }}>
                     {'Dont have an account? Sign Up'}
-                  </Box>
-                </Href>
+                  </Button>
               </Grid>
             </Grid>
             }
-            {type == "Sign Up" &&
-              <Href to='/'>
+            {!signin &&
                 <Button
+                  onClick={e => setSignin(true)}
                   type='submit'
                   fullWidth
                   variant='contained'
@@ -162,7 +156,6 @@ function Login(props) {
                 >
                   Cancel
                 </Button>
-              </Href>
             }
           </Box>
         </Box>
