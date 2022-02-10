@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UltimateTeam.Domain.Models
+namespace Dev33.UltimateTeam.Domain.Models
 {
     public class User
     {

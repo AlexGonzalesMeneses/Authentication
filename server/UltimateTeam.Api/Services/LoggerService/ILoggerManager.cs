@@ -1,6 +1,6 @@
 using System;
 
-namespace UltimateTeam.Api.Services.LoggerService
+namespace Dev33.UltimateTeam.Api.Services.LoggerService
 {
     public interface ILoggerManager
     {

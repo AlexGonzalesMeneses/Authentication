@@ -1,7 +1,7 @@
 using System;
 using NLog;
 
-namespace UltimateTeam.Api.Services.LoggerService
+namespace Dev33.UltimateTeam.Api.Services.LoggerService
 {
     public class LoggerManager : ILoggerManager
     {

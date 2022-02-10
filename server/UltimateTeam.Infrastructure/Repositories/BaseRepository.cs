@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using UltimateTeam.Application.Contracts.Repositories;
-using UltimateTeam.Infrastructure.DataManagers;
+using Dev33.UltimateTeam.Application.Contracts.Repositories;
+using Dev33.UltimateTeam.Infrastructure.DataManagers;
 
-namespace UltimateTeam.Infrastructure.Repositories
+namespace Dev33.UltimateTeam.Infrastructure.Repositories
 {
     public class BaseRepository<T> : IAsyncRepository<T> where T : class
     {

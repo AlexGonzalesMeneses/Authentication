@@ -14,14 +14,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UltimateTeam.Api.Services.LoggerService;
-using UltimateTeam.Application.Contracts.Repositories;
-using UltimateTeam.Application.Contracts.Services;
-using UltimateTeam.Application.Services;
-using UltimateTeam.Infrastructure.DataManagers;
-using UltimateTeam.Infrastructure.Repositories;
+using Dev33.UltimateTeam.Api.Services.LoggerService;
+using Dev33.UltimateTeam.Application.Contracts.Repositories;
+using Dev33.UltimateTeam.Application.Contracts.Services;
+using Dev33.UltimateTeam.Application.Services;
+using Dev33.UltimateTeam.Infrastructure.DataManagers;
+using Dev33.UltimateTeam.Infrastructure.Repositories;
 
-namespace UltimateTeam.Api
+namespace Dev33.UltimateTeam.Api
 {
     public class Startup
     {

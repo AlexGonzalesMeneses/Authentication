@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Infrastructure.DataManagers.Configurations;
+using Dev33.UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Infrastructure.DataManagers.Configurations;
 
-namespace UltimateTeam.Infrastructure.DataManagers
+namespace Dev33.UltimateTeam.Infrastructure.DataManagers
 {
     public class ContextDB : DbContext 
     {

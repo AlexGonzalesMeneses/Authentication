@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Domain.Models;
 
-namespace UltimateTeam.Application.Contracts.Repositories
+namespace Dev33.UltimateTeam.Application.Contracts.Repositories
 {
     public interface IUserRepository : IAsyncRepository<User>
     {

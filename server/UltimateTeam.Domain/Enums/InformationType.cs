@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UltimateTeam.Domain.Enums
+namespace Dev33.UltimateTeam.Domain.Enums
 {
     public enum InformationType
     {

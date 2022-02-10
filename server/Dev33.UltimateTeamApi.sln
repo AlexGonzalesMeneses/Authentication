@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateTeam.Domain", "UltimateTeam.Domain\UltimateTeam.Domain.csproj", "{19E17C6F-3004-405A-BCDA-B198AA5F06D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev33.UltimateTeam.Domain", "UltimateTeam.Domain\Dev33.UltimateTeam.Domain.csproj", "{19E17C6F-3004-405A-BCDA-B198AA5F06D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateTeam.Api", "UltimateTeam.Api\UltimateTeam.Api.csproj", "{31AAD5D6-2A61-49C5-BB1F-BA5C449BC190}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev33.UltimateTeam.Api", "UltimateTeam.Api\Dev33.UltimateTeam.Api.csproj", "{31AAD5D6-2A61-49C5-BB1F-BA5C449BC190}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateTeam.Infrastructure", "UltimateTeam.Infrastructure\UltimateTeam.Infrastructure.csproj", "{0F776264-7B8B-48CF-B10D-8C0AFA68710B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev33.UltimateTeam.Infrastructure", "UltimateTeam.Infrastructure\Dev33.UltimateTeam.Infrastructure.csproj", "{0F776264-7B8B-48CF-B10D-8C0AFA68710B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateTeam.Tests", "UltimateTeam.Tests\UltimateTeam.Tests.csproj", "{A829D7E7-8FBB-446B-8C1F-B98B25A5A1A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev33.UltimateTeam.Tests", "UltimateTeam.Tests\Dev33.UltimateTeam.Tests.csproj", "{A829D7E7-8FBB-446B-8C1F-B98B25A5A1A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateTeam.Application", "UltimateTeam.Application\UltimateTeam.Application.csproj", "{21EE1B32-7C8E-453E-9540-E862D801EECF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev33.UltimateTeam.Application", "UltimateTeam.Application\Dev33.UltimateTeam.Application.csproj", "{21EE1B32-7C8E-453E-9540-E862D801EECF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

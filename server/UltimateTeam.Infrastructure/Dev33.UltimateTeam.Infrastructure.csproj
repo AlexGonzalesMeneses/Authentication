@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UltimateTeam.Application\UltimateTeam.Application.csproj" />
-    <ProjectReference Include="..\UltimateTeam.Domain\UltimateTeam.Domain.csproj" />
+    <ProjectReference Include="..\UltimateTeam.Application\Dev33.UltimateTeam.Application.csproj" />
+    <ProjectReference Include="..\UltimateTeam.Domain\Dev33.UltimateTeam.Domain.csproj" />
   </ItemGroup>
 
 </Project>

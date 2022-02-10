@@ -2,7 +2,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace UltimateTeam.Application.Encyptors
+namespace Dev33.UltimateTeam.Application.Encyptors
 {
     public class MD5Encryptor : IEncryptor
     {

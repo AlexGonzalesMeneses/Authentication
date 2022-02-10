@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace UltimateTeam.Api
+namespace Dev33.UltimateTeam.Api
 {
     public class Program
     {

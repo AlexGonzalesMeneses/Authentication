@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UltimateTeam.Application.Contracts.Repositories
+namespace Dev33.UltimateTeam.Application.Contracts.Repositories
 {
     public interface IAsyncRepository<T> where T : class
     {

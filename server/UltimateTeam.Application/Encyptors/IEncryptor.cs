@@ -1,4 +1,4 @@
-namespace UltimateTeam.Application.Encyptors
+namespace Dev33.UltimateTeam.Application.Encyptors
 {
     public interface IEncryptor
     {

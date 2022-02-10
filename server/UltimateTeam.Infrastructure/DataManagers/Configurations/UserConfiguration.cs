@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Domain.Models;
 
-namespace UltimateTeam.Infrastructure.DataManagers.Configurations
+namespace Dev33.UltimateTeam.Infrastructure.DataManagers.Configurations
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {

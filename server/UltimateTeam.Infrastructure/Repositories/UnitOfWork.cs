@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using UltimateTeam.Application.Contracts.Repositories;
-using UltimateTeam.Infrastructure.DataManagers;
+using Dev33.UltimateTeam.Application.Contracts.Repositories;
+using Dev33.UltimateTeam.Infrastructure.DataManagers;
 
-namespace UltimateTeam.Infrastructure.Repositories
+namespace Dev33.UltimateTeam.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

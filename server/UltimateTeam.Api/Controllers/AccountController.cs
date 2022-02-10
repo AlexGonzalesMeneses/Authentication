@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using UltimateTeam.Application.Contracts.Services;
-using UltimateTeam.Application.Dtos;
-using UltimateTeam.Application.Encyptors;
-using UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Application.Contracts.Services;
+using Dev33.UltimateTeam.Application.Dtos;
+using Dev33.UltimateTeam.Application.Encyptors;
+using Dev33.UltimateTeam.Domain.Models;
 
-namespace UltimateTeam.Api.Controllers
+namespace Dev33.UltimateTeam.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

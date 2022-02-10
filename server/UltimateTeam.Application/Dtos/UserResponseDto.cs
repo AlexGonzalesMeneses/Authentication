@@ -1,6 +1,6 @@
 using System;
 
-namespace UltimateTeam.Application.Dtos
+namespace Dev33.UltimateTeam.Application.Dtos
 {
     public class UserResponseDto
     {

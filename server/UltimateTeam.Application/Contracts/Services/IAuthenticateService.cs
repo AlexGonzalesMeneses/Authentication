@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UltimateTeam.Application.Dtos;
-using UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Application.Dtos;
+using Dev33.UltimateTeam.Domain.Models;
 
-namespace UltimateTeam.Application.Contracts.Services
+namespace Dev33.UltimateTeam.Application.Contracts.Services
 {
     public interface IAuthenticateService
     {

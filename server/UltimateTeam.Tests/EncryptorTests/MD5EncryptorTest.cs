@@ -1,8 +1,8 @@
 using System;
-using UltimateTeam.Application.Encyptors;
+using Dev33.UltimateTeam.Application.Encyptors;
 using Xunit;
 
-namespace UltimateTeam.Tests.EncryptorTests
+namespace Dev33.UltimateTeam.Tests.EncryptorTests
 {
     public class MD5EncryptorTest
     {
