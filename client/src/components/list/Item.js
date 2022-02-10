@@ -2,8 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { Box } from '@mui/system';
 import ShareIcon from '@mui/icons-material/Share';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
@@ -16,13 +16,16 @@ import PersonIcon from '@mui/icons-material/Person';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import KeyIcon from '@mui/icons-material/Key';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-function Item({ name, type, isFavorite }) {
+function Item({ data }) {
+  const { name, type } = data;
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isFavorite, setIsFavorite] = React.useState(
+    data.isFavorite === 'true'
+  );
   const open = Boolean(anchorEl);
 
   const iconType = () => {
@@ -49,8 +52,20 @@ function Item({ name, type, isFavorite }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const EditarItem = () => {
-    console.log('hola');
+  const handleFavorite = () => {    
+    setIsFavorite(!isFavorite);
+  };
+  const editItem = () => {
+    console.log('edit');
+  };
+  const copyItem = () => {
+    console.log('copy');
+  };
+  const shareItem = () => {
+    console.log('share');
+  };
+  const removeItem = () => {
+    console.log('remove');
   };
 
   return (
@@ -95,10 +110,17 @@ function Item({ name, type, isFavorite }) {
           }}
         >
           {iconType()}
-          {isFavorite == 'true' ? (
-            <FavoriteIcon sx={{ color: 'secondary.dark' }} />
+          {isFavorite ? (
+            <FavoriteIcon
+              onClick={handleFavorite}
+              sx={{ color: 'secondary.dark' }
+            }
+            />
           ) : (
-            <FavoriteBorderIcon sx={{ color: 'secondary.dark' }} />
+            <FavoriteBorderIcon
+              onClick={handleFavorite}
+              sx={{ color: 'secondary.dark' }}
+            />
           )}
 
           <MoreHorizIcon
@@ -119,24 +141,24 @@ function Item({ name, type, isFavorite }) {
             }}
             anchorOrigin={{
               vertical: 'bottom',
-              horizontal: 'center',
+              horizontal: 'center'
             }}
             transformOrigin={{
               vertical: 'top',
-              horizontal: 'center',
+              horizontal: 'center'
             }}
           >
             <MenuItem onClick={handleClose}>
-              <EditIcon onClick={EditarItem} />
+              <EditIcon onClick={editItem} />
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <ContentCopyIcon />
+              <ContentCopyIcon onClick={copyItem} />
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <ShareIcon />
+              <ShareIcon onClick={shareItem} />
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <DeleteIcon />
+              <DeleteIcon onClick={removeItem} />
             </MenuItem>
           </Menu>
         </Box>
