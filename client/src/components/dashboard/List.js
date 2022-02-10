@@ -25,14 +25,13 @@ function List() {
   return (
     <Box sx={{ width: '80%', padding: '30px 0', margin: 'auto' }}>
       <Box>
-        <Box
+      <Box
           sx={{
             bgcolor: 'white',
             borderRadius: '12px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            height: '70px',
             mt: '30px',
             mb: '30px'
           }}
@@ -49,8 +48,25 @@ function List() {
               padding: '0 30px'
             }}
           >
-            {namelist || 'Key 1'}
-            <Box>
+            <Box
+              sx={{
+                flex: '0 0 75%',
+                pt: '25px',
+                pb: '25px'
+              }}
+            >
+              {item.description.length > 100
+                ? `${item.description.substring(0, 100)}...`
+                : item.description}
+            </Box>
+            <Box
+              sx={{
+                flex: '0 0 15%',
+                flex: '0 0 15%',
+                display: 'flex',
+                justifyContent: 'space-between'
+              }}
+            >
               <KeyIcon />
               <FavoriteBorderIcon sx={{ color: 'secondary.dark' }} />
               <MoreHorizIcon sx={{ cursor: 'pointer' }} />

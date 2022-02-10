@@ -58,25 +58,25 @@ export default function AccountMenu() {
             <Typography sx={{ ...navButtomStyle, marginLeft: '-10rem'}}>Share</Typography>
 
             <Paper
-              component="form"
+              component='form'
               sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400,height: '65%' }}
             >
               <InputBase
                 sx={{ ml: 1, flex: 1 }}
-                placeholder="Search"
+                placeholder='Search'
                 inputProps={{ 'aria-label': 'search' }}
               />
-              <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+              <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
                 <SearchIcon />
               </IconButton>
             </Paper>
-            <Tooltip title="Account settings">
+            <Tooltip title='Account settings'>
               <IconButton
                 onClick={handleClick}
-                size="small"
+                size='small'
                 sx={{ ml: 2 }}
                 aria-controls={open ? 'account-menu' : undefined}
-                aria-haspopup="true"
+                aria-haspopup='true'
                 aria-expanded={open ? 'true' : undefined}
               >
                 <Avatar sx={{ width: 40, height: 40, border:'3px solid gray'}}>
@@ -88,7 +88,7 @@ export default function AccountMenu() {
         </Box>
         <Menu
           anchorEl={anchorEl}
-          id="account-menu"
+          id='account-menu'
           open={open}
           onClose={handleClose}
           onClick={handleClose}
@@ -123,7 +123,7 @@ export default function AccountMenu() {
         >          
           <MenuItem onClick={handleLogout}>
             <ListItemIcon>
-              <Logout fontSize="small" />
+              <Logout fontSize='small' />
             </ListItemIcon>
             Logout
           </MenuItem>
