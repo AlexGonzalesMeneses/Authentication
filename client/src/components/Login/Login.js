@@ -1,45 +1,45 @@
-import * as React from "react";
-import { useContext, useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { ThemeProvider } from "@mui/material/styles";
-import CreateTheme from "../../styles/index";
-import UserContext from "../../context/UserContext";
-import { validateBothPasswords } from "../../helpers/validatePassword";
+import * as React from 'react';
+import { useContext, useState } from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { ThemeProvider } from '@mui/material/styles';
+import CreateTheme from '../../styles/index';
+import UserContext from '../../context/UserContext';
+import { validateBothPasswords } from '../../helpers/validatePassword';
 
 function Copyright(props) {
   return (
     <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
+      variant='body2'
+      color='text.secondary'
+      align='center'
       {...props}
     >
-      {"Copyright © "}
-      <Link color="tertiary.main" href="https://mui.com/">
+      {'Copyright © '}
+      <Link color='tertiary.main' href='https://mui.com/'>
         Security4You
-      </Link>{" "}
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'}
     </Typography>
   );
 }
 
 function Login() {
   const [account, setAccount] = useState({
-    email: "",
-    password: "",
-    userName: "",
-    password2: "",
-    fullName: "",
+    email: '',
+    password: '',
+    userName: '',
+    password2: '',
+    fullName: ''
   });
 
   const [signin, setSignin] = useState(true);
@@ -52,125 +52,123 @@ function Login() {
     } else {
       const isValidPassword = validateBothPasswords({
         password: account.password,
-        password2: account.password2,
+        password2: account.password2
       });
-      isValidPassword === "ok"
-        ? signUp(account)
-        : alert(isValidPassword);
+      isValidPassword === 'ok' ? signUp(account) : alert(isValidPassword);
     }
   };
   return (
     <ThemeProvider theme={CreateTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.dark" }}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.dark' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            {signin ? "Sign In" : "Sign Up"}
+          <Typography component='h1' variant='h5'>
+            {signin ? 'Sign In' : 'Sign Up'}
           </Typography>
           <Box
-            component="form"
+            component='form'
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
           >
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              id="email"
-              label="Email Address"
+              id='email'
+              label='Email Address'
               onChange={(e) =>
                 setAccount({ ...account, email: e.target.value })
               }
-              name="email"
+              name='email'
               autoFocus
             />
             {!signin && (
               <>
                 <TextField
-                  margin="normal"
+                  margin='normal'
                   required
                   fullWidth
-                  id="email"
-                  label="User name"
+                  id='email'
+                  label='User name'
                   onChange={(e) =>
                     setAccount({ ...account, userName: e.target.value })
                   }
-                  name="text"
+                  name='text'
                   autoFocus
                 />
                 <TextField
-                  margin="normal"
+                  margin='normal'
                   required
                   fullWidth
-                  id="text"
-                  label="Full name"
+                  id='text'
+                  label='Full name'
                   onChange={(e) =>
                     setAccount({ ...account, fullName: e.target.value })
                   }
-                  name="text"
+                  name='text'
                   autoFocus
                 />
                 <TextField
-                  margin="normal"
+                  margin='normal'
                   required
                   fullWidth
-                  name="password"
-                  label="Password"
+                  name='password'
+                  label='Password'
                   onChange={(e) =>
                     setAccount({ ...account, password2: e.target.value })
                   }
-                  type="password"
-                  id="password"
+                  type='password'
+                  id='password'
                 />
               </>
             )}
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              name="password"
-              label={!signin ? "Repeat Password" : "Password"}
+              name='password'
+              label={!signin ? 'Repeat Password' : 'Password'}
               onChange={(e) =>
                 setAccount({ ...account, password: e.target.value })
               }
-              type="password"
-              id="password"
+              type='password'
+              id='password'
             />
             <Button
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
+              variant='contained'
               sx={{
-                ":hover": {
-                  bgcolor: "tertiary.dark",
+                ':hover': {
+                  bgcolor: 'tertiary.dark'
                 },
                 mt: 3,
                 mb: 2,
-                bgcolor: "tertiary.main",
-                color: "#fff",
+                bgcolor: 'tertiary.main',
+                color: '#fff'
               }}
             >
-              {!signin ? "Confirm" : "Sign In"}
+              {!signin ? 'Confirm' : 'Sign In'}
             </Button>
             {signin && (
               <Grid container>
                 <Grid item>
                   <Button
                     onClick={(e) => setSignin(false)}
-                    sx={{ color: "tertiary.main", textDecoration: "none" }}
+                    sx={{ color: 'tertiary.main', textDecoration: 'none' }}
                   >
-                    {"Dont have an account? Sign Up"}
+                    {'Dont have an account? Sign Up'}
                   </Button>
                 </Grid>
               </Grid>
@@ -178,17 +176,17 @@ function Login() {
             {!signin && (
               <Button
                 onClick={(e) => setSignin(true)}
-                type="submit"
+                type='submit'
                 fullWidth
-                variant="contained"
+                variant='contained'
                 sx={{
-                  ":hover": {
-                    bgcolor: "secondary.dark",
+                  ':hover': {
+                    bgcolor: 'secondary.dark'
                   },
                   mt: 3,
                   mb: 2,
-                  bgcolor: "secondary.main",
-                  color: "#fff",
+                  bgcolor: 'secondary.main',
+                  color: '#fff'
                 }}
               >
                 Cancel
