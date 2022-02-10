@@ -38,16 +38,16 @@ export default function AccountMenu() {
             alignItems: 'center',
             textAlign: 'center',
             justifyContent: 'space-around',
-            width: '80%',
+            width: '100%',
             margin: 'auto',
-            height: '140px',
+            height: '60px',
           }}>
-            <Typography sx={{ minWidth: 100, fontSize:'32px' }}>Home</Typography>
-            <Typography sx={{ minWidth: 100, fontSize:'32px' }}>Settings</Typography>
-            <Typography sx={{ minWidth: 100, fontSize:'32px' }}>Share</Typography>
+            <Typography sx={{ minWidth: 100, fontSize:'20px', color: '#fffd', cursor: 'pointer' }}>Home</Typography>
+            <Typography sx={{ minWidth: 100, fontSize:'20px', color: '#fffd', marginLeft: '-10rem', cursor: 'pointer' }}>Settings</Typography>
+            <Typography sx={{ minWidth: 100, fontSize:'20px', color: '#fffd', marginLeft: '-10rem', cursor: 'pointer' }}>Share</Typography>
             <Paper
               component="form"
-              sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+              sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, height: '65%' }}
             >
               <InputBase
                 sx={{ ml: 1, flex: 1 }}
@@ -67,8 +67,8 @@ export default function AccountMenu() {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
               >
-                <Avatar sx={{ width: 60, height: 60, border:'3px solid gray'}}>
-                  <AccountBoxIcon sx={{ fontSize: 80, bgcolor: 'gray'}} />
+                <Avatar sx={{ width: 40, height: 40, border:'3px solid gray'}}>
+                  <AccountBoxIcon sx={{ fontSize: 60, bgcolor: 'gray'}} />
                 </Avatar>
               </IconButton>
             </Tooltip>
