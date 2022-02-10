@@ -38,8 +38,10 @@ namespace UltimateTeam.Api
 
             services.AddControllers();
 
-            services.AddCors(options => {
-                options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            services.AddCors(option => {
+                option.AddDefaultPolicy(builder => {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
             });
 
             services.AddDbContext<ContextDB>(options =>
@@ -80,6 +82,8 @@ namespace UltimateTeam.Api
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
