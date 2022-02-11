@@ -23,7 +23,7 @@ export  default createTheme({
       light: '#5ab1eb',
       main: '#9AD9C3',
       dark: '#1d7fc0',
-      contrastText: '#C39CD9',
+      contrastText: '#685654',
     },
   }
 });

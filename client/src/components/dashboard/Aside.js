@@ -1,5 +1,7 @@
 import React from 'react';
 import { Box, margin } from '@mui/system';
+import Container from '../aside/Container';
+import Accordion from '../aside/Accordion';
 function Aside() {
   /*
   Usar Nested List para mostrar los cointainers, en:
@@ -8,77 +10,11 @@ function Aside() {
   o también usar acordeón en:
   https://mui.com/components/accordion/#main-content
   */
+  
   return (
     <Box sx={{ flex :'0 0 22%', height: 'calc(100vh - 60px)', bgcolor: 'secondary.main'}} >
-      <Box sx={{ width:'80%' }}>
-        <Box
-          sx={{
-            bgcolor: 'white',
-            borderRadius: '15px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            height: '40px',
-            width: '100%',
-            mt: '10px',
-            mb: '30px',
-            padding: '20px 10px',
-            margin: '20px 30px',
-          }}
-        >
-          {'Container 1'}
-        </Box>
-        <Box
-          sx={{
-            bgcolor: 'white',
-            borderRadius: '15px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            height: '40px',
-            width: '100%',
-            mt: '10px',
-            mb: '30px',
-            padding: '20px 10px',
-            margin: '20px 30px',
-          }}
-        >
-          {'Container 1'}
-        </Box>
-        <Box
-          sx={{
-            bgcolor: 'white',
-            borderRadius: '15px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            height: '40px',
-            width: '100%',
-            mt: '10px',
-            mb: '30px',
-            padding: '20px 10px',
-            margin: '20px 30px',
-          }}
-        >
-          {'Container 1'}
-        </Box>
-        <Box
-          sx={{
-            bgcolor: 'white',
-            borderRadius: '15px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            height: '40px',
-            width: '100%',
-            mt: '10px',
-            mb: '30px',
-            padding: '20px 10px',
-            margin: '20px 30px',
-          }}
-        >
-          {'Container 1'}
-        </Box>
+      <Box sx={{ width:'90%', margin: 'auto' }}>
+        <Accordion/>
       </Box>
     </Box>
 )};

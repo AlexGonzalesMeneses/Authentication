@@ -32,55 +32,72 @@ export default function AccountMenu() {
   };
   const handleLogout = (event) => {
     logout();
-  } 
-  
+  };
+
   const navButtomStyle = {
     minWidth: 100,
-    fontSize:'20px',
+    fontSize: '20px',
     color: '#fffd',
+        '&:hover': {
+          bgcolor: 'secondary.main'
+        },
     cursor: 'pointer'
   };
   return (
     <ThemeProvider theme={CreateTheme}>
       <React.Fragment>
-        <Box sx={{bgcolor: 'secondary.dark'}}>
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            textAlign: 'center',
-            justifyContent: 'space-around',
-            width: '100%',
-            margin: 'auto',
-            height: '60px',
-          }}>
-           <Typography sx={{ ...navButtomStyle }}>Home</Typography>
-            <Typography sx={{ ...navButtomStyle, marginLeft: '-10rem'}}>Settings</Typography>
-            <Typography sx={{ ...navButtomStyle, marginLeft: '-10rem'}}>Share</Typography>
+        <Box sx={{ bgcolor: 'secondary.dark' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              textAlign: 'center',
+              justifyContent: 'space-around',
+              width: '100%',
+              margin: 'auto',
+              height: '60px'
+            }}
+          >
+            <Typography sx={{ ...navButtomStyle }}>Home</Typography>
+            <Typography sx={{ ...navButtomStyle, marginLeft: '-10rem' }}>
+              Settings
+            </Typography>
+            <Typography sx={{ ...navButtomStyle, marginLeft: '-10rem' }}>
+              Share
+            </Typography>
 
             <Paper
-              component='form'
-              sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400,height: '65%' }}
+              component="form"
+              sx={{
+                p: '2px 4px',
+                display: 'flex',
+                alignItems: 'center',
+                width: 400,
+                height: '65%'
+              }}
             >
               <InputBase
                 sx={{ ml: 1, flex: 1 }}
-                placeholder='Search'
+                placeholder="Search"
                 inputProps={{ 'aria-label': 'search' }}
               />
-              <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
+              <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
                 <SearchIcon />
               </IconButton>
             </Paper>
-            <Tooltip title='Account settings'>
+            <Tooltip title="Account settings">
               <IconButton
                 onClick={handleClick}
-                size='small'
+                size="small"
                 sx={{ ml: 2 }}
                 aria-controls={open ? 'account-menu' : undefined}
-                aria-haspopup='true'
+                aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
               >
-                <Avatar sx={{ width: 40, height: 40, border:'3px solid gray'}}>
-                  <AccountBoxIcon sx={{ fontSize: 60, bgcolor: 'gray'}} />
+                <Avatar
+                  sx={{ width: 40, height: 40, border: '3px solid gray' }}
+                >
+                  <AccountBoxIcon sx={{ fontSize: 60, bgcolor: 'gray' }} />
                 </Avatar>
               </IconButton>
             </Tooltip>
@@ -88,7 +105,7 @@ export default function AccountMenu() {
         </Box>
         <Menu
           anchorEl={anchorEl}
-          id='account-menu'
+          id="account-menu"
           open={open}
           onClose={handleClose}
           onClick={handleClose}
@@ -102,7 +119,7 @@ export default function AccountMenu() {
                 width: 32,
                 height: 32,
                 ml: -0.5,
-                mr: 1,
+                mr: 1
               },
               '&:before': {
                 content: '""',
@@ -114,16 +131,16 @@ export default function AccountMenu() {
                 height: 10,
                 bgcolor: 'background.paper',
                 transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0,
-              },
-            },
+                zIndex: 0
+              }
+            }
           }}
           transformOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >          
+        >
           <MenuItem onClick={handleLogout}>
             <ListItemIcon>
-              <Logout fontSize='small' />
+              <Logout fontSize="small" />
             </ListItemIcon>
             Logout
           </MenuItem>

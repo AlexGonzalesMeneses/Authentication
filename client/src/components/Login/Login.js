@@ -18,13 +18,13 @@ import { validateBothPasswords } from '../../helpers/validatePassword';
 function Copyright(props) {
   return (
     <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
+      variant="body2"
+      color="text.secondary"
+      align="center"
       {...props}
     >
       {'Copyright © '}
-      <Link color='tertiary.main' href='https://mui.com/'>
+      <Link color="tertiary.main" href="https://mui.com/">
         Security4You
       </Link>{' '}
       {new Date().getFullYear()}
@@ -59,7 +59,7 @@ function Login() {
   };
   return (
     <ThemeProvider theme={CreateTheme}>
-      <Container component='main' maxWidth='xs'>
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -72,7 +72,7 @@ function Login() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.dark' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component='h1' variant='h5'>
+          <Typography component="h1" variant="h5">
             {signin ? 'Sign In' : 'Sign Up'}
           </Typography>
           <Box
@@ -82,7 +82,7 @@ function Login() {
             sx={{ mt: 1 }}
           >
             <TextField
-              margin='normal'
+              margin="normal"
               required
               fullWidth
               id='email'
@@ -134,7 +134,7 @@ function Login() {
               </>
             )}
             <TextField
-              margin='normal'
+              margin="normal"
               required
               fullWidth
               name='password'
@@ -146,9 +146,9 @@ function Login() {
               id='password'
             />
             <Button
-              type='submit'
+              type="submit"
               fullWidth
-              variant='contained'
+              variant="contained"
               sx={{
                 ':hover': {
                   bgcolor: 'tertiary.dark'
