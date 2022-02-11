@@ -72,6 +72,9 @@ function Item({ data }) {
     <Box
       sx={{
         bgcolor: 'white',
+        '&:hover': {
+          background: '#cdcbd0', //primary.main
+       },
         borderRadius: '12px',
         display: 'flex',
         justifyContent: 'space-between',
@@ -113,13 +116,19 @@ function Item({ data }) {
           {isFavorite ? (
             <FavoriteIcon
               onClick={handleFavorite}
-              sx={{ color: 'secondary.dark' }
+              sx={{ color: 'secondary.dark',
+              '&:hover': {
+                color: 'secondary.main'
+              } }
             }
             />
           ) : (
             <FavoriteBorderIcon
               onClick={handleFavorite}
-              sx={{ color: 'secondary.dark' }}
+              sx={{ color: 'secondary.dark',
+              '&:hover': {
+                color: 'secondary.main'
+              } }}
             />
           )}
 
