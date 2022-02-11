@@ -12,8 +12,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
 import CreateTheme from '../../styles/index';
-import LoginSelector from './LoginSelector';
 import UserContext from '../../context/UserContext';
+import { validateBothPasswords } from '../../helpers/validatePassword';
 
 function Copyright(props) {
   return (
@@ -34,30 +34,27 @@ function Copyright(props) {
 }
 
 function Login() {
-  const [fullname, setFullName] = useState();
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
-  const [password2, setPassword2] = useState();
-  const [signin, setSignin] = useState(true);
-  const { login } = useContext(UserContext);
+  const [account, setAccount] = useState({
+    email: '',
+    password: '',
+    userName: '',
+    password2: '',
+    fullName: ''
+  });
 
-  async function loginUser(credentials) {
-    return fetch('http://localhost:8080/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-    }).then((data) => data.json());
-  }
+  const [signin, setSignin] = useState(true);
+  const { login, signUp } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (signin) {
-      login();
+      login(account);
     } else {
-      // To do POST Method
-      login();
+      const isValidPassword = validateBothPasswords({
+        password: account.password,
+        password2: account.password2
+      });
+      isValidPassword === 'ok' ? signUp(account) : alert(isValidPassword);
     }
   };
   return (
@@ -79,7 +76,7 @@ function Login() {
             {signin ? 'Sign In' : 'Sign Up'}
           </Typography>
           <Box
-            component="form"
+            component='form'
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
@@ -88,34 +85,51 @@ function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label={signin ? 'New Email' : 'Email'}
-              onChange={(e) => setUserName(e.target.value)}
-              name="email"
+              id='email'
+              label='Email Address'
+              onChange={(e) =>
+                setAccount({ ...account, email: e.target.value })
+              }
+              name='email'
               autoFocus
             />
             {!signin && (
               <>
                 <TextField
-                  margin="normal"
+                  margin='normal'
                   required
                   fullWidth
-                  id="email"
-                  label={!signin ? 'New User Name' : 'User Name'}
-                  onChange={(e) => setFullName(e.target.value)}
-                  name="text"
+                  id='email'
+                  label='User name'
+                  onChange={(e) =>
+                    setAccount({ ...account, userName: e.target.value })
+                  }
+                  name='text'
                   autoFocus
                 />
-                <LoginSelector />
                 <TextField
-                  margin="normal"
+                  margin='normal'
                   required
                   fullWidth
-                  name="password"
-                  label={!signin ? 'New Password' : 'Password'}
-                  onChange={(e) => setPassword2(e.target.value)}
-                  type="password"
-                  id="password"
+                  id='text'
+                  label='Full name'
+                  onChange={(e) =>
+                    setAccount({ ...account, fullName: e.target.value })
+                  }
+                  name='text'
+                  autoFocus
+                />
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='password'
+                  label='Password'
+                  onChange={(e) =>
+                    setAccount({ ...account, password2: e.target.value })
+                  }
+                  type='password'
+                  id='password'
                 />
               </>
             )}
@@ -123,11 +137,13 @@ function Login() {
               margin="normal"
               required
               fullWidth
-              name="password"
+              name='password'
               label={!signin ? 'Repeat Password' : 'Password'}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              id="password"
+              onChange={(e) =>
+                setAccount({ ...account, password: e.target.value })
+              }
+              type='password'
+              id='password'
             />
             <Button
               type="submit"
@@ -160,9 +176,9 @@ function Login() {
             {!signin && (
               <Button
                 onClick={(e) => setSignin(true)}
-                type="submit"
+                type='submit'
                 fullWidth
-                variant="contained"
+                variant='contained'
                 sx={{
                   ':hover': {
                     bgcolor: 'secondary.dark'
