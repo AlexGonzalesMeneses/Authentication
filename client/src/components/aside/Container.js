@@ -4,7 +4,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-
 function Container({ data }) {
   const { name, type } = data;
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -22,51 +21,58 @@ function Container({ data }) {
       sx={{
         bgcolor: 'white',
         '&:hover': {
-          background: '#cdcbd0' //primary.main
+          bgcolor: 'primary.main'
         },
-        borderRadius: '15px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         height: '40px',
         width: '100%',
         mt: '10px',
-        mb: '30px',
-        padding: '20px 10px',
-        margin: '20px 30px'
+        padding: '30px 20px',
+
       }}
     >
-      {name}
-      {isFavorite ? (
-        <FavoriteIcon
-          onClick={handleFavorite}
-          sx={{
-            color: 'secondary.dark',
-            '&:hover': {
-              color: 'secondary.main'
-            }
-          }}
+      <Box
+        sx={{
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          maxWidth: '19ch'
+        }}
+      >
+        {name}
+      </Box>
+      <Box sx={{display:'flex',columnGap:'15px'}}>
+        {isFavorite ? (
+          <FavoriteIcon
+            onClick={handleFavorite}
+            sx={{
+              color: 'secondary.dark',
+              '&:hover': {
+                color: 'secondary.main'
+              }
+            }}
+          />
+        ) : (
+          <FavoriteBorderIcon
+            onClick={handleFavorite}
+            sx={{
+              color: 'secondary.dark',
+              '&:hover': {
+                color: 'secondary.main'
+              }
+            }}
+          />
+        )}
+        <MoreHorizIcon
+          id="basic-button"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+          sx={{ cursor: 'pointer' }}
         />
-      ) : (
-        <FavoriteBorderIcon
-          onClick={handleFavorite}
-          sx={{
-            color: 'secondary.dark',
-            '&:hover': {
-              color: 'secondary.main'
-            }
-          }}
-        />
-      )}
-      <MoreHorizIcon
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        sx={{ cursor: 'pointer' }}
-      />
-      
+      </Box>
     </Box>
   );
 }

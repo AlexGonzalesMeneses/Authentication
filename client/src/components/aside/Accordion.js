@@ -11,30 +11,40 @@ import BrowserNotSupportedIcon from '@mui/icons-material/BrowserNotSupported';
 import Crop169Icon from '@mui/icons-material/Crop169';
 import Container from './Container';
 
-const containers = [{
+const containerRoot = {
+  id: '0',
+  name: 'Root',
+  container: 'root',
+  isFavorite: 'true'
+};
+const containers = [
+  {
     id: '1',
-    name: 'Apuntes',
+    name: 'Apusdfsdfsdfs dfds fd fsdf sd fsdf sdf dsf ds fsdf sdf sdf sd fsd fsd fsd fsd fsd fsd fdsfa s dasd a dsf sdf adf asdntes',
     container: 'root',
-    isFavorite: 'true',
+    isFavorite: 'true'
   },
   {
     id: '2',
     name: 'Contactos y notas',
     container: 'root',
-    isFavorite: 'true',
+    isFavorite: 'true'
   },
   {
     id: '3',
     name: 'Personal',
     container: 'personal',
-    isFavorite: 'false',
-  },
-]
+    isFavorite: 'false'
+  }
+];
 function Accordion() {
-  const [open, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
+  const [openContainer, setOpenContainer] = React.useState(true);
+  const [openNoContainer, setOpenNoContainer] = React.useState(true);
+  const handleClickContainers = () => {
+    setOpenContainer(!openContainer);
+  };
+  const handleClickNoContainers = () => {
+    setOpenNoContainer(!openNoContainer);
   };
 
   return (
@@ -43,28 +53,42 @@ function Accordion() {
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
-        <ListSubheader sx={{ width: '100%', bgcolor: 'secondary.main' }} component="div" id="nested-list-subheader" >
+        <ListSubheader
+          sx={{ width: '100%', bgcolor: 'secondary.main' }}
+          component="div"
+          id="nested-list-subheader"
+        >
           Containers
         </ListSubheader>
       }
     >
-      <ListItemButton>
-      <ListItemIcon>
+      <ListItemButton onClick={handleClickNoContainers}>
+        <ListItemIcon>
           <BrowserNotSupportedIcon />
         </ListItemIcon>
         <ListItemText primary="No Containers" />
+        {openNoContainer ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
-      <ListItemButton onClick={handleClick}>
+      <Collapse in={openNoContainer} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <Container data={containerRoot} />
+        </List>
+      </Collapse>
+
+      <ListItemButton onClick={handleClickContainers}>
         <ListItemIcon>
           <Crop169Icon />
         </ListItemIcon>
         <ListItemText primary="Containers" />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {openContainer ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+
+      <Collapse in={openContainer} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-        {containers.map(container => <Container data = {container} key = {container.id}/>)}
+          {containers.map((container) => (
+            <Container data={container} key={container.id} />
+          ))}
         </List>
       </Collapse>
     </List>

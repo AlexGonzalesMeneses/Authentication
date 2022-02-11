@@ -38,6 +38,9 @@ export default function AccountMenu() {
     minWidth: 100,
     fontSize: '20px',
     color: '#fffd',
+        '&:hover': {
+          bgcolor: 'secondary.main'
+        },
     cursor: 'pointer'
   };
   return (
