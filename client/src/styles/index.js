@@ -17,7 +17,13 @@ export  default createTheme({
       light: '#5ab1eb',
       main: '#3498dc',
       dark: '#1d7fc0',
-      contrastText: '#',
-    }
-  },
+      contrastText: '#cdcbd0',
+    },
+    quaternary : {
+      light: '#5ab1eb',
+      main: '#9AD9C3',
+      dark: '#1d7fc0',
+      contrastText: '#C39CD9',
+    },
+  }
 });
