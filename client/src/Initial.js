@@ -8,11 +8,11 @@ import Login from './components/login/Login';
 function Initial() {
   const { user } = useContext(UserContext);
 
-  if(!user){
-    return (
-      <Login />
-    );
-  }
+  // if(!user){
+  //   return (
+  //     <Login />
+  //   );
+  // }
   return (
     <Router>
       <Pages />

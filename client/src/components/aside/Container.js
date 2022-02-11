@@ -37,7 +37,7 @@ function Container({ data }) {
         sx={{
           overflow: 'hidden',
           whiteSpace: 'nowrap',
-          maxWidth: '19ch'
+          maxWidth: '16ch'
         }}
       >
         {name}
