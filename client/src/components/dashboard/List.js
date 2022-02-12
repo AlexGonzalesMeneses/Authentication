@@ -15,7 +15,7 @@ const items = [
     info: 'another Name',
     number: '123131231',
     expiration: '10/12/2022',
-    cvv: '123'
+    cvv: '123',
   },
   {
     id: 2,
@@ -25,30 +25,34 @@ const items = [
     serial: 'asd',
     urls: 'www.url.com',
     isFavorite: 'false',
-    description: 'key pro'
+    description: 'key pro',
   },
   {
     id: 3,
     name: 'Lionel Messi',
     type: 'contact',
-    isFavorite: 'true'
+    container: 'contact',
+    isFavorite: 'true',
   },
   {
     id: 4,
     name: 'credential',
     type: 'credential',
-    isFavorite: 'true'
-    
-  }
+    container: 'credential',
+    isFavorite: 'true',
+  },
+  {
+    id: 5,
+    name: 'note',
+    type: 'note',
+    container: 'note',
+    isFavorite: 'true',
+  },
 ];
+
 function List() {
   const namelist = 'Key1';
 
-  const item = {
-    name: 'asdhfjsdalfhsdilfhasdljfhfssdf shdksdjfkabfkjsdfksd hfksjdfh kdjsh fksd fkasj dsfdskfjaksj gksdgfksdgfkjsd gfagfkja gkdsf ksdgf kaj fdsfk dgfk as doashafdasdkjflaskdfjhsadlfkjhasdfjklsafjdlasflsdfjalfjkdh',
-    type: 'creditCard',
-    isFavorite: 'true'
-  };
   return (
     <Box sx={{ width: '80%', padding: '30px 0', margin: 'auto' }}>
       <Box>

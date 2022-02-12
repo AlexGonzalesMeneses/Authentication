@@ -24,9 +24,6 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 
 function Item({ data }) {
-
-  
-
   const { name, type } = data;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isFavorite, setIsFavorite] = React.useState(
@@ -54,13 +51,16 @@ function Item({ data }) {
     }
   };
 
-  const handleClick = (event) => {
+  const handleClickMore = (event) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleCloseMore = (e) => {
+    e.stopPropagation();
     setAnchorEl(null);
   };
-  const handleFavorite = () => {
+  const handleFavorite = (e) => {
+    e.stopPropagation();
     setIsFavorite(!isFavorite);
   };
   const editItem = () => {
@@ -89,14 +89,14 @@ function Item({ data }) {
         sx={{
           bgcolor: 'white',
           '&:hover': {
-            bgcolor: 'primary.main'
+            bgcolor: 'primary.main',
           },
           borderRadius: '12px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           mt: '30px',
-          mb: '30px'
+          mb: '30px',
         }}
       >
         <Box
@@ -108,8 +108,9 @@ function Item({ data }) {
             height: '100%',
             borderRadius: '12px',
             border: '1px solid #e0e0e0',
-            padding: '0 30px'
+            padding: '0 30px',
           }}
+          onClick={handleOpenMainModal}
         >
           <Box
             sx={{
@@ -117,7 +118,6 @@ function Item({ data }) {
               pt: '25px',
               pb: '25px',
             }}
-            onClick={handleOpenMainModal}
           >
             {name.length > 100 ? `${name.substring(0, 100)}...` : name}
           </Box>
@@ -126,7 +126,7 @@ function Item({ data }) {
               flex: '0 0 15%',
               flex: '0 0 15%',
               display: 'flex',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
             }}
           >
             {iconType()}
@@ -136,8 +136,8 @@ function Item({ data }) {
                 sx={{
                   color: 'secondary.dark',
                   '&:hover': {
-                    color: 'secondary.main'
-                  }
+                    color: 'secondary.main',
+                  },
                 }}
               />
             ) : (
@@ -146,8 +146,8 @@ function Item({ data }) {
                 sx={{
                   color: 'secondary.dark',
                   '&:hover': {
-                    color: 'secondary.main'
-                  }
+                    color: 'secondary.main',
+                  },
                 }}
               />
             )}
@@ -157,36 +157,36 @@ function Item({ data }) {
               aria-controls={open ? 'basic-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
+              onClick={handleClickMore}
               sx={{ cursor: 'pointer' }}
             />
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}
               open={open}
-              onClose={handleClose}
+              onClose={handleCloseMore}
               MenuListProps={{
-                'aria-labelledby': 'basic-button'
+                'aria-labelledby': 'basic-button',
               }}
               anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'center'
+                horizontal: 'center',
               }}
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'center'
+                horizontal: 'center',
               }}
             >
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={handleCloseMore}>
                 <EditIcon onClick={editItem} />
               </MenuItem>
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={handleCloseMore}>
                 <ContentCopyIcon onClick={copyItem} />
               </MenuItem>
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={handleCloseMore}>
                 <ShareIcon onClick={shareItem} />
               </MenuItem>
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={handleCloseMore}>
                 <DeleteIcon onClick={removeItem} />
               </MenuItem>
             </Menu>
@@ -194,13 +194,9 @@ function Item({ data }) {
         </Box>
       </Box>
 
-      <Modal
-        open={openMainModal}
-        onClose={handleCloseMainModal}
-      >
+      <Modal open={openMainModal} onClose={handleCloseMainModal}>
         <Box>
-          
-          <MainModal data={data}/>
+          <MainModal data={data} />
         </Box>
       </Modal>
     </>

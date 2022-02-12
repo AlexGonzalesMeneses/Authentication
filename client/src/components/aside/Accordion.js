@@ -53,13 +53,11 @@ function Accordion() {
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
-        <ListSubheader
-          sx={{ width: '100%', bgcolor: 'secondary.main' }}
-          component="div"
-          id="nested-list-subheader"
+        <ListItemText
+          sx={{ width: '100%', bgcolor: 'secondary.main', pt:'20px',pb:'20px'}}
         >
           Containers
-        </ListSubheader>
+        </ListItemText>
       }
     >
       <ListItemButton onClick={handleClickNoContainers}>
