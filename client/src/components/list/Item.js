@@ -5,7 +5,6 @@ import ShareIcon from '@mui/icons-material/Share';
 import EditIcon from '@mui/icons-material/Edit';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -13,7 +12,6 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import PersonIcon from '@mui/icons-material/Person';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import KeyIcon from '@mui/icons-material/Key';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconButton from '@mui/material/IconButton';
@@ -21,7 +19,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MainModal from '../modal/MainModal';
 import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import Tooltip from '@mui/material/Tooltip';
 
 function Item({ data }) {
   const { name, type } = data;
@@ -36,15 +36,45 @@ function Item({ data }) {
   const iconType = () => {
     switch (type) {
       case 'key':
-        return <KeyIcon />;
+        return (
+          <Tooltip title="Key" enterDelay={500} leaveDelay={200}>
+            <IconButton>
+              <KeyIcon />
+            </IconButton>
+          </Tooltip>
+        );
       case 'credential':
-        return <AccountBoxIcon />;
+        return (
+          <Tooltip title="Credential" enterDelay={500} leaveDelay={200}>
+            <IconButton>
+              <AccountBoxIcon />
+            </IconButton>
+          </Tooltip>
+        );
       case 'creditCard':
-        return <CreditCardIcon />;
+        return (
+          <Tooltip title="CreditCard" enterDelay={500} leaveDelay={200}>
+            <IconButton>
+              <CreditCardIcon />
+            </IconButton>
+          </Tooltip>
+        );
       case 'contact':
-        return <PhoneIcon />;
+        return (
+          <Tooltip title="Contact" enterDelay={500} leaveDelay={200}>
+            <IconButton>
+              <PhoneIcon />
+            </IconButton>
+          </Tooltip>
+        );
       case 'note':
-        return <LibraryBooksIcon />;
+        return (
+          <Tooltip title="Note" enterDelay={500} leaveDelay={200}>
+            <IconButton>
+              <LibraryBooksIcon />
+            </IconButton>
+          </Tooltip>
+        );
 
       default:
         return <h1>No icon match</h1>;
@@ -131,35 +161,43 @@ function Item({ data }) {
           >
             {iconType()}
             {isFavorite ? (
-              <FavoriteIcon
-                onClick={handleFavorite}
-                sx={{
-                  color: 'secondary.dark',
-                  '&:hover': {
-                    color: 'secondary.main',
-                  },
-                }}
-              />
+              <Tooltip title="Favorite" enterDelay={500} leaveDelay={200}>
+                <IconButton onClick={handleFavorite}>
+                  <StarIcon
+                    sx={{
+                      color: 'secondary.dark',
+                      '&:hover': {
+                        color: 'secondary.main',
+                      },
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
             ) : (
-              <FavoriteBorderIcon
-                onClick={handleFavorite}
-                sx={{
-                  color: 'secondary.dark',
-                  '&:hover': {
-                    color: 'secondary.main',
-                  },
-                }}
-              />
+              <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
+                <IconButton onClick={handleFavorite}>
+                  <StarBorderIcon
+                    sx={{
+                      color: 'secondary.dark',
+                      '&:hover': {
+                        color: 'secondary.main',
+                      },
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
             )}
-
-            <MoreHorizIcon
-              id="basic-button"
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClickMore}
-              sx={{ cursor: 'pointer' }}
-            />
+            <Tooltip title="Options" enterDelay={500} disableInteractive>
+              <IconButton onClick={handleClickMore}>
+                <MoreHorizIcon
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  sx={{ cursor: 'pointer' }}
+                />
+              </IconButton>
+            </Tooltip>
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}
@@ -177,18 +215,36 @@ function Item({ data }) {
                 horizontal: 'center',
               }}
             >
-              <MenuItem onClick={handleCloseMore}>
-                <EditIcon onClick={editItem} />
-              </MenuItem>
-              <MenuItem onClick={handleCloseMore}>
-                <ContentCopyIcon onClick={copyItem} />
-              </MenuItem>
-              <MenuItem onClick={handleCloseMore}>
-                <ShareIcon onClick={shareItem} />
-              </MenuItem>
-              <MenuItem onClick={handleCloseMore}>
-                <DeleteIcon onClick={removeItem} />
-              </MenuItem>
+              <Tooltip title="Edit" disableInteractive placement="right">
+                <MenuItem onClick={handleCloseMore}>
+                  <IconButton onClick={editItem} sx={{ padding: '0px' }}>
+                    <EditIcon />
+                  </IconButton>
+                </MenuItem>
+              </Tooltip>
+              <Tooltip title="Copy" disableInteractive placement="right">
+                <MenuItem onClick={handleCloseMore}>
+                  <IconButton onClick={copyItem} sx={{ padding: '0px' }}>
+                    <ContentCopyIcon />
+                  </IconButton>
+                </MenuItem>
+              </Tooltip>
+
+              <Tooltip title="Share" disableInteractive placement="right">
+                <MenuItem onClick={handleCloseMore}>
+                  <IconButton onClick={shareItem} sx={{ padding: '0px' }}>
+                    <ShareIcon />
+                  </IconButton>
+                </MenuItem>
+              </Tooltip>
+
+              <Tooltip title="Delete" disableInteractive placement="right">
+                <MenuItem onClick={handleCloseMore}>
+                  <IconButton onClick={removeItem} sx={{ padding: '0px' }}>
+                    <DeleteIcon />
+                  </IconButton>
+                </MenuItem>
+              </Tooltip>
             </Menu>
           </Box>
         </Box>
