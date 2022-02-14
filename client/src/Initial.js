@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import Dashboard from './components/dashboard/Dashboard';
@@ -8,11 +8,9 @@ import Login from './components/login/Login';
 function Initial() {
   const { user } = useContext(UserContext);
 
-  // if(!user){
-  //   return (
-  //     <Login />
-  //   );
-  // }
+  if (!user) {
+    return <Login />;
+  }
   return (
     <Router>
       <Pages />
@@ -20,10 +18,8 @@ function Initial() {
   );
 }
 const Pages = () => {
-  const routes = useRoutes([
-    { path: '/', element: <Dashboard /> }
-  ]);
+  const routes = useRoutes([{ path: '/', element: <Dashboard /> }]);
 
   return routes;
 };
-export default Initial
+export default Initial;

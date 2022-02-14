@@ -43,10 +43,9 @@ function ContactsForm({ data }) {
     emails,
     address,
   } = data;
-  console.log(favorite);
 
   const handleSubmit = () => {
-    console.log('hola');
+    console.log('action');
   };
   return (
     <Box

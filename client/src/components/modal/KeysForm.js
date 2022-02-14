@@ -25,7 +25,7 @@ function KeysForm({ data }) {
   } = data;
 
   const handleSubmit = () => {
-    console.log('hola');
+    console.log('action');
   };
   return (
     <Box
