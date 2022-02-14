@@ -28,10 +28,8 @@ export default function MainModal({ data }) {
     ...others
   } = data;
   const handleSubmit = () => {
-    console.log('hola');
+    console.log('action');
   };
-  console.log(others);
-  //   console.log(id,name,container,type,isFavorite,description,tags,...others)
   return (
     <Box sx={style}>
       <Box

@@ -15,7 +15,7 @@ function NotesForm({ data }) {
   const { id, name, container, type, favorite, description, tags, text } = data;
 
   const handleSubmit = () => {
-    console.log('hola');
+    console.log('action');
   };
   return (
     <Box
