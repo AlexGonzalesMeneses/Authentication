@@ -155,6 +155,10 @@ function CreditCardsForm({ data }) {
                 expiration: e.target.value,
               })
             }
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
         </Grid>
         <Grid item xs={6}>

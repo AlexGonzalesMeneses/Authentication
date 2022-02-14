@@ -1,4 +1,4 @@
-import { Grid, TextField } from '@mui/material';
+import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 
@@ -43,6 +43,7 @@ function ContactsForm({ data }) {
     emails,
     address,
   } = data;
+  console.log(favorite);
 
   const handleSubmit = () => {
     console.log('hola');
@@ -116,17 +117,22 @@ function ContactsForm({ data }) {
             }
           />
         </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="favorite"
-            label="Favorite:"
-            defaultValue={favorite}
-            onChange={(e) =>
-              setContactData({ ...contactData, favorite: e.target.value })
+        <Grid item xs={6} sx={{ display: 'flex' }}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                sx={{
+                  '&.Mui-checked': {
+                    color: 'secondary.main',
+                  },
+                  '&:hover': {
+                    color: 'secondary.main',
+                  },
+                }}
+                defaultChecked={favorite == 'true' ? true : false}
+              />
             }
+            label="Favorite"
           />
         </Grid>
         <Grid item xs={6}>
@@ -244,6 +250,10 @@ function ContactsForm({ data }) {
             onChange={(e) =>
               setContactData({ ...contactData, birthday: e.target.value })
             }
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
         </Grid>
         <Grid item xs={4}>

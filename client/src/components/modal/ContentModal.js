@@ -12,7 +12,6 @@ import CredentialsForm from './CredentialsForm';
 
 export default function LabTabs({ data }) {
   const { type } = data;
-  console.log(type);
   const action = '';
   const [value, setValue] = React.useState(type);
 
