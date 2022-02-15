@@ -14,7 +14,7 @@ compile client:
   when: always
 
 compile server:
-  image: mcr.microsoft.com/dotnet/core/sdk:5.0
+  image: mcr.microsoft.com/dotnet/core/sdk
   stage: build
   only:
     - merge_requests
@@ -27,7 +27,7 @@ compile server:
   when: always
 
 test server:
-  image: mcr.microsoft.com/dotnet/core/sdk:5.0
+  image: mcr.microsoft.com/dotnet/core/sdk
   stage: test
   only:
     - merge_requests
