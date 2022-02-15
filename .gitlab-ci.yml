@@ -2,17 +2,6 @@ stages:
   - build
   - test
 
-compile client:
-  image: node:14-alpine
-  stage: build
-  only:
-    - merge_requests
-  script:
-    - cd client
-    - npm ci
-    - npm run build
-  when: always
-
 compile server:
   image: mcr.microsoft.com/dotnet/core/sdk
   stage: build
@@ -20,7 +9,7 @@ compile server:
     - merge_requests
   script:
     - cd server
-    - "dotnet build"
+    - dotnet build
   artifacts:
     paths:
       - bin/
@@ -33,7 +22,7 @@ test server:
     - merge_requests
   script:
     - cd server
-    - "dotnet test /p:CollectCoverage=true"
+    - dotnet test /p:CollectCoverage=true
   artifacts:
     when: always
     paths:
