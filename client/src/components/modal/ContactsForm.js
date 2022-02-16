@@ -1,8 +1,9 @@
 import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
+import CustomeInput from './CustomeInput';
 
-function ContactsForm({ data }) {
+function ContactsForm() {
   const [contactData, setContactData] = useState({
     name: '',
     container: '',
@@ -23,30 +24,116 @@ function ContactsForm({ data }) {
     address: '',
   });
 
-  const {
-    id,
-    name,
-    container,
-    type,
-    favorite,
-    description,
-    tags,
-    fullName,
-    firstName,
-    lastName,
-    business,
-    contry,
-    state,
-    zip,
-    birthday,
-    phones,
-    emails,
-    address,
-  } = data;
-  console.log(favorite);
+  const Contacts = [
+    {
+      id: 1,
+      name: 'name',
+      label: 'Name',
+      size: 6,
+    },
+    {
+      id: 2,
+      name: 'container',
+      label: 'Container',
+      size: 6,
+    },
+    {
+      id: 3,
+      name: 'type',
+      label: 'Type',
+      size: 4,
+    },
+    {
+      id: 4,
+      name: 'description',
+      label: 'Description',
+      size: 8,
+    },
+    {
+      id: 5,
+      name: 'name',
+      label: 'Favorite',
+      size: 6,
+    },
+    {
+      id: 6,
+      name: 'tags',
+      label: 'Tags',
+      size: 6,
+    },
+    {
+      id: 7,
+      name: 'fullname',
+      label: 'FullName',
+      size: 6,
+    },
+    {
+      id: 8,
+      name: 'firstName',
+      label: 'FirstName',
+      size: 3,
+    },
+    {
+      id: 9,
+      name: 'lastName',
+      label: 'LastName',
+      size: 3,
+    },
+    {
+      id: 10,
+      name: 'bussiness',
+      label: 'Business',
+      size: 4,
+    },
+    {
+      id: 11,
+      name: 'country',
+      label: 'Country',
+      size: 4,
+    },
+    {
+      id: 12,
+      name: 'state',
+      label: 'State',
+      size: 4,
+    },
+    {
+      id: 13,
+      name: 'zip',
+      label: 'Zip',
+      size: 4,
+    },
+    {
+      id: 14,
+      name: 'birthday',
+      label: 'Birthday',
+      size: 4,
+    },
+    {
+      id: 15,
+      name: 'phones',
+      label: 'Phones',
+      size: 4,
+    },
+    {
+      id: 16,
+      name: 'emails',
+      label: 'Emails',
+      size: 6,
+    },
+    {
+      id: 17,
+      name: 'address',
+      label: 'Address',
+      size: 6,
+    },
+  ];
 
   const handleSubmit = () => {
     console.log('action');
+  };
+  const fill = () => {
+    setContactData({ ...contactData, name: e.target.value });
   };
   return (
     <Box
@@ -64,237 +151,15 @@ function ContactsForm({ data }) {
           },
         }}
       >
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="Name"
-            defaultValue={name}
-            onChange={(e) =>
-              setContactData({ ...contactData, name: e.target.value })
-            }
-            name="name"
+        {Contacts.map(({ id, name, label, size }) => (
+          <CustomeInput
+            key={id}
+            name={name}
+            label={label}
+            size={size}
+            fill={fill}
           />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="container"
-            label="Container:"
-            defaultValue={container}
-            onChange={(e) =>
-              setContactData({ ...contactData, name: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="type"
-            label="Type:"
-            defaultValue={type}
-            onChange={(e) =>
-              setContactData({ ...contactData, name: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={8}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="description"
-            label="Description:"
-            defaultValue={description}
-            onChange={(e) =>
-              setContactData({ ...contactData, description: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={6} sx={{ display: 'flex' }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                sx={{
-                  '&.Mui-checked': {
-                    color: 'secondary.main',
-                  },
-                  '&:hover': {
-                    color: 'secondary.main',
-                  },
-                }}
-                defaultChecked={favorite == 'true' ? true : false}
-              />
-            }
-            label="Favorite"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="tags"
-            label="Tags:"
-            defaultValue={tags}
-            onChange={(e) =>
-              setContactData({ ...contactData, tags: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="fullName"
-            label="FullName:"
-            defaultValue={fullName}
-            onChange={(e) =>
-              setContactData({ ...contactData, fullName: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="firstName"
-            label="FirstName:"
-            defaultValue={firstName}
-            onChange={(e) =>
-              setContactData({ ...contactData, firstName: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="lastName"
-            label="LastName:"
-            defaultValue={lastName}
-            onChange={(e) =>
-              setContactData({ ...contactData, lastName: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="business"
-            label="Business:"
-            defaultValue={business}
-            onChange={(e) =>
-              setContactData({ ...contactData, business: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="contry"
-            label="Contry:"
-            defaultValue={contry}
-            onChange={(e) =>
-              setContactData({ ...contactData, contry: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="state"
-            label="State:"
-            defaultValue={state}
-            onChange={(e) =>
-              setContactData({ ...contactData, state: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="zip"
-            label="Zip:"
-            defaultValue={zip}
-            onChange={(e) =>
-              setContactData({ ...contactData, zip: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="birthday"
-            label="Birthday:"
-            defaultValue={birthday}
-            onChange={(e) =>
-              setContactData({ ...contactData, birthday: e.target.value })
-            }
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="phones"
-            label="Phones:"
-            defaultValue={phones}
-            onChange={(e) =>
-              setContactData({ ...contactData, phones: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="emails"
-            label="Emails:"
-            defaultValue={emails}
-            onChange={(e) =>
-              setContactData({ ...contactData, emails: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="address"
-            label="Address:"
-            defaultValue={address}
-            onChange={(e) =>
-              setContactData({ ...contactData, address: e.target.value })
-            }
-          />
-        </Grid>
+        ))}
       </Grid>
     </Box>
   );

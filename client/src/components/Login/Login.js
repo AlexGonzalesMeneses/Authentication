@@ -39,7 +39,7 @@ function Login() {
     password: '',
     userName: '',
     password2: '',
-    fullName: ''
+    fullName: '',
   });
 
   const [signin, setSignin] = useState(true);
@@ -52,7 +52,7 @@ function Login() {
     } else {
       const isValidPassword = validateBothPasswords({
         password: account.password,
-        password2: account.password2
+        password2: account.password2,
       });
       isValidPassword === 'ok' ? signUp(account) : alert(isValidPassword);
     }
@@ -66,7 +66,7 @@ function Login() {
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.dark' }}>
@@ -76,7 +76,7 @@ function Login() {
             {signin ? 'Sign In' : 'Sign Up'}
           </Typography>
           <Box
-            component='form'
+            component="form"
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
@@ -85,51 +85,51 @@ function Login() {
               margin="normal"
               required
               fullWidth
-              id='email'
-              label='Email Address'
+              id="email"
+              label="Email Address"
               onChange={(e) =>
                 setAccount({ ...account, email: e.target.value })
               }
-              name='email'
+              name="email"
               autoFocus
             />
             {!signin && (
               <>
                 <TextField
-                  margin='normal'
+                  margin="normal"
                   required
                   fullWidth
-                  id='email'
-                  label='User name'
+                  id="email"
+                  label="User name"
                   onChange={(e) =>
                     setAccount({ ...account, userName: e.target.value })
                   }
-                  name='text'
+                  name="text"
                   autoFocus
                 />
                 <TextField
-                  margin='normal'
+                  margin="normal"
                   required
                   fullWidth
-                  id='text'
-                  label='Full name'
+                  id="text"
+                  label="Full name"
                   onChange={(e) =>
                     setAccount({ ...account, fullName: e.target.value })
                   }
-                  name='text'
+                  name="text"
                   autoFocus
                 />
                 <TextField
-                  margin='normal'
+                  margin="normal"
                   required
                   fullWidth
-                  name='password'
-                  label='Password'
+                  name="password"
+                  label="Password"
                   onChange={(e) =>
                     setAccount({ ...account, password2: e.target.value })
                   }
-                  type='password'
-                  id='password'
+                  type="password"
+                  id="password"
                 />
               </>
             )}
@@ -137,13 +137,13 @@ function Login() {
               margin="normal"
               required
               fullWidth
-              name='password'
+              name="password"
               label={!signin ? 'Repeat Password' : 'Password'}
               onChange={(e) =>
                 setAccount({ ...account, password: e.target.value })
               }
-              type='password'
-              id='password'
+              type="password"
+              id="password"
             />
             <Button
               type="submit"
@@ -151,12 +151,12 @@ function Login() {
               variant="contained"
               sx={{
                 ':hover': {
-                  bgcolor: 'tertiary.dark'
+                  bgcolor: 'tertiary.dark',
                 },
                 mt: 3,
                 mb: 2,
                 bgcolor: 'tertiary.main',
-                color: '#fff'
+                color: 'quaternary.light',
               }}
             >
               {!signin ? 'Confirm' : 'Sign In'}
@@ -176,17 +176,17 @@ function Login() {
             {!signin && (
               <Button
                 onClick={(e) => setSignin(true)}
-                type='submit'
+                type="submit"
                 fullWidth
-                variant='contained'
+                variant="contained"
                 sx={{
                   ':hover': {
-                    bgcolor: 'secondary.dark'
+                    bgcolor: 'secondary.dark',
                   },
                   mt: 3,
                   mb: 2,
                   bgcolor: 'secondary.main',
-                  color: '#fff'
+                  color: 'quaternary.light',
                 }}
               >
                 Cancel

@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-export  default createTheme({
+export default createTheme({
   palette: {
     primary: {
       light: '#f1f3f2',
@@ -8,22 +8,22 @@ export  default createTheme({
       contrastText: '#888888',
     },
     secondary: {
-      light: '#fff',
+      light: '#fffd',
       main: '#d3928e',
       dark: '#c85e50',
       contrastText: '#3498dc',
     },
-    tertiary : {
+    tertiary: {
       light: '#5ab1eb',
       main: '#3498dc',
       dark: '#1d7fc0',
       contrastText: '#cdcbd0',
     },
-    quaternary : {
-      light: '#5ab1eb',
+    quaternary: {
+      light: '#ffffff',
       main: '#9AD9C3',
-      dark: '#1d7fc0',
+      dark: '#000000',
       contrastText: '#685654',
     },
-  }
+  },
 });

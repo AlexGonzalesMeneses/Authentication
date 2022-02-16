@@ -10,7 +10,7 @@ import KeysForm from './KeysForm';
 import NotesForm from './NotesForm';
 import CredentialsForm from './CredentialsForm';
 
-export default function LabTabs({ data }) {
+export default function ContentModal({ data }) {
   const { type } = data;
   const action = '';
   const [value, setValue] = React.useState(type);
@@ -19,9 +19,9 @@ export default function LabTabs({ data }) {
     setValue(newValue);
   };
   const styleTab = {
-    color: 'black',
+    color: 'quaternary.dark',
     '&.Mui-selected': {
-      color: 'black',
+      color: 'quaternary.dark',
     },
   };
   const styleTablist = {
@@ -29,6 +29,42 @@ export default function LabTabs({ data }) {
       bgcolor: 'secondary.main',
     },
   };
+  const tabs = [
+    {
+      id: 1,
+      type: 'contact',
+      title: 'Contact',
+      element: <ContactsForm data={data} />,
+    },
+    {
+      id: 2,
+      type: 'creditCard',
+      title: 'CreditCard',
+      action: action,
+      element: <CreditCardsForm data={data} />,
+    },
+    {
+      id: 3,
+      type: 'credential',
+      title: 'Credential',
+      action: action,
+      element: <CredentialsForm data={data} />,
+    },
+    {
+      id: 4,
+      type: 'key',
+      title: 'Key',
+      action: action,
+      element: <KeysForm data={data} />,
+    },
+    {
+      id: 5,
+      type: 'note',
+      title: 'Note',
+      action: action,
+      element: <NotesForm data={data} />,
+    },
+  ];
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -39,44 +75,44 @@ export default function LabTabs({ data }) {
             onChange={handleChangeTab}
             aria-label="lab API tabs example"
           >
-            {(type == 'contact' || action == 'Add') && (
+            {type == 'contact' && (
               <Tab sx={{ ...styleTab }} label="Contact" value="contact" />
             )}
-            {(type == 'creditCard' || action == 'Add') && (
+            {type == 'creditCard' && (
               <Tab sx={{ ...styleTab }} label="CreditCard" value="creditCard" />
             )}
-            {(type == 'credential' || action == 'Add') && (
+            {type == 'credential' && (
               <Tab sx={{ ...styleTab }} label="Credential" value="credential" />
             )}
-            {(type == 'key' || action == 'Add') && (
+            {type == 'key' && (
               <Tab sx={{ ...styleTab }} label="Key" value="key" />
             )}
-            {(type == 'note' || action == 'Add') && (
+            {type == 'note' && (
               <Tab sx={{ ...styleTab }} label="Note" value="note" />
             )}
           </TabList>
         </Box>
-        {(type == 'contact' || action == 'Add') && (
+        {type == 'contact' && (
           <TabPanel value="contact">
             <ContactsForm data={data} />
           </TabPanel>
         )}
-        {(type == 'creditCard' || action == 'Add') && (
+        {type == 'creditCard' && (
           <TabPanel value="creditCard">
             <CreditCardsForm data={data} />
           </TabPanel>
         )}
-        {(type == 'credential' || action == 'Add') && (
+        {type == 'credential' && (
           <TabPanel value="credential">
             <CredentialsForm data={data} />
           </TabPanel>
         )}
-        {(type == 'key' || action == 'Add') && (
+        {type == 'key' && (
           <TabPanel value="key">
             <KeysForm data={data} />
           </TabPanel>
         )}
-        {(type == 'note' || action == 'Add') && (
+        {type == 'note' && (
           <TabPanel value="note">
             <NotesForm data={data} />
           </TabPanel>

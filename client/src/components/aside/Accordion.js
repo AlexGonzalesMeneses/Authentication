@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -10,34 +10,36 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import BrowserNotSupportedIcon from '@mui/icons-material/BrowserNotSupported';
 import Crop169Icon from '@mui/icons-material/Crop169';
 import Container from './Container';
+import fetchContainer from '../../services/useFetch';
 
 const containerRoot = {
   id: '0',
   name: 'Root',
   container: 'root',
-  isFavorite: 'true'
+  isFavorite: 'true',
 };
 const containers = [
   {
     id: '1',
     name: 'Apusdfsdfsdfs dfds fd fsdf sd fsdf sdf dsf ds fsdf sdf sdf sd fsd fsd fsd fsd fsd fsd fdsfa s dasd a dsf sdf adf asdntes',
     container: 'root',
-    isFavorite: 'true'
+    isFavorite: 'true',
   },
   {
     id: '2',
     name: 'Contactos y notas',
     container: 'root',
-    isFavorite: 'true'
+    isFavorite: 'true',
   },
   {
     id: '3',
     name: 'Personal',
     container: 'personal',
-    isFavorite: 'false'
-  }
+    isFavorite: 'false',
+  },
 ];
 function Accordion() {
+  const [information, setInformation] = useState([]);
   const [openContainer, setOpenContainer] = React.useState(true);
   const [openNoContainer, setOpenNoContainer] = React.useState(true);
   const handleClickContainers = () => {
@@ -47,6 +49,12 @@ function Accordion() {
     setOpenNoContainer(!openNoContainer);
   };
 
+  useEffect(() => {
+    const containerList = () => {
+      fetchContainer().then((data) => setInformation(data));
+    };
+    containerList();
+  }, []);
   return (
     <List
       sx={{ width: '100%', bgcolor: 'secondary.main' }}
@@ -54,7 +62,12 @@ function Accordion() {
       aria-labelledby="nested-list-subheader"
       subheader={
         <ListItemText
-          sx={{ width: '100%', bgcolor: 'secondary.main', pt:'20px',pb:'20px'}}
+          sx={{
+            width: '100%',
+            bgcolor: 'secondary.main',
+            pt: '20px',
+            pb: '20px',
+          }}
         >
           Containers
         </ListItemText>
@@ -84,7 +97,7 @@ function Accordion() {
 
       <Collapse in={openContainer} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {containers.map((container) => (
+          {information.map((container) => (
             <Container data={container} key={container.id} />
           ))}
         </List>
