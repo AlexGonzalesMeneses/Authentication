@@ -19,6 +19,7 @@
     "@emotion/styled": "^11.6.0",
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.3.1",
+    "@mui/lab": "^5.0.0-alpha.68",
     "@mui/material": "^5.4.0",
     "axios": "^0.25.0",
     "babel-loader": "^8.2.3",

@@ -19,6 +19,9 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import MainModal from '../modal/MainModal';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
 
 function Item({ data }) {
   const { name, type } = data;
@@ -26,6 +29,8 @@ function Item({ data }) {
   const [isFavorite, setIsFavorite] = React.useState(
     data.isFavorite === 'true'
   );
+  const [openMainModal, setOpenMainModal] = React.useState(false);
+
   const open = Boolean(anchorEl);
 
   const iconType = () => {
@@ -46,13 +51,16 @@ function Item({ data }) {
     }
   };
 
-  const handleClick = (event) => {
+  const handleClickMore = (event) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleCloseMore = (e) => {
+    e.stopPropagation();
     setAnchorEl(null);
   };
-  const handleFavorite = () => {    
+  const handleFavorite = (e) => {
+    e.stopPropagation();
     setIsFavorite(!isFavorite);
   };
   const editItem = () => {
@@ -68,111 +76,130 @@ function Item({ data }) {
     console.log('remove');
   };
 
+  const handleOpenMainModal = () => {
+    setOpenMainModal(true);
+  };
+  const handleCloseMainModal = () => {
+    setOpenMainModal(false);
+  };
+
   return (
-    <Box
-      sx={{
-        bgcolor: 'white',
-        '&:hover': {
-          background: '#cdcbd0', //primary.main
-       },
-        borderRadius: '12px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        mt: '30px',
-        mb: '30px'
-      }}
-    >
+    <>
       <Box
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '100%',
-          height: '100%',
+          bgcolor: 'white',
+          '&:hover': {
+            bgcolor: 'primary.main',
+          },
           borderRadius: '12px',
-          border: '1px solid #e0e0e0',
-          padding: '0 30px'
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          mt: '30px',
+          mb: '30px',
         }}
       >
         <Box
           sx={{
-            flex: '0 0 75%',
-            pt: '25px',
-            pb: '25px'
-          }}
-        >
-          {name.length > 100 ? `${name.substring(0, 100)}...` : name}
-        </Box>
-        <Box
-          sx={{
-            flex: '0 0 15%',
-            flex: '0 0 15%',
             display: 'flex',
-            justifyContent: 'space-between'
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+            height: '100%',
+            borderRadius: '12px',
+            border: '1px solid #e0e0e0',
+            padding: '0 30px',
           }}
+          onClick={handleOpenMainModal}
         >
-          {iconType()}
-          {isFavorite ? (
-            <FavoriteIcon
-              onClick={handleFavorite}
-              sx={{ color: 'secondary.dark',
-              '&:hover': {
-                color: 'secondary.main'
-              } }
-            }
-            />
-          ) : (
-            <FavoriteBorderIcon
-              onClick={handleFavorite}
-              sx={{ color: 'secondary.dark',
-              '&:hover': {
-                color: 'secondary.main'
-              } }}
-            />
-          )}
-
-          <MoreHorizIcon
-            id="basic-button"
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-            sx={{ cursor: 'pointer' }}
-          />
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button'
-            }}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center'
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center'
+          <Box
+            sx={{
+              flex: '0 0 75%',
+              pt: '25px',
+              pb: '25px',
             }}
           >
-            <MenuItem onClick={handleClose}>
-              <EditIcon onClick={editItem} />
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <ContentCopyIcon onClick={copyItem} />
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <ShareIcon onClick={shareItem} />
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <DeleteIcon onClick={removeItem} />
-            </MenuItem>
-          </Menu>
+            {name.length > 100 ? `${name.substring(0, 100)}...` : name}
+          </Box>
+          <Box
+            sx={{
+              flex: '0 0 15%',
+              flex: '0 0 15%',
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            {iconType()}
+            {isFavorite ? (
+              <FavoriteIcon
+                onClick={handleFavorite}
+                sx={{
+                  color: 'secondary.dark',
+                  '&:hover': {
+                    color: 'secondary.main',
+                  },
+                }}
+              />
+            ) : (
+              <FavoriteBorderIcon
+                onClick={handleFavorite}
+                sx={{
+                  color: 'secondary.dark',
+                  '&:hover': {
+                    color: 'secondary.main',
+                  },
+                }}
+              />
+            )}
+
+            <MoreHorizIcon
+              id="basic-button"
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClickMore}
+              sx={{ cursor: 'pointer' }}
+            />
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleCloseMore}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <MenuItem onClick={handleCloseMore}>
+                <EditIcon onClick={editItem} />
+              </MenuItem>
+              <MenuItem onClick={handleCloseMore}>
+                <ContentCopyIcon onClick={copyItem} />
+              </MenuItem>
+              <MenuItem onClick={handleCloseMore}>
+                <ShareIcon onClick={shareItem} />
+              </MenuItem>
+              <MenuItem onClick={handleCloseMore}>
+                <DeleteIcon onClick={removeItem} />
+              </MenuItem>
+            </Menu>
+          </Box>
         </Box>
       </Box>
-    </Box>
+
+      <Modal open={openMainModal} onClose={handleCloseMainModal}>
+        <Box>
+          <MainModal data={data} />
+        </Box>
+      </Modal>
+    </>
   );
 }
 

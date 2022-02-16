@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "name": "credit card fake",
+    "container": "root",
+    "type": "creditCard",
+    "favorite": "false",
+    "description": "this is a description",
+    "tags": "jala friends work",
+    "info": "another Name",
+    "number": "123131231",
+    "expiration": "10/12/2022",
+    "cvv": "123"
+  },
+  {
+    "id": 2,
+    "name": "key 1",
+    "type": "key",
+    "container": "keys",
+    "favorite": "false",
+    "description": "key pro",
+    "serial": "asd",
+    "urls": "www.url.com"
+  },
+  {
+    "id": 3,
+    "name": "Lionel Messi",
+    "type": "contact",
+    "container": "contact",
+    "favorite": "true",
+    "description": "this is a description",
+    "tags": "jala friends work",
+    "fullName": "jala friends work",
+    "firstName": "jala friends work",
+    "lastName": "lastname provide",
+    "bussiness": "bussiness provide",
+    "contry": "contry provider",
+    "state": "state provider",
+    "zip": "zip provider",
+    "birthday": "2021/05/05",
+    "phones": "42456789,4654894,4564978",
+    "email": "email@gmail.com",
+    "address": "address provide "
+  },
+  {
+    "id": 4,
+    "name": "credential",
+    "type": "credential",
+    "container": "credential",
+    "favorite": "true",
+    "description": "this is a description",
+    "tags": "jala friends work",
+    "userName": "jala friends work",
+    "password": "jala friends work"
+  },
+  {
+    "id": 5,
+    "name": "note",
+    "type": "note",
+    "container": "note",
+    "favorite": "true",
+    "text": "note provide"
+  }
+]
