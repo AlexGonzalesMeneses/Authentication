@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import Item from '../list/Item';
 import Pagination from '../helpers/Pagination';
-import { get } from 'axios';
+import get from '../../services/SendGet';
 
 function List() {
   const [information, setInformation] = useState([]);
@@ -17,12 +17,10 @@ function List() {
   };
 
   useEffect(() => {
-    get('http://localhost:4002/items')
-      .then(({ data }) => {
-        setInformation(data);
-        console.log(data);
-      })
-      .catch((err) => setError(err));
+    const noteList = () => {
+      get('items').then((data) => setInformation(data));
+    };
+    noteList();
   }, []);
 
   return (

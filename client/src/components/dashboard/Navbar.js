@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/system';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import StarIcon from '@mui/icons-material/Star';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -8,12 +8,13 @@ import KeyIcon from '@mui/icons-material/Key';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
+import IconNav from '../navbar/IconNav';
+import { Modal } from '@mui/material';
+import MainModal from '../modal/MainModal';
 function Navbar() {
   const iconStyle = {
     fontSize: '30px',
-    color: '#fffd',
+    color: 'secondary.light',
     cursor: 'pointer',
     '&:hover': {
       bgcolor: 'primary.contrastText',
@@ -21,6 +22,68 @@ function Navbar() {
       borderRadius: '12px',
     },
   };
+  const [openMainModal, setOpenMainModal] = React.useState(false);
+  const navClick = (title) => {
+    if (title == 'Add') {
+      handleOpenMainModal();
+    }
+  };
+  const handleOpenMainModal = () => {
+    setOpenMainModal(true);
+  };
+  const handleCloseMainModal = () => {
+    setOpenMainModal(false);
+  };
+  const icons = [
+    {
+      id: 1,
+      title: 'All',
+      element: <FormatListBulletedIcon title="All" sx={{ ...iconStyle }} />,
+    },
+    {
+      id: 2,
+      title: 'Notes',
+      element: <LibraryBooksIcon title="Notes" sx={{ ...iconStyle }} />,
+    },
+    {
+      id: 3,
+      title: 'Credentials',
+      element: <AccountBoxIcon title="Credentials" sx={{ ...iconStyle }} />,
+    },
+    {
+      id: 4,
+      title: 'Keys',
+      element: <KeyIcon title="Keys" sx={{ ...iconStyle }} />,
+    },
+    {
+      id: 5,
+      title: 'CreditCards',
+      element: <CreditCardIcon title="CreditCards" sx={{ ...iconStyle }} />,
+    },
+    {
+      id: 6,
+      title: 'Contacts',
+      element: <PhoneIcon title="Contacts" sx={{ ...iconStyle }} />,
+    },
+    {
+      id: 7,
+      title: 'Favorites',
+      element: <StarIcon title="Favorites" sx={{ ...iconStyle }} />,
+    },
+    {
+      id: 8,
+      title: 'Add',
+      element: (
+        <AddCircleOutlineIcon
+          title="Add"
+          sx={{
+            ...iconStyle,
+            fontSize: '50px',
+          }}
+        />
+      ),
+    },
+  ];
   return (
     <Box
       sx={{
@@ -39,53 +102,21 @@ function Navbar() {
           height: '100%',
         }}
       >
-        <Tooltip title="All" enterDelay={500} leaveDelay={200}>
-          <IconButton>
-            <FormatListBulletedIcon sx={{ ...iconStyle }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Notes" enterDelay={500} leaveDelay={200}>
-          <IconButton>
-            <LibraryBooksIcon sx={{ ...iconStyle }} />
-          </IconButton>
-        </Tooltip>
-
-        <Tooltip title="Credentials" enterDelay={500} leaveDelay={200}>
-          <IconButton>
-            <AccountBoxIcon sx={{ ...iconStyle }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Keys" enterDelay={500} leaveDelay={200}>
-          <IconButton>
-            <KeyIcon sx={{ ...iconStyle }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="CreditCards" enterDelay={500} leaveDelay={200}>
-          <IconButton>
-            <CreditCardIcon sx={{ ...iconStyle }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Contacts" enterDelay={500} leaveDelay={200}>
-          <IconButton>
-            <PhoneIcon sx={{ ...iconStyle }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Favorites" enterDelay={500} leaveDelay={200}>
-          <IconButton>
-            <FavoriteIcon sx={{ ...iconStyle }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Add" enterDelay={500} leaveDelay={200}>
-          <IconButton>
-            <AddCircleOutlineIcon
-              sx={{
-                ...iconStyle,
-                fontSize: '50px',
-              }}
-            />
-          </IconButton>
-        </Tooltip>
+        {icons.map(({ element, title, id }) => (
+          <IconNav
+            element={element}
+            title={title}
+            key={id}
+            navClick={navClick}
+          />
+        ))}
       </Box>
+
+      <Modal open={openMainModal} onClose={handleCloseMainModal}>
+        <Box>
+          <MainModal data={[]} />
+        </Box>
+      </Modal>
     </Box>
   );
 }
