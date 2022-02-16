@@ -37,11 +37,11 @@ export default function AccountMenu() {
   const navButtomStyle = {
     minWidth: 100,
     fontSize: '20px',
-    color: '#fffd',
-        '&:hover': {
-          bgcolor: 'secondary.main'
-        },
-    cursor: 'pointer'
+    color: 'secondary.light',
+    '&:hover': {
+      bgcolor: 'secondary.main',
+    },
+    cursor: 'pointer',
   };
   return (
     <ThemeProvider theme={CreateTheme}>
@@ -55,7 +55,7 @@ export default function AccountMenu() {
               justifyContent: 'space-around',
               width: '100%',
               margin: 'auto',
-              height: '60px'
+              height: '60px',
             }}
           >
             <Typography sx={{ ...navButtomStyle }}>Home</Typography>
@@ -73,7 +73,7 @@ export default function AccountMenu() {
                 display: 'flex',
                 alignItems: 'center',
                 width: 400,
-                height: '65%'
+                height: '65%',
               }}
             >
               <InputBase
@@ -95,9 +95,15 @@ export default function AccountMenu() {
                 aria-expanded={open ? 'true' : undefined}
               >
                 <Avatar
-                  sx={{ width: 40, height: 40, border: '3px solid gray' }}
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    border: '3px solid primary.contrastText',
+                  }}
                 >
-                  <AccountBoxIcon sx={{ fontSize: 60, bgcolor: 'gray' }} />
+                  <AccountBoxIcon
+                    sx={{ fontSize: 60, bgcolor: 'primary.contrastText' }}
+                  />
                 </Avatar>
               </IconButton>
             </Tooltip>
@@ -119,7 +125,7 @@ export default function AccountMenu() {
                 width: 32,
                 height: 32,
                 ml: -0.5,
-                mr: 1
+                mr: 1,
               },
               '&:before': {
                 content: '""',
@@ -131,9 +137,9 @@ export default function AccountMenu() {
                 height: 10,
                 bgcolor: 'background.paper',
                 transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0
-              }
-            }
+                zIndex: 0,
+              },
+            },
           }}
           transformOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}

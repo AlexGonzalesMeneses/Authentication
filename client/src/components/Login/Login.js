@@ -45,9 +45,9 @@ function Login() {
     return fetch('http://localhost:8080/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(credentials)
+      body: JSON.stringify(credentials),
     }).then((data) => data.json());
   }
 
@@ -69,7 +69,7 @@ function Login() {
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.dark' }}>
@@ -135,12 +135,12 @@ function Login() {
               variant="contained"
               sx={{
                 ':hover': {
-                  bgcolor: 'tertiary.dark'
+                  bgcolor: 'tertiary.dark',
                 },
                 mt: 3,
                 mb: 2,
                 bgcolor: 'tertiary.main',
-                color: '#fff'
+                color: 'quaternary.light',
               }}
             >
               {!signin ? 'Confirm' : 'Sign In'}
@@ -165,12 +165,12 @@ function Login() {
                 variant="contained"
                 sx={{
                   ':hover': {
-                    bgcolor: 'secondary.dark'
+                    bgcolor: 'secondary.dark',
                   },
                   mt: 3,
                   mb: 2,
                   bgcolor: 'secondary.main',
-                  color: '#fff'
+                  color: 'quaternary.light',
                 }}
               >
                 Cancel

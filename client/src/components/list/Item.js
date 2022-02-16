@@ -117,7 +117,7 @@ function Item({ data }) {
     <>
       <Box
         sx={{
-          bgcolor: 'white',
+          bgcolor: 'quaternary.light',
           '&:hover': {
             bgcolor: 'primary.main',
           },
@@ -137,7 +137,7 @@ function Item({ data }) {
             width: '100%',
             height: '100%',
             borderRadius: '12px',
-            border: '1px solid #e0e0e0',
+            border: '1px solid tertiary.contrastText',
             padding: '0 30px',
           }}
           onClick={handleOpenMainModal}
