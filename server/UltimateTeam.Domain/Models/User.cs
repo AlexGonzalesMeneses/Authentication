@@ -24,5 +24,7 @@ namespace Dev33.UltimateTeam.Domain.Models
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
+        public List<Container> Containers { get; set; } = new List<Container>();
     }
 }

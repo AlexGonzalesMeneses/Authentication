@@ -37,8 +37,10 @@ namespace Dev33.UltimateTeam.Api
 
             services.AddControllers();
 
-            services.AddCors(option => {
-                option.AddDefaultPolicy(builder => {
+            services.AddCors(option =>
+            {
+                option.AddDefaultPolicy(builder =>
+                {
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
@@ -50,7 +52,9 @@ namespace Dev33.UltimateTeam.Api
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IContainerRepository, ContainerRepository>();
             services.AddTransient<IAuthenticateService, AuthenticateService>();
+            services.AddTransient<IContainerService, ContainerService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddAuthentication(options =>
@@ -67,7 +71,8 @@ namespace Dev33.UltimateTeam.Api
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Authentication:Issuer"],
                     ValidAudience = Configuration["Authentication:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Authentication:SecretKey"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Authentication:SecretKey"])),
+                    ClockSkew = TimeSpan.Zero
                 };
             });
         }
@@ -84,6 +89,8 @@ namespace Dev33.UltimateTeam.Api
             app.UseCors();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
