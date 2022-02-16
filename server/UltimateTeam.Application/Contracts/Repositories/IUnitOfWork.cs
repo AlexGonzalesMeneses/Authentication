@@ -11,6 +11,7 @@ namespace Dev33.UltimateTeam.Application.Contracts.Repositories
     {
         IUserRepository UserRepository { get; }
         IContainerRepository ContainerRepository { get; }
+        IInformationRepository InformationRepository { get; }
         Task SaveChangesAsync();
     }
 }

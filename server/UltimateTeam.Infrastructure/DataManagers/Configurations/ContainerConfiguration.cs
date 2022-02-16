@@ -32,6 +32,10 @@ namespace Dev33.UltimateTeam.Infrastructure.DataManagers.Configurations
             builder.HasOne(x => x.User)
                 .WithMany(x => x.Containers)
                 .HasForeignKey(x => x.UserId);
+
+            builder.HasMany(x => x.Informations)
+                .WithOne(x => x.Container)
+                .HasForeignKey(x => x.ContainerId);
         }
     }
 }

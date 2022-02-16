@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UltimateTeam.Application.Dtos;
 
 namespace Dev33.UltimateTeam.Api.Controllers
 {
@@ -90,7 +91,7 @@ namespace Dev33.UltimateTeam.Api.Controllers
         }
 
         [HttpPut("{containerId:guid}")]
-        public async Task<ActionResult<ContainerResponseDto>> UpdateContainer(Guid userId, Guid containerId, ContainerRequestDto request)
+        public async Task<ActionResult<ContainerSpecifyResponseDto>> UpdateContainer(Guid userId, Guid containerId, ContainerRequestDto request)
         {
             try
             {

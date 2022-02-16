@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using Dev33.UltimateTeam.Infrastructure.DataManagers;
+using UltimateTeam.Infrastructure.Repositories;
 
 namespace Dev33.UltimateTeam.Infrastructure.Repositories
 {
@@ -15,6 +16,7 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
 
         public IUserRepository UserRepository => new UserRepository(context);
         public IContainerRepository ContainerRepository => new ContainerRepository(context);
+        public IInformationRepository InformationRepository => new InformationRepository(context);
 
         public async Task SaveChangesAsync()
         {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UltimateTeam.Application.Dtos;
 
 namespace Dev33.UltimateTeam.Application.Contracts.Services
 {
@@ -14,7 +15,7 @@ namespace Dev33.UltimateTeam.Application.Contracts.Services
 
         Task<ContainerResponseDto> CreateContainer(Guid userId, ContainerRequestDto request);
         Task DeleteContainer(Guid userId, Guid containerId);
-        Task<ContainerResponseDto> GetContainerById(Guid userId, Guid containerId);
-        Task UpdateContainer(ContainerResponseDto container);
+        Task<ContainerSpecifyResponseDto> GetContainerById(Guid userId, Guid containerId);
+        Task UpdateContainer(ContainerSpecifyResponseDto container);
     }
 }

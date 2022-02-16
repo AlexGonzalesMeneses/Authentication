@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UltimateTeam.Application.Dtos;
 
 namespace Dev33.UltimateTeam.Application.Services
 {
@@ -66,7 +67,7 @@ namespace Dev33.UltimateTeam.Application.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<ContainerResponseDto> GetContainerById(Guid userId, Guid containerId)
+        public async Task<ContainerSpecifyResponseDto> GetContainerById(Guid userId, Guid containerId)
         {
             var container = await unitOfWork.ContainerRepository.GetByIdAsync(containerId);
 
@@ -80,11 +81,20 @@ namespace Dev33.UltimateTeam.Application.Services
                 throw new Exception("Container id not found");
             }
 
-            return new ContainerResponseDto
+            var informations = await unitOfWork.InformationRepository.GetInformationsByContainerId(containerId);
+
+            return new ContainerSpecifyResponseDto
             {
                 Id = container.Id,
                 Name = container.Name,
                 Favorite = container.Favorite,
+                Informations = informations.Select(x => new InformationResponseDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    InformationType = x.InformationType.ToString(),
+                    Favorite = x.Favorite
+                }).ToList()
             };
         }
 
@@ -110,7 +120,7 @@ namespace Dev33.UltimateTeam.Application.Services
             return response;
         }
 
-        public async Task UpdateContainer(ContainerResponseDto container)
+        public async Task UpdateContainer(ContainerSpecifyResponseDto container)
         {
             var containerToUpdate = await unitOfWork.ContainerRepository.GetByIdAsync(container.Id);
 
