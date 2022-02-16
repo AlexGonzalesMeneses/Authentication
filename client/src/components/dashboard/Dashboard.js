@@ -9,8 +9,7 @@ function Dashboard() {
       <Header />
       <General />
     </>
-    
-  )
+  );
 }
 
 export default Dashboard;
