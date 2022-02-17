@@ -1,14 +1,22 @@
-const SendPost = (data, endpoint) => {
-  fetch(`${process.env.REACT_APP_API_URL}${endpoint}`, {
+export const SendPostContainer = (data) => {
+  const isToken = localStorage.getItem('token');
+  const UserId = localStorage.getItem('UserId');
+  fetch(`http://localhost:5000/api/users/${UserId}/Container/`, {
     method: 'POST',
-    headers: {
+    headers: new Headers({
+      Authorization: `Bearer ${isToken}`,
+      Accept: 'application/json',
       'Content-Type': 'application/json',
-    },
+    }),
     body: JSON.stringify(data),
   })
     .then((resp) => resp.json())
-    .then((resp) => console.log(resp))
-    .catch((error) => console.log(error));
+    .then((resp) => console.log(resp.status))
+    .catch((error) => {
+      if (
+        (error =
+          'SyntaxError: JSON.parse: unexpected end of data at line 1 column 1 of the JSON data')
+      ) {
+      }
+    });
 };
-
-export default SendPost;
