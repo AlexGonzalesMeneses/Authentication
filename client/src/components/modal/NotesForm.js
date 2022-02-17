@@ -1,21 +1,42 @@
 import { Box, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import ButtonsCrud from './ButtonsCrud';
+import InformationForm from './InformationForm';
 
-function NotesForm({ data }) {
-  const [keyData, setKeyData] = useState({
-    name: '',
-    container: '',
-    type: '',
-    favorite: '',
-    description: '',
-    tags: '',
-    text: '',
-  });
-
+function NotesForm({ data, closeModal }) {
   const { id, name, container, type, favorite, description, tags, text } = data;
+  const [keyData, setKeyData] = useState({
+    name: name || '',
+    container: container || '',
+    type: type || '',
+    favorite: favorite || true,
+    description: description || '',
+    tags: tags || '',
+    text: text || '',
+  });
 
   const handleSubmit = () => {
     console.log('action');
+  };
+  const addDataForm = () => {
+    //SendPostContainer(containerData);
+    closeModal();
+  };
+  const updateDataForm = () => {
+    //SendPutContainer(containerData, id);
+    closeModal();
+  };
+  const updateInputs = (input) => (e) => {
+    setCreditCardData({ [input]: e.target.value });
+  };
+  const values = {
+    name,
+    container,
+    type,
+    favorite,
+    description,
+    tags,
+    text,
   };
   return (
     <Box
@@ -33,80 +54,7 @@ function NotesForm({ data }) {
           },
         }}
       >
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="Name"
-            defaultValue={name}
-            onChange={(e) => setKeyData({ ...keyData, name: e.target.value })}
-            name="name"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="container"
-            label="Container:"
-            defaultValue={container}
-            onChange={(e) => setKeyData({ ...keyData, name: e.target.value })}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="type"
-            label="Type:"
-            defaultValue={type}
-            onChange={(e) => setKeyData({ ...keyData, name: e.target.value })}
-          />
-        </Grid>
-        <Grid item xs={8}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="description"
-            label="Description:"
-            defaultValue={description}
-            onChange={(e) =>
-              setKeyData({
-                ...keyData,
-                description: e.target.value,
-              })
-            }
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="favorite"
-            label="Favorite:"
-            defaultValue={favorite}
-            onChange={(e) =>
-              setKeyData({ ...keyData, favorite: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="tags"
-            label="Tags:"
-            defaultValue={tags}
-            onChange={(e) => setKeyData({ ...keyData, tags: e.target.value })}
-          />
-        </Grid>
+        <InformationForm values={values} updateInputs={updateInputs} />
         <Grid item xs={12}>
           <TextField
             margin="normal"
@@ -118,6 +66,11 @@ function NotesForm({ data }) {
             onChange={(e) => setKeyData({ ...keyData, text: e.target.value })}
           />
         </Grid>
+        <ButtonsCrud
+          id={id}
+          addDataForm={addDataForm}
+          updateDataForm={updateDataForm}
+        />
       </Grid>
     </Box>
   );
