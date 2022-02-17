@@ -8,7 +8,7 @@ function List() {
   const [information, setInformation] = useState([]);
   const [error, setError] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(3);
+  const [postsPerPage, setPostsPerPage] = useState(4);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = information.slice(indexOfFirstPost, indexOfLastPost);

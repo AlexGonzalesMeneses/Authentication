@@ -7,7 +7,7 @@ function Pagination({ postsPerPage, totalPosts, paginate, goToPage }) {
     pageNumbers.push(i);
   }
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(3);
+  const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
