@@ -26,9 +26,6 @@ function KeysForm({ data, closeModal }) {
     serial: serial || '',
     urls: urls || '',
   });
-  const handleSubmit = () => {
-    console.log('action');
-  };
   const addDataForm = () => {
     //SendPostContainer(containerData);
     closeModal();
@@ -52,56 +49,41 @@ function KeysForm({ data, closeModal }) {
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      noValidate
-      sx={{ height: '100%' }}
-    >
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          '& > .MuiGrid-item': {
-            pt: '0px',
-          },
-        }}
-      >
-        <InformationForm values={values} updateInputs={updateInputs} />
-        <Grid item xs={12}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="serial"
-            label="Serial:"
-            defaultValue={serial}
-            onChange={(e) => setKeyData({ ...keyData, serial: e.target.value })}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="urls"
-            label="Urls:"
-            defaultValue={urls}
-            onChange={(e) =>
-              setKeyData({
-                ...keyData,
-                urls: e.target.value,
-              })
-            }
-          />
-        </Grid>
-        <ButtonsCrud
-          id={id}
-          addDataForm={addDataForm}
-          updateDataForm={updateDataForm}
+    <>
+      <InformationForm values={values} updateInputs={updateInputs} />
+      <Grid item xs={12}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="serial"
+          label="Serial:"
+          defaultValue={serial}
+          onChange={(e) => setKeyData({ ...keyData, serial: e.target.value })}
         />
       </Grid>
-    </Box>
+      <Grid item xs={6}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="urls"
+          label="Urls:"
+          defaultValue={urls}
+          onChange={(e) =>
+            setKeyData({
+              ...keyData,
+              urls: e.target.value,
+            })
+          }
+        />
+      </Grid>
+      <ButtonsCrud
+        id={id}
+        addDataForm={addDataForm}
+        updateDataForm={updateDataForm}
+      />
+    </>
   );
 }
 

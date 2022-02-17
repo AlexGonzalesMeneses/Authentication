@@ -27,15 +27,12 @@ function CredentialsForm({ data, closeModal }) {
     password: password || '',
   });
 
-  const handleSubmit = () => {
-    console.log('action');
-  };
   const addDataForm = () => {
-    //SendPostContainer(containerData);
+    //To do SendPostContainer(containerData);
     closeModal();
   };
   const updateDataForm = () => {
-    //SendPutContainer(containerData, id);
+    // To doSendPutContainer(containerData, id);
     closeModal();
   };
   const updateInputs = (input) => (e) => {
@@ -52,58 +49,43 @@ function CredentialsForm({ data, closeModal }) {
     password,
   };
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      noValidate
-      sx={{ height: '100%' }}
-    >
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          '& > .MuiGrid-item': {
-            pt: '0px',
-          },
-        }}
-      >
-        <InformationForm values={values} updateInputs={updateInputs} />
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="userName"
-            label="UserName:"
-            defaultValue={userName}
-            onChange={(e) =>
-              setCredentialData({ ...credentialData, userName: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="password"
-            label="Password:"
-            defaultValue={password}
-            onChange={(e) =>
-              setCredentialData({
-                ...credentialData,
-                password: e.target.value,
-              })
-            }
-          />
-        </Grid>
-        <ButtonsCrud
-          id={id}
-          addDataForm={addDataForm}
-          updateDataForm={updateDataForm}
+    <>
+      <InformationForm values={values} updateInputs={updateInputs} />
+      <Grid item xs={6}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="userName"
+          label="UserName:"
+          defaultValue={userName}
+          onChange={(e) =>
+            setCredentialData({ ...credentialData, userName: e.target.value })
+          }
         />
       </Grid>
-    </Box>
+      <Grid item xs={6}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="password"
+          label="Password:"
+          defaultValue={password}
+          onChange={(e) =>
+            setCredentialData({
+              ...credentialData,
+              password: e.target.value,
+            })
+          }
+        />
+      </Grid>
+      <ButtonsCrud
+        id={id}
+        addDataForm={addDataForm}
+        updateDataForm={updateDataForm}
+      />
+    </>
   );
 }
 

@@ -252,7 +252,12 @@ function Item({ data }) {
 
       <Modal open={openMainModal} onClose={handleCloseMainModal}>
         <Box>
-          <MainModal data={data} />
+          <MainModal
+            data={data}
+            action="show"
+            closeModal={handleCloseMainModal}
+            typeSelect={type}
+          />
         </Box>
       </Modal>
     </>

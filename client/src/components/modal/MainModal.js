@@ -1,8 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
 import ContentModal from './ContentModal';
-import CrudModal from './CrudModal';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -12,16 +10,10 @@ const style = {
   bgcolor: 'background.paper',
   border: '3px solid quaternary.dark',
   boxShadow: 24,
-  overflowY: 'scroll',
-  height: '80vh',
   bgcolor: 'primary.light',
 };
 
-export default function MainModal({ data }) {
-  const { name, type } = data;
-  const handleSubmit = () => {
-    console.log('action');
-  };
+export default function MainModal({ data, action, closeModal, typeSelect }) {
   return (
     <Box sx={style}>
       <Box
@@ -34,15 +26,22 @@ export default function MainModal({ data }) {
           borderBotton: '3px solid quaternary.dark',
         }}
       >
-        {type ? `${type.toUpperCase()}: ${name}` : 'Item'}
+        {action.toUpperCase()}
       </Box>
       <Box
         sx={{
           width: '100%',
           bgcolor: 'primary.light',
+          overflowY: 'scroll',
+          maxHeight: '70vh',
         }}
       >
-        {type ? <ContentModal data={data} /> : <CrudModal />}
+        <ContentModal
+          data={data}
+          action={action}
+          closeModal={closeModal}
+          typeSelect={typeSelect}
+        />
       </Box>
     </Box>
   );

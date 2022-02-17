@@ -28,9 +28,6 @@ function CreditCardsForm({ data, closeModal }) {
     expiration: expiration || '',
     cvv: cvv || '',
   });
-  const handleSubmit = () => {
-    console.log('action');
-  };
   const addDataForm = () => {
     //SendPostContainer(containerData);
     closeModal();
@@ -54,75 +51,60 @@ function CreditCardsForm({ data, closeModal }) {
     cvv,
   };
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      noValidate
-      sx={{ height: '100%' }}
-    >
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          '& > .MuiGrid-item': {
-            pt: '0px',
-          },
-        }}
-      >
-        <InformationForm values={values} updateInputs={updateInputs} />
-        <Grid item xs={12}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="Number"
-            label="Number:"
-            defaultValue={number}
-            onChange={(e) =>
-              setCreditCardData({ ...creditCardData, number: e.target.value })
-            }
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="expiration"
-            label="Expiration:"
-            defaultValue={expiration}
-            onChange={(e) =>
-              setCreditCardData({
-                ...creditCardData,
-                expiration: e.target.value,
-              })
-            }
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="cvv"
-            label="Cvv:"
-            defaultValue={cvv}
-            onChange={(e) =>
-              setCreditCardData({ ...creditCardData, cvv: e.target.value })
-            }
-          />
-        </Grid>
-        <ButtonsCrud
-          id={id}
-          addDataForm={addDataForm}
-          updateDataForm={updateDataForm}
+    <>
+      <InformationForm values={values} updateInputs={updateInputs} />
+      <Grid item xs={12}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="Number"
+          label="Number:"
+          defaultValue={number}
+          onChange={(e) =>
+            setCreditCardData({ ...creditCardData, number: e.target.value })
+          }
         />
       </Grid>
-    </Box>
+      <Grid item xs={6}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="expiration"
+          label="Expiration:"
+          defaultValue={expiration}
+          onChange={(e) =>
+            setCreditCardData({
+              ...creditCardData,
+              expiration: e.target.value,
+            })
+          }
+          type="date"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      </Grid>
+      <Grid item xs={6}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="cvv"
+          label="Cvv:"
+          defaultValue={cvv}
+          onChange={(e) =>
+            setCreditCardData({ ...creditCardData, cvv: e.target.value })
+          }
+        />
+      </Grid>
+      <ButtonsCrud
+        id={id}
+        addDataForm={addDataForm}
+        updateDataForm={updateDataForm}
+      />
+    </>
   );
 }
 
