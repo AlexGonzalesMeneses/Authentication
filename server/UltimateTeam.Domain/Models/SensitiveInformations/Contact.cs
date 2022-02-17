@@ -5,8 +5,9 @@ using Dev33.UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace UltimateTeam.Domain.Models.SensitiveInformations
 {
-    public class Contact : Information
+    public class Contact
     {
+        public Guid Id { get; set; }
         public string FullName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

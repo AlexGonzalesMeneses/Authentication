@@ -17,6 +17,7 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
         public IUserRepository UserRepository => new UserRepository(context);
         public IContainerRepository ContainerRepository => new ContainerRepository(context);
         public IInformationRepository InformationRepository => new InformationRepository(context);
+        public INoteRepository NoteRepository => new NoteRepository(context);
 
         public async Task SaveChangesAsync()
         {

@@ -3,6 +3,7 @@ using Dev33.UltimateTeam.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UltimateTeam.Domain.Models;
+using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace UltimateTeam.Infrastructure.DataManagers.Configurations
 {
@@ -28,6 +29,9 @@ namespace UltimateTeam.Infrastructure.DataManagers.Configurations
 
             builder.Property<Guid>(x => x.ContainerId)
                 .HasColumnName("ContainerId");
+
+            builder.Property<string>(x => x.Description)
+                .HasColumnName("Description");
 
             builder.HasOne(x => x.Container)
                 .WithMany(x => x.Informations)

@@ -20,6 +20,7 @@ using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Services;
 using Dev33.UltimateTeam.Infrastructure.DataManagers;
 using Dev33.UltimateTeam.Infrastructure.Repositories;
+using UltimateTeam.Infrastructure.Repositories;
 
 namespace Dev33.UltimateTeam.Api
 {
@@ -53,8 +54,11 @@ namespace Dev33.UltimateTeam.Api
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IContainerRepository, ContainerRepository>();
+            services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<IInformationRepository, InformationRepository>();
             services.AddTransient<IAuthenticateService, AuthenticateService>();
             services.AddTransient<IContainerService, ContainerService>();
+            services.AddTransient<IInformationService, InformationService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddAuthentication(options =>

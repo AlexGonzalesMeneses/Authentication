@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Dev33.UltimateTeam.Domain.Enums;
 using Dev33.UltimateTeam.Domain.Models;
+using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace UltimateTeam.Domain.Models
 {
@@ -12,5 +13,6 @@ namespace UltimateTeam.Domain.Models
         public EncryptorType EncryptorType { get; set; }
         public Guid ContainerId { get; set; }
         public Container Container { get; set; }
+        public string Description { get; set; }
     }
 }

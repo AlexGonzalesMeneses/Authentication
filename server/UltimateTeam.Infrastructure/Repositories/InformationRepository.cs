@@ -7,6 +7,7 @@ using Dev33.UltimateTeam.Infrastructure.DataManagers;
 using Dev33.UltimateTeam.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using UltimateTeam.Domain.Models;
+using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace UltimateTeam.Infrastructure.Repositories
 {
