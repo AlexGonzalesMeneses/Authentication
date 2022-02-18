@@ -1,4 +1,4 @@
-const SendGet = async (endpoint) => {
+export const SendGet = async (endpoint) => {
   const getData = await fetch(`http://localhost:4002/${endpoint}`, {
     method: 'GET',
   })
@@ -7,5 +7,3 @@ const SendGet = async (endpoint) => {
 
   return getData;
 };
-
-export default SendGet;

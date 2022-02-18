@@ -8,8 +8,8 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Menu, MenuItem } from '@mui/material';
-import { SendPutContainer } from '../../services/SendPut';
-import { SendDelete } from '../../services/SendDelete';
+import { SendPutContainer } from '@pathSendPut';
+import { SendDelete } from '@pathSendDelete';
 import Modal from '@mui/material/Modal';
 import ContainerModal from '../modal/ContainerModal';
 

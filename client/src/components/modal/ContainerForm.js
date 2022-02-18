@@ -11,8 +11,8 @@ import {
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 
-import { SendPostContainer } from '../../services/SendPost';
-import { SendPutContainer } from '../../services/SendPut';
+import { SendPostContainer } from '@pathSendPost';
+import { SendPutContainer } from '@pathSendPut';
 import ButtonsCrud from './ButtonsCrud';
 
 function ContainerForm({ name, favorite, id, closeModal }) {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import Item from '../list/Item';
 import Pagination from '../helpers/Pagination';
-import get from '../../services/SendGet';
+import { SendGet } from '@pathSendGet';
 
 function List() {
   const [information, setInformation] = useState([]);
@@ -18,7 +18,7 @@ function List() {
 
   useEffect(() => {
     const noteList = () => {
-      get('items').then((data) => setInformation(data));
+      SendGet('items').then((data) => setInformation(data));
     };
     noteList();
   }, []);

@@ -17,8 +17,22 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      '@components': path.resolve(__dirname, 'src/Components/'),
-      '@list': path.resolve(__dirname, 'src/Components/List/'),
+      '@components': path.resolve(__dirname, 'src/components/'),
+      '@list': path.resolve(__dirname, 'src/components/List/'),
+      '@pathuseFetch': path.resolve(__dirname, 'src/services/useFetch'),
+      '@pathSendPut': path.resolve(__dirname, 'src/services/SendPut'),
+      '@pathSendDelete': path.resolve(__dirname, 'src/services/SendDelete'),
+      '@pathHeader': path.resolve(__dirname, 'src/layout/Header'),
+      '@pathGeneral': path.resolve(__dirname, 'src/layout/General'),
+      '@pathSendGet': path.resolve(__dirname, 'src/services/SendGet'),
+      '@pathstylesindex': path.resolve(__dirname, 'src/styles/index'),
+      '@pathUserContext': path.resolve(__dirname, 'src/context/UserContext'),
+      '@pathvalidatePassword': path.resolve(
+        __dirname,
+        'src/helpers/validatePassword'
+      ),
+      '@pathSendPost': path.resolve(__dirname, 'src/services/SendPost'),
+      '@pathSendPut': path.resolve(__dirname, 'src/services/SendPut'),
     },
   },
   module: {

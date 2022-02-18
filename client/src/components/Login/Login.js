@@ -11,9 +11,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
-import CreateTheme from '../../styles/index';
-import UserContext from '../../context/UserContext';
-import { validateBothPasswords } from '../../helpers/validatePassword';
+import CreateTheme from '@pathstylesindex';
+import UserContext from '@pathUserContext';
+import { validateBothPasswords } from '@pathvalidatePassword';
 
 function Copyright(props) {
   return (
