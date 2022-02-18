@@ -12,6 +12,7 @@ import { SendPutContainer } from '../../services/SendPut';
 import { SendDelete } from '../../services/SendDelete';
 import Modal from '@mui/material/Modal';
 import ContainerModal from '../modal/ContainerModal';
+import Swal from 'sweetalert2';
 
 function Container({ data, reRender }) {
   const { name, id, favorite } = data;
@@ -50,9 +51,25 @@ function Container({ data, reRender }) {
     setOpenMainModal(true);
   };
   const handleRemoveItem = () => {
-    SendDelete(id);
-    reRender();
+    Swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCloseButton: true,
+      showConfirmButton: true,
+      showDenyButton: true,
+      confirmButtonText: 'Deleted',
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        SendDelete(id);
+        Swal.fire('Deleted!', '', 'success');
+        reRender();
+      } else if (result.isDenied) {
+        Swal.fire('Deleted canceled', '', 'info');
+      }
+    });
   };
+
   return (
     <Box
       sx={{

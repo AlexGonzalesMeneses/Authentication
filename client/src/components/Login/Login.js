@@ -13,8 +13,8 @@ import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
 import CreateTheme from '../../styles/index';
 import UserContext from '../../context/UserContext';
+import Swal from 'sweetalert2';
 import { validateBothPasswords } from '../../helpers/validatePassword';
-
 function Copyright(props) {
   return (
     <Typography
@@ -54,7 +54,14 @@ function Login() {
         password: account.password,
         password2: account.password2,
       });
-      isValidPassword === 'ok' ? signUp(account) : alert(isValidPassword);
+      isValidPassword === 'ok'
+        ? signUp(account)
+        : Swal.fire({
+            title: isValidPassword,
+            icon: 'error',
+            showCloseButton: true,
+            timer: '2500',
+          });
     }
   };
   return (
