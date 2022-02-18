@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/system';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import StarIcon from '@mui/icons-material/Star';
@@ -8,17 +8,37 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Menu, MenuItem } from '@mui/material';
+import { SendPutContainer } from '../../services/SendPut';
+import { SendDelete } from '../../services/SendDelete';
+import Modal from '@mui/material/Modal';
+import ContainerModal from '../modal/ContainerModal';
+import Swal from 'sweetalert2';
 
-function Container({ data }) {
-  const { name, type } = data;
+function Container({ data, reRender }) {
+  const { name, id, favorite } = data;
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isFavorite, setIsFavorite] = React.useState(
-    data.isFavorite === 'true'
-  );
+  const [isfavorite, setIsFavorite] = React.useState(favorite);
+  const [dataContainer, SetDataContainer] = React.useState({
+    name: name,
+    favorite: favorite,
+  });
+  const [openMainModal, setOpenMainModal] = React.useState(false);
+
   const open = Boolean(anchorEl);
-  const handleFavorite = () => {
-    setIsFavorite(!isFavorite);
+
+  const handleCloseMainModal = () => {
+    setOpenMainModal(false);
+    reRender();
   };
+
+  const handleFavorite = () => {
+    setIsFavorite(!isfavorite);
+    SetDataContainer({ ...dataContainer, favorite: !isfavorite });
+  };
+  useEffect(() => {
+    SendPutContainer(dataContainer, id);
+  }, [isfavorite]);
+
   const handleClickMore = (event) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
@@ -27,12 +47,29 @@ function Container({ data }) {
     e.stopPropagation();
     setAnchorEl(null);
   };
-  const editItem = () => {
-    console.log('edit');
+  const handleChangeNameItem = () => {
+    setOpenMainModal(true);
   };
-  const removeItem = () => {
-    console.log('remove');
+  const handleRemoveItem = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCloseButton: true,
+      showConfirmButton: true,
+      showDenyButton: true,
+      confirmButtonText: 'Deleted',
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        SendDelete(id);
+        Swal.fire('Deleted!', '', 'success');
+        reRender();
+      } else if (result.isDenied) {
+        Swal.fire('Deleted canceled', '', 'info');
+      }
+    });
   };
+
   return (
     <Box
       sx={{
@@ -59,7 +96,7 @@ function Container({ data }) {
         {name}
       </Box>
       <Box sx={{ display: 'flex', columnGap: '15px' }}>
-        {isFavorite ? (
+        {isfavorite ? (
           <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
             <IconButton onClick={handleFavorite}>
               <StarIcon
@@ -116,20 +153,33 @@ function Container({ data }) {
         >
           <Tooltip title="Edit" placement="right" disableInteractive>
             <MenuItem onClick={handleCloseMore}>
-              <IconButton onClick={editItem} sx={{ padding: '0px' }}>
+              <IconButton
+                onClick={handleChangeNameItem}
+                sx={{ padding: '0px' }}
+              >
                 <EditIcon />
               </IconButton>
             </MenuItem>
           </Tooltip>
           <Tooltip title="Delete" placement="right" disableInteractive>
             <MenuItem onClick={handleCloseMore}>
-              <IconButton onClick={removeItem} sx={{ padding: '0px' }}>
+              <IconButton onClick={handleRemoveItem} sx={{ padding: '0px' }}>
                 <DeleteIcon />
               </IconButton>
             </MenuItem>
           </Tooltip>
         </Menu>
       </Box>
+      <Modal open={openMainModal} onClose={handleCloseMainModal}>
+        <Box>
+          <ContainerModal
+            name={name}
+            favorite={favorite}
+            id={id}
+            closeModal={handleCloseMainModal}
+          />
+        </Box>
+      </Modal>
     </Box>
   );
 }

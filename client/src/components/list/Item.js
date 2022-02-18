@@ -24,12 +24,11 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Tooltip from '@mui/material/Tooltip';
 
 function Item({ data }) {
-  const { name, type } = data;
+  const { name, type, favorite } = data;
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isFavorite, setIsFavorite] = React.useState(
-    data.isFavorite === 'true'
-  );
+  const [isFavorite, setIsFavorite] = React.useState(favorite);
   const [openMainModal, setOpenMainModal] = React.useState(false);
+  const [action, setAction] = React.useState();
 
   const open = Boolean(anchorEl);
 
@@ -92,9 +91,10 @@ function Item({ data }) {
   const handleFavorite = (e) => {
     e.stopPropagation();
     setIsFavorite(!isFavorite);
+    //To do update
   };
   const editItem = () => {
-    console.log('edit');
+    setOpenMainModal(true);
   };
   const copyItem = () => {
     console.log('copy');
@@ -252,7 +252,12 @@ function Item({ data }) {
 
       <Modal open={openMainModal} onClose={handleCloseMainModal}>
         <Box>
-          <MainModal data={data} />
+          <MainModal
+            data={data}
+            action="show"
+            closeModal={handleCloseMainModal}
+            typeSelect={type}
+          />
         </Box>
       </Modal>
     </>

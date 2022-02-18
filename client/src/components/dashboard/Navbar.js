@@ -9,7 +9,7 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import IconNav from '../navbar/IconNav';
-import { Modal } from '@mui/material';
+import { IconButton, Menu, MenuItem, Modal, Tooltip } from '@mui/material';
 import MainModal from '../modal/MainModal';
 function Navbar() {
   const iconStyle = {
@@ -23,16 +23,49 @@ function Navbar() {
     },
   };
   const [openMainModal, setOpenMainModal] = React.useState(false);
-  const navClick = (title) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const [typeSelect, setTypeSelect] = React.useState('note');
+  const navClick = (e, title) => {
     if (title == 'Add') {
-      handleOpenMainModal();
+      handleClickMore(e);
     }
+  };
+
+  const handleClickMore = (event) => {
+    event.stopPropagation();
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMore = (e) => {
+    e.stopPropagation();
+    setAnchorEl(null);
   };
   const handleOpenMainModal = () => {
     setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {
     setOpenMainModal(false);
+  };
+
+  const noteSelected = () => {
+    setTypeSelect('note');
+    handleOpenMainModal();
+  };
+  const credentialSelected = () => {
+    setTypeSelect('credential');
+    handleOpenMainModal();
+  };
+  const keySelected = () => {
+    setTypeSelect('key');
+    handleOpenMainModal();
+  };
+  const creditCardSelected = () => {
+    setTypeSelect('creditCard');
+    handleOpenMainModal();
+  };
+  const contactSelected = () => {
+    setTypeSelect('contact');
+    handleOpenMainModal();
   };
   const icons = [
     {
@@ -80,6 +113,10 @@ function Navbar() {
             ...iconStyle,
             fontSize: '50px',
           }}
+          id="basic-button"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
         />
       ),
     },
@@ -110,11 +147,71 @@ function Navbar() {
             navClick={navClick}
           />
         ))}
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleCloseMore}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+          <Tooltip title="Notes" disableInteractive placement="right">
+            <MenuItem onClick={handleCloseMore}>
+              <IconButton onClick={noteSelected} sx={{ padding: '0px' }}>
+                <LibraryBooksIcon />
+              </IconButton>
+            </MenuItem>
+          </Tooltip>
+          <Tooltip title="Credentials" disableInteractive placement="right">
+            <MenuItem onClick={handleCloseMore}>
+              <IconButton onClick={credentialSelected} sx={{ padding: '0px' }}>
+                <AccountBoxIcon />
+              </IconButton>
+            </MenuItem>
+          </Tooltip>
+
+          <Tooltip title="Keys" disableInteractive placement="right">
+            <MenuItem onClick={handleCloseMore}>
+              <IconButton onClick={keySelected} sx={{ padding: '0px' }}>
+                <KeyIcon />
+              </IconButton>
+            </MenuItem>
+          </Tooltip>
+
+          <Tooltip title="CreditCards" disableInteractive placement="right">
+            <MenuItem onClick={handleCloseMore}>
+              <IconButton onClick={creditCardSelected} sx={{ padding: '0px' }}>
+                <CreditCardIcon />
+              </IconButton>
+            </MenuItem>
+          </Tooltip>
+          <Tooltip title="Contacts" disableInteractive placement="right">
+            <MenuItem onClick={handleCloseMore}>
+              <IconButton onClick={contactSelected} sx={{ padding: '0px' }}>
+                <PhoneIcon />
+              </IconButton>
+            </MenuItem>
+          </Tooltip>
+        </Menu>
       </Box>
 
       <Modal open={openMainModal} onClose={handleCloseMainModal}>
         <Box>
-          <MainModal data={[]} />
+          <MainModal
+            data={[]}
+            action="Add"
+            closeModal={handleCloseMainModal}
+            typeSelect={typeSelect}
+          />
         </Box>
       </Modal>
     </Box>
