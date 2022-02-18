@@ -25,7 +25,7 @@ export default function ContentModal({ data, action, closeModal, typeSelect }) {
       case 'contact':
         return <ContactsForm data={data} closeModal={closeModal} />;
       default:
-        console.log('This is a form built with React.');
+        console.log('This is a form built with React');
     }
   };
   const handleSubmit = () => {
