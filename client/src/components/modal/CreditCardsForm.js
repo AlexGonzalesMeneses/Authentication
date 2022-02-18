@@ -8,7 +8,7 @@ function CreditCardsForm({ data, closeModal }) {
     id,
     name,
     container,
-    type,
+    informationType,
     favorite,
     description,
     tags,
@@ -20,7 +20,7 @@ function CreditCardsForm({ data, closeModal }) {
   const [creditCardData, setCreditCardData] = useState({
     name: name || '',
     container: container || '',
-    type: type || '',
+    informationType: informationType || '',
     favorite: favorite || true,
     description: description || '',
     tags: tags || '',
@@ -42,7 +42,7 @@ function CreditCardsForm({ data, closeModal }) {
   const values = {
     name,
     container,
-    type,
+    informationType,
     favorite,
     description,
     tags,
@@ -80,7 +80,7 @@ function CreditCardsForm({ data, closeModal }) {
               expiration: e.target.value,
             })
           }
-          type="date"
+          informationType="date"
           InputLabelProps={{
             shrink: true,
           }}

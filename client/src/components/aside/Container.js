@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box } from '@mui/system';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import StarIcon from '@mui/icons-material/Star';
@@ -13,9 +13,11 @@ import { SendDelete } from '@pathSendDelete';
 import Modal from '@mui/material/Modal';
 import ContainerModal from '../modal/ContainerModal';
 import Swal from 'sweetalert2';
+import ListContext from '../../context/ListContext';
 
 function Container({ data, reRender }) {
   const { name, id, favorite } = data;
+  const { selectContainer } = useContext(ListContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isfavorite, setIsFavorite] = React.useState(favorite);
   const [dataContainer, SetDataContainer] = React.useState({
@@ -23,7 +25,6 @@ function Container({ data, reRender }) {
     favorite: favorite,
   });
   const [openMainModal, setOpenMainModal] = React.useState(false);
-
   const open = Boolean(anchorEl);
 
   const handleCloseMainModal = () => {
@@ -31,7 +32,8 @@ function Container({ data, reRender }) {
     reRender();
   };
 
-  const handleFavorite = () => {
+  const handleFavorite = (event) => {
+    event.stopPropagation();
     setIsFavorite(!isfavorite);
     SetDataContainer({ ...dataContainer, favorite: !isfavorite });
   };
@@ -69,6 +71,9 @@ function Container({ data, reRender }) {
       }
     });
   };
+  const handleSelectContainer = () => {
+    selectContainer(id);
+  };
 
   return (
     <Box
@@ -85,6 +90,7 @@ function Container({ data, reRender }) {
         mt: '10px',
         padding: '30px 20px',
       }}
+      onClick={handleSelectContainer}
     >
       <Box
         sx={{

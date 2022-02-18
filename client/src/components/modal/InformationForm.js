@@ -43,7 +43,7 @@ function InformationForm({ values, updateInputs }) {
           fullWidth
           id="type"
           label="Type:"
-          defaultValue={values.type}
+          defaultValue={values.informationType}
           onChange={updateInputs('type')}
         />
       </Grid>

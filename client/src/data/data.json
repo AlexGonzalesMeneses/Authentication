@@ -12,7 +12,7 @@
     },
     {
       "id": 102,
-      "name": "contact",
+      "name": "Contact",
       "favorite": "false"
     },
     {
@@ -31,7 +31,7 @@
       "id": 1,
       "name": "credit card fake",
       "container": "root",
-      "type": "creditCard",
+      "informationType": "CreditCard",
       "favorite": "false",
       "description": "this is a description",
       "tags": "jala friends work",
@@ -43,7 +43,7 @@
     {
       "id": 2,
       "name": "key 1",
-      "type": "key",
+      "informationType": "Key",
       "container": "keys",
       "favorite": "false",
       "description": "key pro",
@@ -53,7 +53,7 @@
     {
       "id": 3,
       "name": "Lionel Messi",
-      "type": "contact",
+      "informationType": "contact",
       "container": "contact",
       "favorite": "true",
       "description": "this is a description",
@@ -73,7 +73,7 @@
     {
       "id": 4,
       "name": "credential",
-      "type": "credential",
+      "informationType": "Credential",
       "container": "credential",
       "favorite": "true",
       "description": "this is a description",
@@ -84,7 +84,7 @@
     {
       "id": 5,
       "name": "note5",
-      "type": "note",
+      "informationType": "Note",
       "container": "note",
       "favorite": "true",
       "text": "note provid5e",
@@ -93,7 +93,7 @@
     {
       "id": 6,
       "name": "note6",
-      "type": "note",
+      "informationType": "Note",
       "container": "note",
       "favorite": "true",
       "text": "note provide6",
@@ -102,7 +102,7 @@
     {
       "id": 7,
       "name": "note7",
-      "type": "note",
+      "informationType": "Note",
       "container": "note",
       "favorite": "true",
       "text": "note provi7de",
@@ -111,7 +111,7 @@
     {
       "id": 8,
       "name": "note8",
-      "type": "note",
+      "informationType": "Note",
       "container": "note",
       "favorite": "true",
       "text": "note pro8vide",

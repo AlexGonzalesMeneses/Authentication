@@ -8,7 +8,7 @@ function KeysForm({ data, closeModal }) {
     id,
     name,
     container,
-    type,
+    informationType,
     favorite,
     description,
     tags,
@@ -19,7 +19,7 @@ function KeysForm({ data, closeModal }) {
   const [keyData, setKeyData] = useState({
     name: name || '',
     container: container || '',
-    type: type || '',
+    informationType: informationType || '',
     favorite: favorite || true,
     description: description || '',
     tags: tags || '',
@@ -40,7 +40,7 @@ function KeysForm({ data, closeModal }) {
   const values = {
     name,
     container,
-    type,
+    informationType,
     favorite,
     description,
     tags,

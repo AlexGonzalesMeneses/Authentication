@@ -4,11 +4,20 @@ import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
 
 function NotesForm({ data, closeModal }) {
-  const { id, name, container, type, favorite, description, tags, text } = data;
+  const {
+    id,
+    name,
+    container,
+    informationType,
+    favorite,
+    description,
+    tags,
+    text,
+  } = data;
   const [keyData, setKeyData] = useState({
     name: name || '',
     container: container || '',
-    type: type || '',
+    informationType: informationType || '',
     favorite: favorite || true,
     description: description || '',
     tags: tags || '',
@@ -29,7 +38,7 @@ function NotesForm({ data, closeModal }) {
   const values = {
     name,
     container,
-    type,
+    informationType,
     favorite,
     description,
     tags,

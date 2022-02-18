@@ -5,13 +5,10 @@ import ShareIcon from '@mui/icons-material/Share';
 import EditIcon from '@mui/icons-material/Edit';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import PhoneIcon from '@mui/icons-material/Phone';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconButton from '@mui/material/IconButton';
@@ -24,7 +21,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Tooltip from '@mui/material/Tooltip';
 
 function Item({ data }) {
-  const { name, type, favorite } = data;
+  const { name, informationType, favorite } = data;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isFavorite, setIsFavorite] = React.useState(favorite);
   const [openMainModal, setOpenMainModal] = React.useState(false);
@@ -33,8 +30,8 @@ function Item({ data }) {
   const open = Boolean(anchorEl);
 
   const iconType = () => {
-    switch (type) {
-      case 'key':
+    switch (informationType) {
+      case 'Key':
         return (
           <Tooltip title="Key" enterDelay={500} leaveDelay={200}>
             <IconButton>
@@ -42,7 +39,7 @@ function Item({ data }) {
             </IconButton>
           </Tooltip>
         );
-      case 'credential':
+      case 'Credential':
         return (
           <Tooltip title="Credential" enterDelay={500} leaveDelay={200}>
             <IconButton>
@@ -50,7 +47,7 @@ function Item({ data }) {
             </IconButton>
           </Tooltip>
         );
-      case 'creditCard':
+      case 'CreditCard':
         return (
           <Tooltip title="CreditCard" enterDelay={500} leaveDelay={200}>
             <IconButton>
@@ -58,7 +55,7 @@ function Item({ data }) {
             </IconButton>
           </Tooltip>
         );
-      case 'contact':
+      case 'Contact':
         return (
           <Tooltip title="Contact" enterDelay={500} leaveDelay={200}>
             <IconButton>
@@ -66,7 +63,7 @@ function Item({ data }) {
             </IconButton>
           </Tooltip>
         );
-      case 'note':
+      case 'Note':
         return (
           <Tooltip title="Note" enterDelay={500} leaveDelay={200}>
             <IconButton>
@@ -256,7 +253,7 @@ function Item({ data }) {
             data={data}
             action="show"
             closeModal={handleCloseMainModal}
-            typeSelect={type}
+            typeSelect={informationType}
           />
         </Box>
       </Modal>

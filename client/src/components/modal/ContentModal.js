@@ -8,21 +8,21 @@ import CredentialsForm from './CredentialsForm';
 import { Grid } from '@mui/material';
 
 export default function ContentModal({ data, action, closeModal, typeSelect }) {
-  const { type } = data;
+  const { informationType } = data;
 
   console.log(typeSelect);
-  console.log(type);
+  console.log(informationType);
   const formType = () => {
-    switch (type || typeSelect) {
-      case 'note':
+    switch (informationType || typeSelect) {
+      case 'Note':
         return <NotesForm data={data} closeModal={closeModal} />;
-      case 'credential':
+      case 'Credential':
         return <CredentialsForm data={data} closeModal={closeModal} />;
-      case 'key':
+      case 'Key':
         return <KeysForm data={data} closeModal={closeModal} />;
-      case 'creditCard':
+      case 'CreditCard':
         return <CreditCardsForm data={data} closeModal={closeModal} />;
-      case 'contact':
+      case 'Contact':
         return <ContactsForm data={data} closeModal={closeModal} />;
       default:
         console.log('This is a form built with React');

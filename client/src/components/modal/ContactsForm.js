@@ -10,7 +10,7 @@ function ContactsForm({ data, closeModal }) {
     id,
     name,
     container,
-    type,
+    informationType,
     favorite,
     description,
     tags,
@@ -29,7 +29,7 @@ function ContactsForm({ data, closeModal }) {
   const [contactData, setContactData] = useState({
     name: name || '',
     container: container || '',
-    type: type || '',
+    informationType: informationType || '',
     favorite: favorite || true,
     description: description || '',
     tags: tags || '',
@@ -60,7 +60,7 @@ function ContactsForm({ data, closeModal }) {
   const values = {
     name,
     container,
-    type,
+    informationType,
     favorite,
     description,
     tags,

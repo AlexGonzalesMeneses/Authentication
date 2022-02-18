@@ -25,7 +25,7 @@ function Navbar() {
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const [typeSelect, setTypeSelect] = React.useState('note');
+  const [typeSelect, setTypeSelect] = React.useState('Note');
   const navClick = (e, title) => {
     if (title == 'Add') {
       handleClickMore(e);
@@ -48,23 +48,23 @@ function Navbar() {
   };
 
   const noteSelected = () => {
-    setTypeSelect('note');
+    setTypeSelect('Note');
     handleOpenMainModal();
   };
   const credentialSelected = () => {
-    setTypeSelect('credential');
+    setTypeSelect('Credential');
     handleOpenMainModal();
   };
   const keySelected = () => {
-    setTypeSelect('key');
+    setTypeSelect('Key');
     handleOpenMainModal();
   };
   const creditCardSelected = () => {
-    setTypeSelect('creditCard');
+    setTypeSelect('CreditCard');
     handleOpenMainModal();
   };
   const contactSelected = () => {
-    setTypeSelect('contact');
+    setTypeSelect('Contact');
     handleOpenMainModal();
   };
   const icons = [

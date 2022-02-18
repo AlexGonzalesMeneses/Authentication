@@ -8,7 +8,7 @@ function CredentialsForm({ data, closeModal }) {
     id,
     name,
     container,
-    type,
+    informationType,
     favorite,
     description,
     tags,
@@ -19,7 +19,7 @@ function CredentialsForm({ data, closeModal }) {
   const [credentialData, setCredentialData] = useState({
     name: name || '',
     container: container || '',
-    type: type || '',
+    informationType: informationType || '',
     favorite: favorite || true,
     description: description || '',
     tags: tags || '',
@@ -41,7 +41,7 @@ function CredentialsForm({ data, closeModal }) {
   const values = {
     name,
     container,
-    type,
+    informationType,
     favorite,
     description,
     tags,
