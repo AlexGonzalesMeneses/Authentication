@@ -8,6 +8,7 @@ import {
   Select,
   TextField,
 } from '@mui/material';
+import Swal from 'sweetalert2';
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 
@@ -23,11 +24,23 @@ function ContainerForm({ name, favorite, id, closeModal }) {
   const handleSubmit = () => {};
   const addDataForm = () => {
     SendPostContainer(containerData);
+    Swal.fire({
+      title: 'Container added',
+      icon: 'success',
+      showCloseButton: true,
+      timer: '2500',
+    });
     closeModal();
   };
 
   const updateDataForm = () => {
     SendPutContainer(containerData, id);
+    Swal.fire({
+      title: 'Container updated',
+      icon: 'success',
+      showCloseButton: true,
+      timer: '2500',
+    });
     closeModal();
   };
 

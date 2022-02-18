@@ -8,10 +8,10 @@ namespace Dev33.UltimateTeam.Domain.Enums
 {
     public enum InformationType
     {
-        Contact,
-        Credential,
-        CreditCard,
-        Key,
-        Note
+        Contact = 0,
+        Credential = 1,
+        CreditCard = 2,
+        Key = 3,
+        Note = 4
     }
 }

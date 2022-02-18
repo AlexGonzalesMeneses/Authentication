@@ -1,6 +1,7 @@
 import React from 'react';
 import { createContext, useState } from 'react';
 import { authenticate, register } from '../services/login';
+import Swal from 'sweetalert2';
 
 const UserContext = createContext();
 const isLogInLocal = localStorage.getItem('isLogIn');
@@ -21,7 +22,13 @@ const UserProvider = ({ children }) => {
       localStorage.setItem('UserId', user.id);
       setUser(true);
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        title: 'Access Denied',
+        text: 'The Email or Password are incorrect',
+        icon: 'error',
+        showCloseButton: true,
+        timer: '2500',
+      });
     }
   };
 

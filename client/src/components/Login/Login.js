@@ -54,7 +54,14 @@ function Login() {
         password: account.password,
         password2: account.password2,
       });
-      isValidPassword === 'ok' ? signUp(account) : alert(isValidPassword);
+      isValidPassword === 'ok'
+        ? signUp(account)
+        : Swal.fire({
+            title: isValidPassword,
+            icon: 'error',
+            showCloseButton: true,
+            timer: '2500',
+          });
     }
   };
   return (

@@ -10,6 +10,8 @@ namespace Dev33.UltimateTeam.Application.Contracts.Repositories
     public interface IUnitOfWork
     {
         IUserRepository UserRepository { get; }
+        IContainerRepository ContainerRepository { get; }
+        IInformationRepository InformationRepository { get; }
         Task SaveChangesAsync();
     }
 }

@@ -20,7 +20,7 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
         {
             await context.Set<T>().AddAsync(entity);
             await context.SaveChangesAsync();
-            
+
             return entity;
         }
 

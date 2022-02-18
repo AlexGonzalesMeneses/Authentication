@@ -29,7 +29,7 @@ namespace Dev33.UltimateTeam.Api.Controllers
         }
 
         [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate(UserRequestDto request)
+        public async Task<ActionResult<UserResponseDto>> Authenticate(UserRequestDto request)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Dev33.UltimateTeam.Api.Controllers
                 audience: "UltimateTeam",
                 claims,
                 DateTime.Now,
-                DateTime.UtcNow.AddMinutes(10)
+                DateTime.UtcNow.AddMinutes(60)
             );
 
             var token = new JwtSecurityToken(header, payload);
@@ -75,7 +75,7 @@ namespace Dev33.UltimateTeam.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(User request)
+        public async Task<ActionResult<UserResponseDto>> Register(User request)
         {
             try
             {

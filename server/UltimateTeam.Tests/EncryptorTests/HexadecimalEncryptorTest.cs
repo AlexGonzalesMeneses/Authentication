@@ -1,6 +1,5 @@
 using Xunit;
 using Dev33.UltimateTeam.Application.Encyptors;
-using UltimateTeam.Application.Encyptors;
 
 namespace UltimateTeam.Tests.EncryptorTests
 {

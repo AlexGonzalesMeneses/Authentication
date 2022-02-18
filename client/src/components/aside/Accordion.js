@@ -124,8 +124,36 @@ function Accordion() {
         {openContainer ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
-      <Collapse in={openContainer} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
+      <Collapse
+        in={openContainer}
+        timeout="auto"
+        unmountOnExit
+        sx={{
+          height: '55vh',
+          overflow: 'hidden',
+          '& > div': {
+            height: '55vh',
+          },
+        }}
+      >
+        <List
+          component="div"
+          disablePadding
+          sx={{
+            height: '100%',
+            overflowY: 'scroll',
+
+            '&::-webkit-scrollbar': {
+              bgcolor: 'secondary.dark',
+              borderRadius: '12px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              bgcolor: 'quaternary.contrastText',
+              borderRadius: '12px',
+              border: '2px solid #d3928e',
+            },
+          }}
+        >
           {information ? (
             information.map((container) => (
               <Container
