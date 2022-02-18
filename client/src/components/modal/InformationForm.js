@@ -11,6 +11,7 @@ import {
 import React, { useState } from 'react';
 
 function InformationForm({ values, updateInputs }) {
+  const [favoriteSelect, setFavoriteSelect] = React.useState('');
   return (
     <>
       <Grid item xs={6}>
@@ -65,7 +66,7 @@ function InformationForm({ values, updateInputs }) {
           <Select
             labelId="demo-simple-select-autowidth-label"
             id="demo-simple-select-autowidth"
-            value={values.favorite}
+            value={values.favorite || favoriteSelect}
             onChange={updateInputs('favorite')}
             label="Favorite"
           >
