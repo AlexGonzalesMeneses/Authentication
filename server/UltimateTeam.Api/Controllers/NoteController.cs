@@ -14,12 +14,12 @@ namespace UltimateTeam.Api.Controllers
     [ApiController]
     public class NoteController : ControllerBase
     {
-        private IInformationService informationService;
+        private INoteService noteService;
         private readonly ILoggerManager loggerManager;
 
-        public NoteController(IInformationService informationService, ILoggerManager loggerManager)
+        public NoteController(INoteService noteService, ILoggerManager loggerManager)
         {
-            this.informationService = informationService;
+            this.noteService = noteService;
             this.loggerManager = loggerManager;
         }
 
@@ -28,9 +28,43 @@ namespace UltimateTeam.Api.Controllers
         {
             try
             {
-                var note = await informationService.GetNoteById(noteId);
+                var note = await noteService.GetNoteById(noteId);
 
                 return Ok(note);
+            }
+            catch (Exception ex)
+            {
+                loggerManager.LogError(ex);
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<NoteResponseDto>> CreateNote(NoteRequestDto note)
+        {
+            try
+            {
+                var createdNote = await noteService.CreateNote(note);
+
+                return Ok(createdNote);
+            }
+            catch (Exception ex)
+            {
+                loggerManager.LogError(ex);
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{noteId:guid}")]
+        public async Task<ActionResult<NoteResponseDto>> DeleteNote(Guid containerId, Guid noteId)
+        {
+            try
+            {
+                var deletedNote = await noteService.DeleteNote(noteId);
+
+                return Ok(deletedNote);
             }
             catch (Exception ex)
             {

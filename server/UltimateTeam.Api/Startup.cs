@@ -58,7 +58,7 @@ namespace Dev33.UltimateTeam.Api
             services.AddTransient<IInformationRepository, InformationRepository>();
             services.AddTransient<IAuthenticateService, AuthenticateService>();
             services.AddTransient<IContainerService, ContainerService>();
-            services.AddTransient<IInformationService, InformationService>();
+            services.AddTransient<INoteService, NoteService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddAuthentication(options =>

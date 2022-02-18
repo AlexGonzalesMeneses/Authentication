@@ -1,0 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Dev33.UltimateTeam.Application.Contracts.Repositories;
+using UltimateTeam.Domain.Models;
+
+namespace UltimateTeam.Application.Contracts.Repositories
+{
+    public interface ITagRepository : IAsyncRepository<Tag>
+    {
+        public Task<IEnumerable<Tag>> GetTagsAsync(Guid informationId);
+    }
+}

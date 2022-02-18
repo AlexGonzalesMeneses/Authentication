@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace UltimateTeam.Application.Dtos
 {
@@ -10,5 +11,6 @@ namespace UltimateTeam.Application.Dtos
         public string Type { get; set; }
         public string EncryptionType { get; set; }
         public bool Favorite { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

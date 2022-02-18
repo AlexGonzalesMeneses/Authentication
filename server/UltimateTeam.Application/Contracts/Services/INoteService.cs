@@ -8,8 +8,11 @@ using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace Dev33.UltimateTeam.Application.Contracts.Services
 {
-    public interface IInformationService
+    public interface INoteService
     {
         Task<NoteResponseDto> GetNoteById(Guid id);
+        Task<NoteResponseDto> CreateNote(NoteRequestDto note);
+        Task<NoteResponseDto> UpdateNote(NoteRequestDto note);
+        Task<NoteResponseDto> DeleteNote(Guid id);
     }
 }
