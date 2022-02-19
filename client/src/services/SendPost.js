@@ -11,7 +11,6 @@ export const SendPostContainer = (data) => {
     body: JSON.stringify(data),
   })
     .then((resp) => resp.json())
-    .then((resp) => console.log(resp.status))
     .catch((error) => {
       if ((error = 'Error')) {
       }

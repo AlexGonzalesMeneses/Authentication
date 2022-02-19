@@ -1,10 +1,17 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
 
-function ButtonsCrud({ id, addDataForm, updateDataForm }) {
+function ButtonsCrud({
+  id,
+  addDataForm,
+  updateDataForm,
+  closeDataForm,
+  action,
+}) {
+  console.log(action);
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-      {id == null ? (
+      {action == 'add' && (
         <Button
           sx={{
             bgcolor: 'tertiary.main',
@@ -20,7 +27,8 @@ function ButtonsCrud({ id, addDataForm, updateDataForm }) {
         >
           Add
         </Button>
-      ) : (
+      )}
+      {action == 'edit' && (
         <Button
           sx={{
             bgcolor: 'tertiary.main',
@@ -37,6 +45,21 @@ function ButtonsCrud({ id, addDataForm, updateDataForm }) {
           Save
         </Button>
       )}
+      <Button
+        sx={{
+          bgcolor: 'tertiary.main',
+          color: 'quaternary.light',
+          width: '50%',
+          margin: '20px auto',
+          '&:hover': {
+            bgcolor: 'tertiary.dark',
+          },
+        }}
+        variant="contained"
+        onClick={closeDataForm}
+      >
+        Close
+      </Button>
     </Box>
   );
 }

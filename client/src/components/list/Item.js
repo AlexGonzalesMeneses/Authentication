@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { Box } from '@mui/system';
 import ShareIcon from '@mui/icons-material/Share';
@@ -19,6 +19,8 @@ import Modal from '@mui/material/Modal';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Tooltip from '@mui/material/Tooltip';
+import ListContext from '../../context/ListContext';
+import { GetInformation } from '../../services/information/Get';
 
 function Item({ data }) {
   const { name, informationType, favorite } = data;
@@ -26,7 +28,9 @@ function Item({ data }) {
   const [isFavorite, setIsFavorite] = React.useState(favorite);
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const [action, setAction] = React.useState('show');
-
+  const { idContainer } = useContext(ListContext);
+  console.log(data.id);
+  const [itemInformation, setItemInformation] = React.useState({});
   const open = Boolean(anchorEl);
 
   const iconType = () => {
@@ -109,6 +113,11 @@ function Item({ data }) {
   const handleCloseMainModal = () => {
     setOpenMainModal(false);
   };
+  useEffect(() => {
+    GetInformation(idContainer, informationType, data.id).then((data) =>
+      setItemInformation(data)
+    );
+  }, []);
 
   return (
     <>
@@ -250,7 +259,7 @@ function Item({ data }) {
       <Modal open={openMainModal} onClose={handleCloseMainModal}>
         <Box>
           <MainModal
-            data={data}
+            data={itemInformation}
             action={action}
             closeModal={handleCloseMainModal}
             typeSelect={informationType}

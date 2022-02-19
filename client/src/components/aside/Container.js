@@ -17,7 +17,8 @@ import ListContext from '../../context/ListContext';
 
 function Container({ data, reRender }) {
   const { name, id, favorite } = data;
-  const { idContainer, selectContainer } = useContext(ListContext);
+  const { selectContainerName, idContainer, selectContainer } =
+    useContext(ListContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isfavorite, setIsFavorite] = React.useState(favorite);
   const [dataContainer, SetDataContainer] = React.useState({
@@ -72,6 +73,7 @@ function Container({ data, reRender }) {
   };
   const handleSelectContainer = () => {
     selectContainer(id);
+    selectContainerName(name);
   };
 
   return (

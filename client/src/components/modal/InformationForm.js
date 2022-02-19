@@ -8,10 +8,15 @@ import {
   Select,
   TextField,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import ListContext from '../../context/ListContext';
 
-function InformationForm({ values, updateInputs }) {
-  const [favoriteSelect, setFavoriteSelect] = React.useState('');
+function InformationForm({ type, values, updateInputs }) {
+  const { nameContainer, encryptionSelected } = useContext(ListContext);
+  const encryptionType = values.encryptionType || encryptionSelected;
+  const [favoriteSelect, setFavoriteSelect] = React.useState(
+    values.favorite || true
+  );
   return (
     <>
       <Grid item xs={6}>
@@ -32,8 +37,7 @@ function InformationForm({ values, updateInputs }) {
           fullWidth
           id="container"
           label="Container:"
-          defaultValue={values.container}
-          onChange={updateInputs('container')}
+          value={nameContainer}
         />
       </Grid>
       <Grid item xs={4}>
@@ -43,7 +47,7 @@ function InformationForm({ values, updateInputs }) {
           fullWidth
           id="type"
           label="Type:"
-          defaultValue={values.informationType}
+          value={type}
           onChange={updateInputs('type')}
         />
       </Grid>
@@ -58,7 +62,7 @@ function InformationForm({ values, updateInputs }) {
           onChange={updateInputs('description')}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={3}>
         <FormControl fullWidth sx={{ mt: '16px' }}>
           <InputLabel id="demo-simple-select-autowidth-label">
             Favorite
@@ -66,12 +70,30 @@ function InformationForm({ values, updateInputs }) {
           <Select
             labelId="demo-simple-select-autowidth-label"
             id="demo-simple-select-autowidth"
-            value={values.favorite || favoriteSelect}
+            defaultValue={favoriteSelect}
             label="Favorite"
             onChange={updateInputs('favorite')}
           >
             <MenuItem value={true}>True</MenuItem>
             <MenuItem value={false}>False</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={3}>
+        <FormControl fullWidth sx={{ mt: '16px' }}>
+          <InputLabel id="typeencryption-label">Type Encryption</InputLabel>
+          <Select
+            labelId="typeencryption-label"
+            id="typeencryption"
+            defaultValue={encryptionType}
+            label="Type Encryption"
+            onChange={updateInputs('typeencryption')}
+          >
+            <MenuItem value={'Binary'}>Binary</MenuItem>
+            <MenuItem value={'Base64'}>Base64</MenuItem>
+            <MenuItem value={'Hex'}>Hex</MenuItem>
+            <MenuItem value={'Aes'}>Aes</MenuItem>
+            <MenuItem value={'Rsa'}>Rsa</MenuItem>
           </Select>
         </FormControl>
       </Grid>

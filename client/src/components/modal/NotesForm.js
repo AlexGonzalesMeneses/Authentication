@@ -4,8 +4,8 @@ import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
 import ListContext from '../../context/ListContext';
 
-function NotesForm({ id, data, closeModal }) {
-  const { idContainer } = React.useContext(ListContext);
+function NotesForm({ id, data, closeModal, action }) {
+  const { idContainer, nameContainer } = React.useContext(ListContext);
   const { text, name, tags, favorite, description, type, encryptionType } =
     data;
   const [noteData, setNoteData] = useState({
@@ -18,7 +18,6 @@ function NotesForm({ id, data, closeModal }) {
     type: type || '',
     encryptionType: encryptionType || '',
   });
-  console.log(noteData);
 
   const addDataForm = () => {
     //SendPostContainer(containerData);
@@ -28,10 +27,15 @@ function NotesForm({ id, data, closeModal }) {
     //SendPutContainer(containerData, id);
     closeModal();
   };
+  const closeDataForm = () => {
+    //SendPutContainer(containerData, id);
+    closeModal();
+  };
   const updateInputs = (input) => (e) => {
-    setCreditCardData({ [input]: e.target.value });
+    setNoteData({ [input]: e.target.value });
   };
   const values = {
+    idContainer,
     description,
     encryptionType,
     favorite,
@@ -42,7 +46,11 @@ function NotesForm({ id, data, closeModal }) {
   };
   return (
     <>
-      <InformationForm values={values} updateInputs={updateInputs} />
+      <InformationForm
+        type={'Note'}
+        values={values}
+        updateInputs={updateInputs}
+      />
       <Grid item xs={12}>
         <TextField
           margin="normal"
@@ -58,6 +66,8 @@ function NotesForm({ id, data, closeModal }) {
         id={id}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
+        closeDataForm={closeDataForm}
+        action={action}
       />
     </>
   );

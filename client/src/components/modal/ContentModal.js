@@ -12,36 +12,41 @@ import { GetInformation } from '../../services/information/Get';
 export default function ContentModal({ data, action, closeModal, typeSelect }) {
   const { informationType, id } = data;
   const { idContainer } = React.useContext(ListContext);
-  const [informationData, setInformationData] = React.useState([]);
-  if (informationType) {
-    React.useEffect(() => {
-      const information = () => {
-        GetInformation(idContainer, informationType, id).then((data) =>
-          setInformationData(data)
-        );
-      };
-      information();
-    }, []);
-  }
+  let disableForm = action == 'show' ? true : false;
 
   const formType = () => {
     switch (informationType || typeSelect) {
       case 'Note':
         return (
-          <NotesForm id={id} data={informationData} closeModal={closeModal} />
+          <NotesForm
+            id={id}
+            data={data}
+            action={action}
+            closeModal={closeModal}
+          />
         );
       case 'Credential':
         return (
-          <CredentialsForm data={informationData} closeModal={closeModal} />
+          <CredentialsForm
+            data={data}
+            action={action}
+            closeModal={closeModal}
+          />
         );
       case 'Key':
-        return <KeysForm data={informationData} closeModal={closeModal} />;
+        return <KeysForm data={data} action={action} closeModal={closeModal} />;
       case 'CreditCard':
         return (
-          <CreditCardsForm data={informationData} closeModal={closeModal} />
+          <CreditCardsForm
+            data={data}
+            action={action}
+            closeModal={closeModal}
+          />
         );
       case 'Contact':
-        return <ContactsForm data={informationData} closeModal={closeModal} />;
+        return (
+          <ContactsForm data={data} action={action} closeModal={closeModal} />
+        );
       default:
         console.log('This is a form built with React');
     }
@@ -54,8 +59,8 @@ export default function ContentModal({ data, action, closeModal, typeSelect }) {
       <Box
         component="form"
         onSubmit={handleSubmit}
-        noValidate
         sx={{ height: '100%', padding: '20px' }}
+        disabled={disableForm}
       >
         <Grid
           container

@@ -10,6 +10,5 @@ export const SendPutContainer = (data, id) => {
     body: JSON.stringify(data),
   })
     .then((resp) => resp.json())
-    .then((resp) => console.log(resp))
     .catch((error) => console.log(error));
 };

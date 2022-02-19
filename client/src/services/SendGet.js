@@ -13,7 +13,7 @@ export const SendGet = async (idContainer) => {
       }),
     }
   )
-    .then(async (resp) => await resp.json())
+    .then((resp) => resp.json())
     .catch((error) => console.log(error));
 
   return getData;
