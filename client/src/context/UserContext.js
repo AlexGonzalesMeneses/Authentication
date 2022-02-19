@@ -53,7 +53,13 @@ const UserProvider = ({ children }) => {
       localStorage.setItem('UserId', user.id);
       setUser(true);
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        title: 'Register denied',
+        text: 'The Email or User are incorrect',
+        icon: 'error',
+        showCloseButton: true,
+        timer: '2500',
+      });
     }
   };
 

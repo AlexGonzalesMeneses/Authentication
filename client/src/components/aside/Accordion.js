@@ -112,7 +112,21 @@ function Accordion() {
 
       <Collapse in={openNoContainer} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Container data={containerRoot} />
+          {information ? (
+            information.map((container) => {
+              if (container.name == 'Root') {
+                return (
+                  <Container
+                    data={container}
+                    reRender={reRender}
+                    key={container.id}
+                  />
+                );
+              }
+            })
+          ) : (
+            <h1>Loading .....</h1>
+          )}
         </List>
       </Collapse>
 
@@ -141,7 +155,7 @@ function Accordion() {
           disablePadding
           sx={{
             height: '100%',
-            overflowY: 'scroll',
+            overflowY: 'auto',
 
             '&::-webkit-scrollbar': {
               bgcolor: 'secondary.dark',
@@ -155,13 +169,17 @@ function Accordion() {
           }}
         >
           {information ? (
-            information.map((container) => (
-              <Container
-                data={container}
-                reRender={reRender}
-                key={container.id}
-              />
-            ))
+            information.map((container) => {
+              if (container.name != 'Root') {
+                return (
+                  <Container
+                    data={container}
+                    reRender={reRender}
+                    key={container.id}
+                  />
+                );
+              }
+            })
           ) : (
             <h1>Loading .....</h1>
           )}

@@ -14,6 +14,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import CreateTheme from '@pathstylesindex';
 import UserContext from '@pathUserContext';
 import { validateBothPasswords } from '@pathvalidatePassword';
+import Swal from 'sweetalert2';
 
 function Copyright(props) {
   return (

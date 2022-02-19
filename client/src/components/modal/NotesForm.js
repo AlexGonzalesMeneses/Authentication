@@ -2,27 +2,23 @@ import { Box, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
+import ListContext from '../../context/ListContext';
 
-function NotesForm({ data, closeModal }) {
-  const {
-    id,
-    name,
-    container,
-    informationType,
-    favorite,
-    description,
-    tags,
-    text,
-  } = data;
-  const [keyData, setKeyData] = useState({
+function NotesForm({ id, data, closeModal }) {
+  const { idContainer } = React.useContext(ListContext);
+  const { text, name, tags, favorite, description, type, encryptionType } =
+    data;
+  const [noteData, setNoteData] = useState({
+    text: text || '',
+    containerId: idContainer,
     name: name || '',
-    container: container || '',
-    informationType: informationType || '',
+    tags: tags || '',
     favorite: favorite || true,
     description: description || '',
-    tags: tags || '',
-    text: text || '',
+    type: type || '',
+    encryptionType: encryptionType || '',
   });
+  console.log(noteData);
 
   const addDataForm = () => {
     //SendPostContainer(containerData);
@@ -36,13 +32,13 @@ function NotesForm({ data, closeModal }) {
     setCreditCardData({ [input]: e.target.value });
   };
   const values = {
-    name,
-    container,
-    informationType,
-    favorite,
     description,
+    encryptionType,
+    favorite,
+    name,
     tags,
     text,
+    type,
   };
   return (
     <>
@@ -55,7 +51,7 @@ function NotesForm({ data, closeModal }) {
           id="text"
           label="Text:"
           defaultValue={text}
-          onChange={(e) => setKeyData({ ...keyData, text: e.target.value })}
+          onChange={(e) => setNoteData({ ...noteData, text: e.target.value })}
         />
       </Grid>
       <ButtonsCrud

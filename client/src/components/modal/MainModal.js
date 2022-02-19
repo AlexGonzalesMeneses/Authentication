@@ -32,7 +32,7 @@ export default function MainModal({ data, action, closeModal, typeSelect }) {
         sx={{
           width: '100%',
           bgcolor: 'primary.light',
-          overflowY: 'scroll',
+          overflowY: 'auto',
           maxHeight: '70vh',
         }}
       >

@@ -17,7 +17,7 @@ import ListContext from '../../context/ListContext';
 
 function Container({ data, reRender }) {
   const { name, id, favorite } = data;
-  const { selectContainer } = useContext(ListContext);
+  const { idContainer, selectContainer } = useContext(ListContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isfavorite, setIsFavorite] = React.useState(favorite);
   const [dataContainer, SetDataContainer] = React.useState({
@@ -26,10 +26,17 @@ function Container({ data, reRender }) {
   });
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const open = Boolean(anchorEl);
-
   const handleCloseMainModal = () => {
     setOpenMainModal(false);
     reRender();
+  };
+  const handleClickMore = (event) => {
+    event.stopPropagation();
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMore = (e) => {
+    e.stopPropagation();
+    setAnchorEl(null);
   };
 
   const handleFavorite = (event) => {
@@ -41,14 +48,6 @@ function Container({ data, reRender }) {
     SendPutContainer(dataContainer, id);
   }, [isfavorite]);
 
-  const handleClickMore = (event) => {
-    event.stopPropagation();
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseMore = (e) => {
-    e.stopPropagation();
-    setAnchorEl(null);
-  };
   const handleChangeNameItem = () => {
     setOpenMainModal(true);
   };
@@ -77,19 +76,32 @@ function Container({ data, reRender }) {
 
   return (
     <Box
-      sx={{
-        bgcolor: 'quaternary.light',
-        '&:hover': {
-          bgcolor: 'primary.main',
-        },
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: '40px',
-        width: '100%',
-        mt: '10px',
-        padding: '30px 20px',
-      }}
+      sx={
+        id == idContainer
+          ? {
+              bgcolor: 'primary.main',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              height: '40px',
+              width: '100%',
+              mt: '10px',
+              padding: '30px 20px',
+            }
+          : {
+              bgcolor: 'quaternary.light',
+              '&:hover': {
+                bgcolor: 'primary.main',
+              },
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              height: '40px',
+              width: '100%',
+              mt: '10px',
+              padding: '30px 20px',
+            }
+      }
       onClick={handleSelectContainer}
     >
       <Box

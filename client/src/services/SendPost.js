@@ -13,10 +13,7 @@ export const SendPostContainer = (data) => {
     .then((resp) => resp.json())
     .then((resp) => console.log(resp.status))
     .catch((error) => {
-      if (
-        (error =
-          'SyntaxError: JSON.parse: unexpected end of data at line 1 column 1 of the JSON data')
-      ) {
+      if ((error = 'Error')) {
       }
     });
 };

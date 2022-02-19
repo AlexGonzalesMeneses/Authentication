@@ -6,24 +6,42 @@ import KeysForm from './KeysForm';
 import NotesForm from './NotesForm';
 import CredentialsForm from './CredentialsForm';
 import { Grid } from '@mui/material';
+import ListContext from '../../context/ListContext';
+import { GetInformation } from '../../services/information/Get';
 
 export default function ContentModal({ data, action, closeModal, typeSelect }) {
-  const { informationType } = data;
+  const { informationType, id } = data;
+  const { idContainer } = React.useContext(ListContext);
+  const [informationData, setInformationData] = React.useState([]);
+  if (informationType) {
+    React.useEffect(() => {
+      const information = () => {
+        GetInformation(idContainer, informationType, id).then((data) =>
+          setInformationData(data)
+        );
+      };
+      information();
+    }, []);
+  }
 
-  console.log(typeSelect);
-  console.log(informationType);
   const formType = () => {
     switch (informationType || typeSelect) {
       case 'Note':
-        return <NotesForm data={data} closeModal={closeModal} />;
+        return (
+          <NotesForm id={id} data={informationData} closeModal={closeModal} />
+        );
       case 'Credential':
-        return <CredentialsForm data={data} closeModal={closeModal} />;
+        return (
+          <CredentialsForm data={informationData} closeModal={closeModal} />
+        );
       case 'Key':
-        return <KeysForm data={data} closeModal={closeModal} />;
+        return <KeysForm data={informationData} closeModal={closeModal} />;
       case 'CreditCard':
-        return <CreditCardsForm data={data} closeModal={closeModal} />;
+        return (
+          <CreditCardsForm data={informationData} closeModal={closeModal} />
+        );
       case 'Contact':
-        return <ContactsForm data={data} closeModal={closeModal} />;
+        return <ContactsForm data={informationData} closeModal={closeModal} />;
       default:
         console.log('This is a form built with React');
     }

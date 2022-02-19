@@ -25,7 +25,7 @@ function Item({ data }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isFavorite, setIsFavorite] = React.useState(favorite);
   const [openMainModal, setOpenMainModal] = React.useState(false);
-  const [action, setAction] = React.useState();
+  const [action, setAction] = React.useState('show');
 
   const open = Boolean(anchorEl);
 
@@ -251,7 +251,7 @@ function Item({ data }) {
         <Box>
           <MainModal
             data={data}
-            action="show"
+            action={action}
             closeModal={handleCloseMainModal}
             typeSelect={informationType}
           />
