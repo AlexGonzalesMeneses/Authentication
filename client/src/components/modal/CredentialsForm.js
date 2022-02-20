@@ -2,55 +2,67 @@ import { Box, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
+import ListContext from '../../context/ListContext';
+import { PostInformation } from '../../services/information/Post';
 
-function CredentialsForm({ data, closeModal }) {
+function CredentialsForm({ id, data, closeModal, action }) {
+  const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
-    id,
     name,
-    container,
-    informationType,
+    type,
     favorite,
     description,
     tags,
+    encryptionType,
     userName,
     password,
   } = data;
 
   const [credentialData, setCredentialData] = useState({
     name: name || '',
-    container: container || '',
+    containerId: idContainer || '',
     informationType: informationType || '',
     favorite: favorite || true,
     description: description || '',
     tags: tags || '',
+    encryptionType: encryptionType || encryptionSelected,
     userName: userName || '',
     password: password || '',
   });
 
   const addDataForm = () => {
-    //To do SendPostContainer(containerData);
+    PostInformation(idContainer, credentialData, 'Credential');
     closeModal();
   };
   const updateDataForm = () => {
     // To doSendPutContainer(containerData, id);
     closeModal();
   };
+  const closeDataForm = () => {
+    //SendPutContainer(containerData, id);
+    closeModal();
+  };
   const updateInputs = (input) => (e) => {
-    setCreditCardData({ [input]: e.target.value });
+    setCreditCardData({ ...credentialData, [input]: e.target.value });
   };
   const values = {
     name,
-    container,
-    informationType,
+    idContainer,
+    type,
     favorite,
     description,
     tags,
+    encryptionType,
     userName,
     password,
   };
   return (
     <>
-      <InformationForm values={values} updateInputs={updateInputs} />
+      <InformationForm
+        type={'Credential'}
+        values={values}
+        updateInputs={updateInputs}
+      />
       <Grid item xs={6}>
         <TextField
           margin="normal"
@@ -84,6 +96,8 @@ function CredentialsForm({ data, closeModal }) {
         id={id}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
+        closeDataForm={closeDataForm}
+        action={action}
       />
     </>
   );

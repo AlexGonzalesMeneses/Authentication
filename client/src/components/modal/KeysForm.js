@@ -2,55 +2,67 @@ import { Box, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
+import ListContext from '../../context/ListContext';
+import { PostInformation } from '../../services/information/Post';
 
-function KeysForm({ data, closeModal }) {
+function KeysForm({ id, data, closeModal, action }) {
+  const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
-    id,
     name,
-    container,
-    informationType,
+    type,
     favorite,
     description,
     tags,
+    encryptionType,
     serial,
     urls,
   } = data;
 
   const [keyData, setKeyData] = useState({
     name: name || '',
-    container: container || '',
+    containerId: idContainer || '',
     informationType: informationType || '',
     favorite: favorite || true,
     description: description || '',
     tags: tags || '',
+    encryptionType: encryptionType || encryptionSelected,
     serial: serial || '',
     urls: urls || '',
   });
   const addDataForm = () => {
-    //SendPostContainer(containerData);
+    PostInformation(idContainer, keyData, 'Key');
     closeModal();
   };
   const updateDataForm = () => {
     //SendPutContainer(containerData, id);
     closeModal();
   };
+  const closeDataForm = () => {
+    //SendPutContainer(containerData, id);
+    closeModal();
+  };
   const updateInputs = (input) => (e) => {
-    setKeyData({ [input]: e.target.value });
+    setKeyData({ ...keyData, [input]: e.target.value });
   };
   const values = {
     name,
-    container,
-    informationType,
+    idContainer,
+    type,
     favorite,
     description,
     tags,
+    encryptionType,
     serial,
     urls,
   };
 
   return (
     <>
-      <InformationForm values={values} updateInputs={updateInputs} />
+      <InformationForm
+        type={'Key'}
+        values={values}
+        updateInputs={updateInputs}
+      />
       <Grid item xs={12}>
         <TextField
           margin="normal"
@@ -82,6 +94,8 @@ function KeysForm({ data, closeModal }) {
         id={id}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
+        closeDataForm={closeDataForm}
+        action={action}
       />
     </>
   );

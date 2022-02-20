@@ -1,19 +1,19 @@
-import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
-import { Box } from '@mui/system';
+import { Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
-import CustomeInput from './CustomeInput';
 import InformationForm from './InformationForm';
+import ListContext from '../../context/ListContext';
+import { PostInformation } from '../../services/information/Post';
 
-function ContactsForm({ data, closeModal }) {
+function ContactsForm({ id, data, closeModal, action }) {
+  const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
-    id,
     name,
-    container,
-    informationType,
+    type,
     favorite,
     description,
     tags,
+    encryptionType,
     fullName,
     firstName,
     lastName,
@@ -28,11 +28,12 @@ function ContactsForm({ data, closeModal }) {
   } = data;
   const [contactData, setContactData] = useState({
     name: name || '',
-    container: container || '',
+    containerId: idContainer || '',
     informationType: informationType || '',
     favorite: favorite || true,
     description: description || '',
     tags: tags || '',
+    encryptionType: encryptionType || encryptionSelected,
     fullName: fullName || '',
     firstName: firstName || '',
     lastName: lastName || '',
@@ -47,23 +48,28 @@ function ContactsForm({ data, closeModal }) {
   });
 
   const addDataForm = () => {
-    //SendPostContainer(containerData);
+    PostInformation(idContainer, contactData, 'Contact');
     closeModal();
   };
   const updateDataForm = () => {
     //SendPutContainer(containerData, id);
     closeModal();
   };
+  const closeDataForm = () => {
+    //SendPutContainer(containerData, id);
+    closeModal();
+  };
   const updateInputs = (input) => (e) => {
-    setCreditCardData({ [input]: e.target.value });
+    setCreditCardData({ ...contactData, [input]: e.target.value });
   };
   const values = {
     name,
-    container,
-    informationType,
+    idContainer,
+    type,
     favorite,
     description,
     tags,
+    encryptionType,
     fullName,
     firstName,
     lastName,
@@ -78,7 +84,11 @@ function ContactsForm({ data, closeModal }) {
   };
   return (
     <>
-      <InformationForm values={values} updateInputs={updateInputs} />
+      <InformationForm
+        type={'Contact'}
+        values={values}
+        updateInputs={updateInputs}
+      />
       <Grid item xs={6}>
         <TextField
           margin="normal"
@@ -230,6 +240,8 @@ function ContactsForm({ data, closeModal }) {
         id={id}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
+        closeDataForm={closeDataForm}
+        action={action}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import { Box, Grid, TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
@@ -6,11 +6,9 @@ import ListContext from '../../context/ListContext';
 import { PostInformation } from '../../services/information/Post';
 
 function NotesForm({ id, data, closeModal, action }) {
-  const { encryptionSelected, idContainer, nameContainer } =
-    React.useContext(ListContext);
+  const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const { text, name, tags, favorite, description, type, encryptionType } =
     data;
-  console.log(favorite);
   const [noteData, setNoteData] = useState({
     text: text || '',
     containerId: idContainer,

@@ -2,16 +2,18 @@ import { Box, Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
+import ListContext from '../../context/ListContext';
+import { PostInformation } from '../../services/information/Post';
 
-function CreditCardsForm({ data, closeModal }) {
+function CreditCardsForm({ id, data, closeModal, action }) {
+  const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
-    id,
     name,
-    container,
-    informationType,
+    type,
     favorite,
     description,
     tags,
+    encryptionType,
     number,
     expiration,
     cvv,
@@ -19,40 +21,50 @@ function CreditCardsForm({ data, closeModal }) {
 
   const [creditCardData, setCreditCardData] = useState({
     name: name || '',
-    container: container || '',
+    containerId: idContainer || '',
     informationType: informationType || '',
     favorite: favorite || true,
     description: description || '',
     tags: tags || '',
+    encryptionType: encryptionType || encryptionSelected,
     number: number || '',
     expiration: expiration || '',
     cvv: cvv || '',
   });
   const addDataForm = () => {
-    //SendPostContainer(containerData);
+    PostInformation(idContainer, creditCardData, 'CreditCard');
     closeModal();
   };
   const updateDataForm = () => {
     //SendPutContainer(containerData, id);
     closeModal();
   };
+  const closeDataForm = () => {
+    //SendPutContainer(containerData, id);
+    closeModal();
+  };
   const updateInputs = (input) => (e) => {
-    setCreditCardData({ [input]: e.target.value });
+    setCreditCardData({ ...creditCardData, [input]: e.target.value });
   };
   const values = {
     name,
-    container,
-    informationType,
+    idContainer,
+    type,
     favorite,
     description,
     tags,
+    encryptionType,
     number,
     expiration,
     cvv,
   };
   return (
     <>
-      <InformationForm values={values} updateInputs={updateInputs} />
+      <InformationForm
+        type={'CreditCard'}
+        values={values}
+        updateInputs={updateInputs}
+      />
       <Grid item xs={12}>
         <TextField
           margin="normal"
@@ -103,6 +115,8 @@ function CreditCardsForm({ data, closeModal }) {
         id={id}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
+        closeDataForm={closeDataForm}
+        action={action}
       />
     </>
   );
