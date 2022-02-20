@@ -15,7 +15,7 @@ const style = {
   bgcolor: 'primary.light',
 };
 
-function ContainerModal({ name, favorite, id, closeModal }) {
+function ContainerModal({ name, favorite, id, closeModal, action }) {
   const handleSubmit = () => {
     console.log('action');
   };
@@ -31,7 +31,7 @@ function ContainerModal({ name, favorite, id, closeModal }) {
           borderBotton: '3px solid quaternary.dark',
         }}
       >
-        {'Container'}
+        {action.toUpperCase()}
       </Box>
       <Box
         sx={{
@@ -44,6 +44,7 @@ function ContainerModal({ name, favorite, id, closeModal }) {
           favorite={favorite}
           id={id}
           closeModal={closeModal}
+          action={action}
         />
       </Box>
     </Box>

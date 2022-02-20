@@ -3,11 +3,14 @@ import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
 import ListContext from '../../context/ListContext';
+import { PostInformation } from '../../services/information/Post';
 
 function NotesForm({ id, data, closeModal, action }) {
-  const { idContainer, nameContainer } = React.useContext(ListContext);
+  const { encryptionSelected, idContainer, nameContainer } =
+    React.useContext(ListContext);
   const { text, name, tags, favorite, description, type, encryptionType } =
     data;
+  console.log(favorite);
   const [noteData, setNoteData] = useState({
     text: text || '',
     containerId: idContainer,
@@ -15,12 +18,12 @@ function NotesForm({ id, data, closeModal, action }) {
     tags: tags || '',
     favorite: favorite || true,
     description: description || '',
-    type: type || '',
-    encryptionType: encryptionType || '',
+    type: 'Note',
+    encryptionType: encryptionType || encryptionSelected,
   });
-
+  console.log(noteData);
   const addDataForm = () => {
-    //SendPostContainer(containerData);
+    PostInformation(idContainer, noteData, 'Note');
     closeModal();
   };
   const updateDataForm = () => {
@@ -32,7 +35,9 @@ function NotesForm({ id, data, closeModal, action }) {
     closeModal();
   };
   const updateInputs = (input) => (e) => {
-    setNoteData({ [input]: e.target.value });
+    console.log(e);
+    console.log(input);
+    setNoteData({ ...noteData, [input]: e.target.value });
   };
   const values = {
     idContainer,

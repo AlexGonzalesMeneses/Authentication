@@ -11,7 +11,7 @@ function ButtonsCrud({
   console.log(action);
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-      {action == 'add' && (
+      {action == 'Add' && (
         <Button
           sx={{
             bgcolor: 'tertiary.main',
@@ -28,7 +28,7 @@ function ButtonsCrud({
           Add
         </Button>
       )}
-      {action == 'edit' && (
+      {action == 'Edit' && (
         <Button
           sx={{
             bgcolor: 'tertiary.main',
@@ -45,21 +45,23 @@ function ButtonsCrud({
           Save
         </Button>
       )}
-      <Button
-        sx={{
-          bgcolor: 'tertiary.main',
-          color: 'quaternary.light',
-          width: '50%',
-          margin: '20px auto',
-          '&:hover': {
-            bgcolor: 'tertiary.dark',
-          },
-        }}
-        variant="contained"
-        onClick={closeDataForm}
-      >
-        Close
-      </Button>
+      {action == 'Show' && (
+        <Button
+          sx={{
+            bgcolor: 'tertiary.main',
+            color: 'quaternary.light',
+            width: '50%',
+            margin: '20px auto',
+            '&:hover': {
+              bgcolor: 'tertiary.dark',
+            },
+          }}
+          variant="contained"
+          onClick={closeDataForm}
+        >
+          Close
+        </Button>
+      )}
     </Box>
   );
 }

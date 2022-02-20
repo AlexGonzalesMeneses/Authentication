@@ -27,7 +27,7 @@ function Item({ data }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isFavorite, setIsFavorite] = React.useState(favorite);
   const [openMainModal, setOpenMainModal] = React.useState(false);
-  const [action, setAction] = React.useState('show');
+  const [action, setAction] = React.useState('Show');
   const { idContainer } = useContext(ListContext);
   console.log(data.id);
   const [itemInformation, setItemInformation] = React.useState({});

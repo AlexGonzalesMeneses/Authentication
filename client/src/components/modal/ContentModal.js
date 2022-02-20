@@ -12,7 +12,6 @@ import { GetInformation } from '../../services/information/Get';
 export default function ContentModal({ data, action, closeModal, typeSelect }) {
   const { informationType, id } = data;
   const { idContainer } = React.useContext(ListContext);
-  let disableForm = action == 'show' ? true : false;
 
   const formType = () => {
     switch (informationType || typeSelect) {
@@ -60,7 +59,6 @@ export default function ContentModal({ data, action, closeModal, typeSelect }) {
         component="form"
         onSubmit={handleSubmit}
         sx={{ height: '100%', padding: '20px' }}
-        disabled={disableForm}
       >
         <Grid
           container

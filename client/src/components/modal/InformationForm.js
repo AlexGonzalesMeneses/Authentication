@@ -1,10 +1,8 @@
 import {
-  Box,
   FormControl,
   Grid,
   InputLabel,
   MenuItem,
-  NativeSelect,
   Select,
   TextField,
 } from '@mui/material';
@@ -13,10 +11,12 @@ import ListContext from '../../context/ListContext';
 
 function InformationForm({ type, values, updateInputs }) {
   const { nameContainer, encryptionSelected } = useContext(ListContext);
-  const encryptionType = values.encryptionType || encryptionSelected;
-  const [favoriteSelect, setFavoriteSelect] = React.useState(
-    values.favorite || true
-  );
+  const encryptionType =
+    values.encryptionType == undefined
+      ? encryptionSelected
+      : values.encryptionType;
+  const favoriteSelect = values.favorite == undefined ? true : values.favorite;
+  console.log(encryptionType);
   return (
     <>
       <Grid item xs={6}>
@@ -25,7 +25,7 @@ function InformationForm({ type, values, updateInputs }) {
           required
           fullWidth
           id="name"
-          label="Name"
+          label="Name :"
           defaultValue={values.name}
           onChange={updateInputs('name')}
         />
@@ -87,7 +87,7 @@ function InformationForm({ type, values, updateInputs }) {
             id="typeencryption"
             defaultValue={encryptionType}
             label="Type Encryption"
-            onChange={updateInputs('typeencryption')}
+            onChange={updateInputs('encryptionType')}
           >
             <MenuItem value={'Binary'}>Binary</MenuItem>
             <MenuItem value={'Base64'}>Base64</MenuItem>

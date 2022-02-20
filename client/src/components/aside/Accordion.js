@@ -41,6 +41,7 @@ function Accordion() {
   const [openNoContainer, setOpenNoContainer] = React.useState(true);
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const [render, setRender] = React.useState(true);
+  const [action, setAction] = React.useState('Add');
 
   const handleClickContainers = () => {
     setOpenContainer(!openContainer);
@@ -53,6 +54,7 @@ function Accordion() {
     setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {
+    setAction('Add');
     setOpenMainModal(false);
     setRender(!render);
   };
@@ -192,6 +194,7 @@ function Accordion() {
             favorite={true}
             id={null}
             closeModal={handleCloseMainModal}
+            action={action}
           />
         </Box>
       </Modal>

@@ -17,7 +17,7 @@ import ListContext from '../../context/ListContext';
 
 function Container({ data, reRender }) {
   const { name, id, favorite } = data;
-  const { selectContainerName, idContainer, selectContainer } =
+  const { nameContainer, selectContainerName, idContainer, selectContainer } =
     useContext(ListContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isfavorite, setIsFavorite] = React.useState(favorite);
@@ -25,6 +25,7 @@ function Container({ data, reRender }) {
     name: name,
     favorite: favorite,
   });
+  const [action, setAction] = React.useState('Show');
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const open = Boolean(anchorEl);
   const handleCloseMainModal = () => {
@@ -50,6 +51,7 @@ function Container({ data, reRender }) {
   }, [isfavorite]);
 
   const handleChangeNameItem = () => {
+    setAction('Edit');
     setOpenMainModal(true);
   };
   const handleRemoveItem = () => {
@@ -73,13 +75,13 @@ function Container({ data, reRender }) {
   };
   const handleSelectContainer = () => {
     selectContainer(id);
+    setAction('Show');
     selectContainerName(name);
   };
-
   return (
     <Box
       sx={
-        id == idContainer
+        name == nameContainer
           ? {
               bgcolor: 'primary.main',
               display: 'flex',
@@ -197,6 +199,7 @@ function Container({ data, reRender }) {
             favorite={favorite}
             id={id}
             closeModal={handleCloseMainModal}
+            action={action}
           />
         </Box>
       </Modal>

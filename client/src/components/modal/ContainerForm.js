@@ -16,7 +16,7 @@ import { SendPostContainer } from '@pathSendPost';
 import { SendPutContainer } from '@pathSendPut';
 import ButtonsCrud from './ButtonsCrud';
 
-function ContainerForm({ name, favorite, id, closeModal }) {
+function ContainerForm({ name, favorite, id, closeModal, action }) {
   const [containerData, setContainerData] = useState({
     name: name || '',
     favorite: favorite || true,
@@ -102,6 +102,7 @@ function ContainerForm({ name, favorite, id, closeModal }) {
           id={id}
           addDataForm={addDataForm}
           updateDataForm={updateDataForm}
+          action={action}
         />
       </Grid>
     </Box>
