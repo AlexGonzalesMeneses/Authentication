@@ -17,7 +17,7 @@ namespace UltimateTeam.Application.Helpers
             };
         }
 
-        public static NoteResponseDto Map(Note note, Information information, IEnumerable<Tag> tags)
+        public static NoteResponseDto Map(Note note, Information information)
         {
             return new NoteResponseDto
             {
@@ -27,7 +27,7 @@ namespace UltimateTeam.Application.Helpers
                 Type = information.InformationType.ToString(),
                 Favorite = information.Favorite,
                 EncryptionType = information.EncryptorType.ToString(),
-                Tags = TagMapper.Map(tags)
+                Tags = TagMapper.Map(information.Tags)
             };
         }
     }

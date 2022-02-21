@@ -11,16 +11,33 @@ namespace Dev33.UltimateTeam.Application.Helpers
     {
         public static Information Map(NoteRequestDto note)
         {
+            var id = Guid.NewGuid();
+
             return new Information
             {
-                Id = Guid.NewGuid(),
+                Id = id,
                 ContainerId = note.ContainerId,
                 Description = note.Description,
                 Favorite = note.Favorite,
                 Name = note.Name,
                 InformationType = (InformationType)Enum.Parse(typeof(InformationType), note.Type),
                 EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptorType),
-                Tags = TagMapper.GetTags(note.Tags)
+                Tags = TagMapper.GetTags(note.Tags, id)
+            };
+        }
+
+        public static Information Map(Guid id, NoteRequestDto note)
+        {
+            return new Information
+            {
+                Id = id,
+                ContainerId = note.ContainerId,
+                Description = note.Description,
+                Favorite = note.Favorite,
+                Name = note.Name,
+                InformationType = (InformationType)Enum.Parse(typeof(InformationType), note.Type),
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptorType),
+                Tags = TagMapper.GetTags(note.Tags, id)
             };
         }
     }

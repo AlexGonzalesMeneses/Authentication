@@ -48,6 +48,7 @@ namespace Dev33.UltimateTeam.Api
 
             services.AddDbContext<ContextDB>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+              .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
 
             services.AddSingleton<ILoggerManager, LoggerManager>();

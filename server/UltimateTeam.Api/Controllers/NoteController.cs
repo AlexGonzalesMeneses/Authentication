@@ -24,7 +24,7 @@ namespace UltimateTeam.Api.Controllers
         }
 
         [HttpGet("{noteId:guid}")]
-        public async Task<ActionResult<NoteResponseDto>> GetNoteById(Guid containerId, Guid noteId)
+        public async Task<ActionResult<NoteResponseDto>> GetById(Guid containerId, Guid noteId)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace UltimateTeam.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<NoteResponseDto>> CreateNote(NoteRequestDto note)
+        public async Task<ActionResult<NoteResponseDto>> Create(NoteRequestDto note)
         {
             try
             {
@@ -57,8 +57,23 @@ namespace UltimateTeam.Api.Controllers
             }
         }
 
+        [HttpPut("{noteId:guid}")]
+        public async Task<ActionResult<NoteResponseDto>> Update(Guid containerId, Guid noteId, NoteRequestDto note)
+        {
+            try
+            {
+                var updatedNote = await noteService.UpdateNote(note, noteId);
+                return Ok(updatedNote);
+            }
+            catch (Exception ex)
+            {
+                loggerManager.LogError(ex);
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpDelete("{noteId:guid}")]
-        public async Task<ActionResult<NoteResponseDto>> DeleteNote(Guid containerId, Guid noteId)
+        public async Task<ActionResult<NoteResponseDto>> Delete(Guid containerId, Guid noteId)
         {
             try
             {

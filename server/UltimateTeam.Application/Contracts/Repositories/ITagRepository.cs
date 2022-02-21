@@ -9,5 +9,7 @@ namespace UltimateTeam.Application.Contracts.Repositories
     public interface ITagRepository : IAsyncRepository<Tag>
     {
         public Task<IEnumerable<Tag>> GetTagsAsync(Guid informationId);
+        public Task RemoveTagsAsync(Guid informationId);
+        Task AddTagsAsync(List<Tag> tagMapped);
     }
 }

@@ -6,7 +6,7 @@ namespace UltimateTeam.Application.Helpers
 {
     public static class TagMapper
     {
-        public static List<Tag> GetTags(string tags)
+        public static List<Tag> GetTags(string tags, Guid informationId)
         {
             var tagsList = new List<Tag>();
 
@@ -19,11 +19,13 @@ namespace UltimateTeam.Application.Helpers
 
             foreach (var tag in tagArray)
             {
-                tagsList.Add(new Tag { Name = tag });
+                tagsList.Add(new Tag { Name = tag, InformationId = informationId, Id = Guid.NewGuid() });
             }
 
             return tagsList;
         }
+
+
 
         public static List<string> Map(IEnumerable<Tag> tags)
         {

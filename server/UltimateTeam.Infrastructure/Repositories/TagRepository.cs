@@ -16,9 +16,34 @@ namespace UltimateTeam.Infrastructure.Repositories
         {
         }
 
+        public async Task AddTagsAsync(List<Tag> tagMapped)
+        {
+            await context.Set<Tag>().AddRangeAsync(tagMapped);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Tag>> GetTagsAsync(Guid informationId)
         {
             return await context.Set<Tag>().Where(x => x.InformationId == informationId).ToListAsync();
+        }
+
+        public async Task RemoveTagsAsync(Guid informationId)
+        {
+            try
+            {
+                var tags = await GetTagsAsync(informationId);
+
+                foreach (var tag in tags)
+                {
+                    await DeleteAsync(tag);
+                }
+
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

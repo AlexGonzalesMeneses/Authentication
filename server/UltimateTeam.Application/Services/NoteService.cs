@@ -13,7 +13,7 @@ using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace Dev33.UltimateTeam.Application.Services
 {
-    public class NoteService : Contracts.Services.INoteService
+    public class NoteService : INoteService
     {
         private readonly IUnitOfWork unitOfWork;
 
@@ -33,10 +33,9 @@ namespace Dev33.UltimateTeam.Application.Services
                 var noteCreated = await unitOfWork.NoteRepository.AddAsync(noteMapped);
 
                 var tags = await unitOfWork.TagRepository.GetTagsAsync(inforamationCreated.Id);
+                inforamationCreated.Tags = (List<Tag>)tags;
 
-                await unitOfWork.SaveChangesAsync();
-
-                return NoteMapper.Map(noteCreated, inforamationCreated, tags);
+                return NoteMapper.Map(noteCreated, inforamationCreated);
             }
             catch (Exception ex)
             {
@@ -52,10 +51,12 @@ namespace Dev33.UltimateTeam.Application.Services
                 var information = await unitOfWork.InformationRepository.GetByIdAsync(note.Id);
                 var tags = await unitOfWork.TagRepository.GetTagsAsync(information.Id);
 
+                information.Tags = (List<Tag>)tags;
+
                 await unitOfWork.NoteRepository.DeleteAsync(note);
                 await unitOfWork.InformationRepository.DeleteAsync(information);
 
-                return NoteMapper.Map(note, information, tags);
+                return NoteMapper.Map(note, information);
             }
             catch (Exception ex)
             {
@@ -67,6 +68,7 @@ namespace Dev33.UltimateTeam.Application.Services
         {
             var information = await unitOfWork.InformationRepository.GetByIdAsync(id);
             var tags = await unitOfWork.TagRepository.GetTagsAsync(information.Id);
+            information.Tags = (List<Tag>)tags;
 
             if (information == null)
             {
@@ -80,12 +82,34 @@ namespace Dev33.UltimateTeam.Application.Services
                 throw new ArgumentException("Note not found");
             }
 
-            return NoteMapper.Map(note, information, tags);
+            return NoteMapper.Map(note, information);
         }
 
-        public Task<NoteResponseDto> UpdateNote(NoteRequestDto note)
+        public async Task<NoteResponseDto> UpdateNote(NoteRequestDto note, Guid noteId)
         {
-            throw new NotImplementedException();
+            var informationExisted = await unitOfWork.InformationRepository.GetByIdAsync(noteId);
+            var noteExisted = await unitOfWork.NoteRepository.GetByIdAsync(noteId);
+
+            if (informationExisted == null)
+            {
+                throw new ArgumentException("Information not found");
+            }
+
+            if (noteExisted == null)
+            {
+                throw new ArgumentException("Note not found");
+            }
+
+            var informationMapped = InformationMapper.Map(noteId, note);
+            var noteMapped = NoteMapper.Map(note, informationMapped.Id);
+            await unitOfWork.TagRepository.RemoveTagsAsync(informationExisted.Id);
+            await unitOfWork.TagRepository.AddTagsAsync(informationMapped.Tags);
+            await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
+            await unitOfWork.NoteRepository.UpdateAsync(noteMapped);
+
+            var informationUpdated = await unitOfWork.InformationRepository.GetByIdAsync(informationMapped.Id);
+
+            return NoteMapper.Map(noteMapped, informationMapped);
         }
     }
 }

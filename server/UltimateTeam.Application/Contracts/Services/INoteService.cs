@@ -12,7 +12,7 @@ namespace Dev33.UltimateTeam.Application.Contracts.Services
     {
         Task<NoteResponseDto> GetNoteById(Guid id);
         Task<NoteResponseDto> CreateNote(NoteRequestDto note);
-        Task<NoteResponseDto> UpdateNote(NoteRequestDto note);
+        Task<NoteResponseDto> UpdateNote(NoteRequestDto note, Guid noteId);
         Task<NoteResponseDto> DeleteNote(Guid id);
     }
 }
