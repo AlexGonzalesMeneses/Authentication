@@ -18,6 +18,11 @@ function ListProvider({ children }) {
 
   const selectEncryption = () => {};
 
+  const [addItem, setAddItem] = useState(true);
+  const addItemselected = () => {
+    setAddItem(!addItem);
+  };
+
   const dataContainer = {
     idRootContainer,
     idContainer,
@@ -25,6 +30,8 @@ function ListProvider({ children }) {
     selectContainerName,
     nameContainer,
     encryptionSelected,
+    addItem,
+    addItemselected,
   };
   return (
     <ListContext.Provider value={dataContainer}>

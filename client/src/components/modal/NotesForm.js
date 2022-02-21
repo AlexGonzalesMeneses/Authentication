@@ -19,7 +19,6 @@ function NotesForm({ id, data, closeModal, action }) {
     type: 'Note',
     encryptionType: encryptionType || encryptionSelected,
   });
-  console.log(noteData);
   const addDataForm = () => {
     PostInformation(idContainer, noteData, 'Note');
     closeModal();
@@ -33,8 +32,6 @@ function NotesForm({ id, data, closeModal, action }) {
     closeModal();
   };
   const updateInputs = (input) => (e) => {
-    console.log(e);
-    console.log(input);
     setNoteData({ ...noteData, [input]: e.target.value });
   };
   const values = {

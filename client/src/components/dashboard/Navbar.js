@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box } from '@mui/system';
 import StarIcon from '@mui/icons-material/Star';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
@@ -11,6 +11,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import IconNav from '../navbar/IconNav';
 import { IconButton, Menu, MenuItem, Modal, Tooltip } from '@mui/material';
 import MainModal from '../modal/MainModal';
+import ListContext from '../../context/ListContext';
 function Navbar() {
   const iconStyle = {
     fontSize: '30px',
@@ -26,6 +27,7 @@ function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [typeSelect, setTypeSelect] = React.useState('Note');
+  const { addItemselected } = useContext(ListContext);
   const navClick = (e, title) => {
     if (title == 'Add') {
       handleClickMore(e);
@@ -44,6 +46,7 @@ function Navbar() {
     setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {
+    addItemselected();
     setOpenMainModal(false);
   };
 

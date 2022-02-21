@@ -6,9 +6,10 @@ import { SendGet } from '@pathSendGet';
 import ListContext from '../../context/ListContext';
 
 function List() {
-  const { idContainer } = useContext(ListContext);
+  const { addItem, idContainer } = useContext(ListContext);
   const [information, setInformation] = useState([]);
   const [error, setError] = useState();
+  const [render, setRender] = React.useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
   const indexOfLastPost = currentPage * postsPerPage;
@@ -18,16 +19,19 @@ function List() {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber + 1);
   };
+  const reRender = () => {
+    setRender(!render);
+  };
 
   useEffect(() => {
     const noteList = () => {
       SendGet(idContainer).then((data) => {
         setInformation(data.informations);
-        console.log(information);
       });
     };
+    setRender(render);
     noteList();
-  }, [idContainer]);
+  }, [idContainer, render, addItem]);
 
   return (
     <Box sx={{ width: '80%', margin: 'auto' }}>
@@ -35,7 +39,7 @@ function List() {
         <>
           <Box>
             {currentPosts.map((item) => (
-              <Item data={item} key={item.id} />
+              <Item data={item} reRender={reRender} key={item.id} />
             ))}
           </Box>
           <Pagination

@@ -4,9 +4,8 @@ import { authenticate, register } from '../services/login';
 import Swal from 'sweetalert2';
 
 const UserContext = createContext();
-const isLogInLocal = localStorage.getItem('isLogIn');
 const isToken = localStorage.getItem('token');
-const InitialUser = isLogInLocal == 'true' ? true : null;
+const InitialUser = isToken.length == 683 ? true : null;
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(InitialUser);
@@ -15,10 +14,6 @@ const UserProvider = ({ children }) => {
     try {
       const user = await authenticate({ email, password });
       localStorage.setItem('token', user.token);
-      localStorage.setItem('userName', user.userName);
-      localStorage.setItem('email', user.email);
-      localStorage.setItem('fullName', user.fullName);
-      localStorage.setItem('isLogIn', true);
       localStorage.setItem('UserId', user.id);
       setUser(true);
     } catch (error) {
@@ -35,10 +30,6 @@ const UserProvider = ({ children }) => {
   const logout = () => {
     setUser(false);
     localStorage.removeItem('token');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('email');
-    localStorage.removeItem('fullName');
-    localStorage.removeItem('isLogIn');
     localStorage.removeItem('UserId');
   };
 
@@ -46,10 +37,6 @@ const UserProvider = ({ children }) => {
     try {
       const user = await register({ email, password, fullName, userName });
       localStorage.setItem('token', user.token);
-      localStorage.setItem('userName', user.userName);
-      localStorage.setItem('email', user.email);
-      localStorage.setItem('fullName', user.fullName);
-      localStorage.setItem('isLogIn', true);
       localStorage.setItem('UserId', user.id);
       setUser(true);
     } catch (error) {

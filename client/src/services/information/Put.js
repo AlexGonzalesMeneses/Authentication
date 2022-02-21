@@ -13,6 +13,5 @@ export const PutInformation = (idContainer, data, idInformation) => {
     }
   )
     .then((resp) => resp.json())
-    .then((resp) => console.log(resp))
     .catch((error) => console.log(error));
 };

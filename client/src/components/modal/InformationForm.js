@@ -16,7 +16,6 @@ function InformationForm({ type, values, updateInputs }) {
       ? encryptionSelected
       : values.encryptionType;
   const favoriteSelect = values.favorite == undefined ? true : values.favorite;
-  console.log(encryptionType);
   return (
     <>
       <Grid item xs={6}>

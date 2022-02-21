@@ -8,7 +8,6 @@ function ButtonsCrud({
   closeDataForm,
   action,
 }) {
-  console.log(action);
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
       {action == 'Add' && (

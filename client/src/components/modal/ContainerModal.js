@@ -16,9 +16,6 @@ const style = {
 };
 
 function ContainerModal({ name, favorite, id, closeModal, action }) {
-  const handleSubmit = () => {
-    console.log('action');
-  };
   return (
     <Box sx={style}>
       <Box

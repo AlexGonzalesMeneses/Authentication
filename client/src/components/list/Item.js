@@ -19,17 +19,18 @@ import Modal from '@mui/material/Modal';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Tooltip from '@mui/material/Tooltip';
+import Swal from 'sweetalert2';
 import ListContext from '../../context/ListContext';
 import { GetInformation } from '../../services/information/Get';
+import { DeleteInformation } from '../../services/information/Delete';
 
-function Item({ data }) {
+function Item({ data, reRender }) {
   const { name, informationType, favorite } = data;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isFavorite, setIsFavorite] = React.useState(favorite);
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const [action, setAction] = React.useState('Show');
   const { idContainer } = useContext(ListContext);
-  console.log(data.id);
   const [itemInformation, setItemInformation] = React.useState({});
   const open = Boolean(anchorEl);
 
@@ -104,13 +105,30 @@ function Item({ data }) {
     console.log('share');
   };
   const removeItem = () => {
-    console.log('remove');
+    Swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCloseButton: true,
+      showConfirmButton: true,
+      showDenyButton: true,
+      confirmButtonText: 'Deleted',
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        DeleteInformation(idContainer, informationType, data.id);
+        Swal.fire('Deleted!', '', 'success');
+        reRender();
+      } else if (result.isDenied) {
+        Swal.fire('Deleted canceled', '', 'info');
+      }
+    });
   };
 
   const handleOpenMainModal = () => {
     setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {
+    reRender();
     setOpenMainModal(false);
   };
   useEffect(() => {
