@@ -26,7 +26,16 @@ namespace Dev33.UltimateTeam.Application.Services
         {
             try
             {
+                var containerExisted = await unitOfWork.ContainerRepository.GetByIdAsync(note.ContainerId);
+
+                if (containerExisted == null)
+                {
+                    throw new Exception("Not found container");
+                }
+
                 var informationMapped = InformationMapper.Map(note);
+                //informationMapped.Container = containerExisted;
+
                 var noteMapped = NoteMapper.Map(note, informationMapped.Id);
 
                 var inforamationCreated = await unitOfWork.InformationRepository.AddAsync(informationMapped);
@@ -106,8 +115,6 @@ namespace Dev33.UltimateTeam.Application.Services
             await unitOfWork.TagRepository.AddTagsAsync(informationMapped.Tags);
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
             await unitOfWork.NoteRepository.UpdateAsync(noteMapped);
-
-            var informationUpdated = await unitOfWork.InformationRepository.GetByIdAsync(informationMapped.Id);
 
             return NoteMapper.Map(noteMapped, informationMapped);
         }

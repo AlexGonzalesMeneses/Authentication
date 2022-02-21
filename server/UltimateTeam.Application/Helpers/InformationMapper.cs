@@ -21,7 +21,7 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Favorite = note.Favorite,
                 Name = note.Name,
                 InformationType = (InformationType)Enum.Parse(typeof(InformationType), note.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptorType),
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptionType),
                 Tags = TagMapper.GetTags(note.Tags, id)
             };
         }
@@ -36,7 +36,7 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Favorite = note.Favorite,
                 Name = note.Name,
                 InformationType = (InformationType)Enum.Parse(typeof(InformationType), note.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptorType),
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptionType),
                 Tags = TagMapper.GetTags(note.Tags, id)
             };
         }

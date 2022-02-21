@@ -34,12 +34,10 @@ namespace Dev33.UltimateTeam.Application.Services
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 Favorite = request.Favorite,
-                User = user,
-                UserId = user.Id
+                UserId = userId
             };
 
             await unitOfWork.ContainerRepository.AddAsync(container);
-            await unitOfWork.SaveChangesAsync();
 
             return new ContainerResponseDto
             {
@@ -132,7 +130,7 @@ namespace Dev33.UltimateTeam.Application.Services
             containerToUpdate.Name = container.Name;
             containerToUpdate.Favorite = container.Favorite;
 
-            await unitOfWork.SaveChangesAsync();
+            await unitOfWork.ContainerRepository.UpdateAsync(containerToUpdate);
         }
     }
 }
