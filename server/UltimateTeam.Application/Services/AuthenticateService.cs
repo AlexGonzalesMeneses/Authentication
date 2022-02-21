@@ -19,33 +19,25 @@ namespace Dev33.UltimateTeam.Application.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<UserResponseDto> AuthenticateAsync(UserRequestDto request)
+        public async Task<User> AuthenticateAsync(string email, string userName, string password)
         {
-            var user = await unitOfWork.UserRepository.GetByEmailAsync(request.Email)
-                ?? await unitOfWork.UserRepository.GetByUserNameAsync(request.UserName);
+            var userExists = await unitOfWork.UserRepository.GetByEmailAsync(email)
+                ?? await unitOfWork.UserRepository.GetByUserNameAsync(userName);
             
-            if (user == null)
+            if (userExists == null)
             {
                 throw new Exception("User not found");
             }
 
-            if (!user.Password.Equals(request.Password))
+            if (!userExists.Password.Equals(password))
             {
                 throw new Exception("Password is incorrect");
             }
 
-            var response = new UserResponseDto
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-                FullName = user.FullName
-            };
-
-            return response;
+            return userExists;
         }
 
-        public async Task<UserResponseDto> RegisterAsync(User request)
+        public async Task<User> RegisterAsync(User request)
         {
             var user = await unitOfWork.UserRepository.GetByEmailAsync(request.Email)
                 ?? await unitOfWork.UserRepository.GetByUserNameAsync(request.UserName);
@@ -57,9 +49,7 @@ namespace Dev33.UltimateTeam.Application.Services
 
             await unitOfWork.UserRepository.AddAsync(request);
 
-            var response = new UserResponseDto { Id = request.Id, UserName = request.UserName, Email = request.Email, FullName = request.FullName };
-
-            return response;
+            return request;
         }
     }
 }

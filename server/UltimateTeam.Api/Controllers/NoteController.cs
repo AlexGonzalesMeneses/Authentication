@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dev33.UltimateTeam.Api.Services.LoggerService;
 using Dev33.UltimateTeam.Application.Contracts.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,15 +17,17 @@ namespace UltimateTeam.Api.Controllers
     {
         private INoteService noteService;
         private readonly ILoggerManager loggerManager;
+        private IMapper mapper;
 
-        public NoteController(INoteService noteService, ILoggerManager loggerManager)
+        public NoteController(INoteService noteService, ILoggerManager loggerManager, IMapper mapper)
         {
             this.noteService = noteService;
             this.loggerManager = loggerManager;
+            this.mapper = mapper;
         }
 
         [HttpGet("{noteId:guid}")]
-        public async Task<ActionResult<NoteResponseDto>> GetById(Guid containerId, Guid noteId)
+        public async Task<ActionResult<NoteResponseDto>> GetById(Guid noteId)
         {
             try
             {
@@ -58,7 +61,7 @@ namespace UltimateTeam.Api.Controllers
         }
 
         [HttpPut("{noteId:guid}")]
-        public async Task<ActionResult<NoteResponseDto>> Update(Guid containerId, Guid noteId, NoteRequestDto note)
+        public async Task<ActionResult<NoteResponseDto>> Update(Guid noteId, NoteRequestDto note)
         {
             try
             {
@@ -73,7 +76,7 @@ namespace UltimateTeam.Api.Controllers
         }
 
         [HttpDelete("{noteId:guid}")]
-        public async Task<ActionResult<NoteResponseDto>> Delete(Guid containerId, Guid noteId)
+        public async Task<ActionResult<NoteResponseDto>> Delete(Guid noteId)
         {
             try
             {

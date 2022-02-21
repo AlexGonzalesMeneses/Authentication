@@ -10,7 +10,7 @@ namespace Dev33.UltimateTeam.Application.Contracts.Services
 {
     public interface IAuthenticateService
     {
-        Task<UserResponseDto> AuthenticateAsync(UserRequestDto request);
-        Task<UserResponseDto> RegisterAsync(User request);
+        Task<User> AuthenticateAsync(string email, string userName, string password);
+        Task<User> RegisterAsync(User request);
     }
 }

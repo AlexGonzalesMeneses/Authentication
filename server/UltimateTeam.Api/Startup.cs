@@ -51,6 +51,8 @@ namespace Dev33.UltimateTeam.Api
               .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUserRepository, UserRepository>();
