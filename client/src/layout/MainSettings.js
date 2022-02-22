@@ -10,7 +10,6 @@ import React, { useContext } from 'react';
 import ListContext from '../context/ListContext';
 function MainSettings() {
   const { encryptionSelected, selectEncryption } = useContext(ListContext);
-  console.log(encryptionSelected);
   return (
     <Box
       sx={{

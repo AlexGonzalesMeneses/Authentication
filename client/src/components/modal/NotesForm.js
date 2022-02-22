@@ -19,7 +19,7 @@ function NotesForm({ idItem, data, closeModal, action }) {
     containerId: idContainer,
     name: name || '',
     tags: tagsResponse || '',
-    favorite: favorite || true,
+    favorite: favorite == undefined ? true : favorite,
     description: description || '',
     type: 'Note',
     encryptionType: encryptionType || encryptionSelected,
@@ -30,6 +30,10 @@ function NotesForm({ idItem, data, closeModal, action }) {
   };
   const updateDataForm = () => {
     PutInformation(idContainer, noteData, 'Note', idItem);
+    closeModal();
+  };
+  const cloneDataForm = () => {
+    PostInformation(idContainer, noteData, 'Note');
     closeModal();
   };
   const closeDataForm = () => {
@@ -72,6 +76,7 @@ function NotesForm({ idItem, data, closeModal, action }) {
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
         closeDataForm={closeDataForm}
+        cloneDataForm={cloneDataForm}
         action={action}
       />
     </>

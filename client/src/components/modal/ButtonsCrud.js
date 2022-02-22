@@ -1,7 +1,13 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
 
-function ButtonsCrud({ addDataForm, updateDataForm, closeDataForm, action }) {
+function ButtonsCrud({
+  addDataForm,
+  updateDataForm,
+  cloneDataForm,
+  closeDataForm,
+  action,
+}) {
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
       {action == 'Add' && (
@@ -36,6 +42,23 @@ function ButtonsCrud({ addDataForm, updateDataForm, closeDataForm, action }) {
           onClick={updateDataForm}
         >
           Save
+        </Button>
+      )}
+      {action == 'Clone' && (
+        <Button
+          sx={{
+            bgcolor: 'tertiary.main',
+            color: 'quaternary.light',
+            width: '50%',
+            margin: '20px auto',
+            '&:hover': {
+              bgcolor: 'tertiary.dark',
+            },
+          }}
+          variant="contained"
+          onClick={cloneDataForm}
+        >
+          Clone
         </Button>
       )}
       {action == 'Show' && (

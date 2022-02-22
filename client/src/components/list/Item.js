@@ -33,6 +33,7 @@ function Item({ data, reRender }) {
   const [action, setAction] = React.useState('Show');
   const { idContainer } = useContext(ListContext);
   const [itemInformation, setItemInformation] = React.useState({});
+  const [tagsInformation, setTagsInformation] = React.useState({});
   const open = Boolean(anchorEl);
   const iconType = () => {
     switch (informationType) {
@@ -90,23 +91,26 @@ function Item({ data, reRender }) {
     e.stopPropagation();
     setAnchorEl(null);
   };
-  const handleFavorite = (e) => {
+  const handleFavorite = (e, item) => {
     e.stopPropagation();
-    /*  let tagsResponse = isFavorite.tags.toString();
-    console.log(isFavorite.tags);
-    console.log(tagsResponse);
-    setIsFavorite({ ...isFavorite, favorite: !isFavorite.favorite });
-    setIsFavorite({ ...isFavorite, tags: tagsResponse });
-    //To do update
-    console.log(isFavorite);
-    PutInformation(idContainer, isFavorite, informationType, data.id); */
+    const newFavorite = !itemInformation.favorite;
+    let tagsResponse = itemInformation.tags.toString();
+    item.favorite = newFavorite;
+    item.tags = tagsResponse;
+    item.containerId = idContainer;
+    PutInformation(idContainer, item, informationType, data.id);
+    setItemInformation({
+      ...itemInformation,
+      favorite: newFavorite,
+    });
   };
   const editItem = () => {
     setAction('Edit');
     setOpenMainModal(true);
   };
   const copyItem = () => {
-    console.log('copy');
+    setAction('Clone');
+    setOpenMainModal(true);
   };
   const shareItem = () => {
     console.log('share');
@@ -140,10 +144,10 @@ function Item({ data, reRender }) {
     setOpenMainModal(false);
   };
   useEffect(() => {
-    GetInformation(idContainer, informationType, data.id).then((data) =>
-      setItemInformation(data)
-    );
-  }, []);
+    GetInformation(idContainer, informationType, data.id).then((data) => {
+      setItemInformation(data);
+    });
+  }, [data]);
 
   return (
     <>
@@ -181,7 +185,7 @@ function Item({ data, reRender }) {
               pb: '25px',
             }}
           >
-            {name.length > 100 ? `${name.substring(0, 100)}...` : name}
+            {itemInformation.name}
           </Box>
           <Box
             sx={{
@@ -192,9 +196,9 @@ function Item({ data, reRender }) {
             }}
           >
             {iconType()}
-            {isFavorite ? (
+            {itemInformation.favorite ? (
               <Tooltip title="Favorite" enterDelay={500} leaveDelay={200}>
-                <IconButton onClick={handleFavorite}>
+                <IconButton onClick={(e) => handleFavorite(e, itemInformation)}>
                   <StarIcon
                     sx={{
                       color: 'secondary.dark',
@@ -207,7 +211,7 @@ function Item({ data, reRender }) {
               </Tooltip>
             ) : (
               <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
-                <IconButton onClick={handleFavorite}>
+                <IconButton onClick={(e) => handleFavorite(e, itemInformation)}>
                   <StarBorderIcon
                     sx={{
                       color: 'secondary.dark',
@@ -254,7 +258,7 @@ function Item({ data, reRender }) {
                   </IconButton>
                 </MenuItem>
               </Tooltip>
-              <Tooltip title="Copy" disableInteractive placement="right">
+              <Tooltip title="Clone" disableInteractive placement="right">
                 <MenuItem onClick={handleCloseMore}>
                   <IconButton onClick={copyItem} sx={{ padding: '0px' }}>
                     <ContentCopyIcon />
