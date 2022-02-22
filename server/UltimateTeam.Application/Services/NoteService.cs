@@ -1,13 +1,16 @@
 ﻿using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using Dev33.UltimateTeam.Application.Contracts.Services;
+using Dev33.UltimateTeam.Application.Encyptors;
 using Dev33.UltimateTeam.Application.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UltimateTeam.Application.Dtos;
 using UltimateTeam.Application.Helpers;
+using UltimateTeam.Application.Helpers.Factories;
 using UltimateTeam.Domain.Models;
 using UltimateTeam.Domain.Models.SensitiveInformations;
 
@@ -33,13 +36,16 @@ namespace Dev33.UltimateTeam.Application.Services
                     throw new Exception("Not found container");
                 }
 
+                IEncryptor encryptor = FactoryEncryptor.Create(note.EncryptionType);
+
                 var informationMapped = InformationMapper.Map(note);
-                //informationMapped.Container = containerExisted;
 
                 var noteMapped = NoteMapper.Map(note, informationMapped.Id);
 
+                var noteEncrypted = HandleEncryption.HandleEncryptData(noteMapped, encryptor, true);
+
                 var inforamationCreated = await unitOfWork.InformationRepository.AddAsync(informationMapped);
-                var noteCreated = await unitOfWork.NoteRepository.AddAsync(noteMapped);
+                var noteCreated = await unitOfWork.NoteRepository.AddAsync((Note)noteEncrypted);
 
                 var tags = await unitOfWork.TagRepository.GetTagsAsync(inforamationCreated.Id);
                 inforamationCreated.Tags = (List<Tag>)tags;
@@ -48,7 +54,7 @@ namespace Dev33.UltimateTeam.Application.Services
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception(ex.InnerException.Message);
             }
         }
 
@@ -78,20 +84,17 @@ namespace Dev33.UltimateTeam.Application.Services
             var information = await unitOfWork.InformationRepository.GetByIdAsync(id);
             var tags = await unitOfWork.TagRepository.GetTagsAsync(information.Id);
             information.Tags = (List<Tag>)tags;
-
-            if (information == null)
-            {
-                throw new ArgumentException("Information not found");
-            }
-
             var note = await unitOfWork.NoteRepository.GetByIdAsync(id);
 
-            if (note == null)
+            if (information == null || note == null)
             {
                 throw new ArgumentException("Note not found");
             }
 
-            return NoteMapper.Map(note, information);
+            IEncryptor encryptor = FactoryEncryptor.Create(information.EncryptorType.ToString());
+            var noteDecrypted = HandleEncryption.HandleEncryptData(note, encryptor, false);
+
+            return NoteMapper.Map((Note)noteDecrypted, information);
         }
 
         public async Task<NoteResponseDto> UpdateNote(NoteRequestDto note, Guid noteId)
@@ -99,12 +102,7 @@ namespace Dev33.UltimateTeam.Application.Services
             var informationExisted = await unitOfWork.InformationRepository.GetByIdAsync(noteId);
             var noteExisted = await unitOfWork.NoteRepository.GetByIdAsync(noteId);
 
-            if (informationExisted == null)
-            {
-                throw new ArgumentException("Information not found");
-            }
-
-            if (noteExisted == null)
+            if (informationExisted == null || noteExisted == null)
             {
                 throw new ArgumentException("Note not found");
             }
@@ -113,8 +111,12 @@ namespace Dev33.UltimateTeam.Application.Services
             var noteMapped = NoteMapper.Map(note, informationMapped.Id);
             await unitOfWork.TagRepository.RemoveTagsAsync(informationExisted.Id);
             await unitOfWork.TagRepository.AddTagsAsync(informationMapped.Tags);
+
+            IEncryptor encryptor = FactoryEncryptor.Create(informationMapped.EncryptorType.ToString());
+            var noteEncrypted = HandleEncryption.HandleEncryptData(noteMapped, encryptor, true);
+
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
-            await unitOfWork.NoteRepository.UpdateAsync(noteMapped);
+            await unitOfWork.NoteRepository.UpdateAsync((Note)noteEncrypted);
 
             return NoteMapper.Map(noteMapped, informationMapped);
         }
