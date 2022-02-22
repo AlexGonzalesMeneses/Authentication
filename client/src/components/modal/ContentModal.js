@@ -9,16 +9,21 @@ import { Grid } from '@mui/material';
 import ListContext from '../../context/ListContext';
 import { GetInformation } from '../../services/information/Get';
 
-export default function ContentModal({ data, action, closeModal, typeSelect }) {
-  const { informationType, id } = data;
+export default function ContentModal({
+  data,
+  idItem,
+  action,
+  closeModal,
+  typeSelect,
+}) {
+  const { informationType } = data;
   const { idContainer } = React.useContext(ListContext);
-
   const formType = () => {
     switch (informationType || typeSelect) {
       case 'Note':
         return (
           <NotesForm
-            id={id}
+            idItem={idItem}
             data={data}
             action={action}
             closeModal={closeModal}
@@ -27,16 +32,25 @@ export default function ContentModal({ data, action, closeModal, typeSelect }) {
       case 'Credential':
         return (
           <CredentialsForm
+            idItem={idItem}
             data={data}
             action={action}
             closeModal={closeModal}
           />
         );
       case 'Key':
-        return <KeysForm data={data} action={action} closeModal={closeModal} />;
+        return (
+          <KeysForm
+            idItem={idItem}
+            data={data}
+            action={action}
+            closeModal={closeModal}
+          />
+        );
       case 'CreditCard':
         return (
           <CreditCardsForm
+            idItem={idItem}
             data={data}
             action={action}
             closeModal={closeModal}
@@ -44,7 +58,12 @@ export default function ContentModal({ data, action, closeModal, typeSelect }) {
         );
       case 'Contact':
         return (
-          <ContactsForm data={data} action={action} closeModal={closeModal} />
+          <ContactsForm
+            idItem={idItem}
+            data={data}
+            action={action}
+            closeModal={closeModal}
+          />
         );
       default:
         console.log('This is a form built with React');

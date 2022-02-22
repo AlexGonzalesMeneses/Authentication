@@ -18,13 +18,6 @@ import ContainerModal from '../modal/ContainerModal';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 
-const containerRoot = {
-  id: '0',
-  name: 'Root',
-  container: 'root',
-  isFavorite: 'true',
-};
-
 const iconStyle = {
   fontSize: '30px',
   color: 'secondary.light',

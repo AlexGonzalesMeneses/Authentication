@@ -4,7 +4,7 @@ import { GetInformation } from '../services/information/Get';
 
 const ListContext = createContext();
 function ListProvider({ children }) {
-  const [idRootContainer] = useState('EC4C47D9-609C-4979-AB55-8336699F5A34');
+  const [idRootContainer] = useState('f287438b-d035-4b76-8184-bd13f3ae55a0');
   const [idContainer, setIdContainer] = useState(idRootContainer);
   const [nameContainer, setNameContainer] = useState('Root');
 
@@ -19,6 +19,7 @@ function ListProvider({ children }) {
   const selectEncryption = () => {};
 
   const [addItem, setAddItem] = useState(true);
+
   const addItemselected = () => {
     setAddItem(!addItem);
   };
@@ -30,6 +31,7 @@ function ListProvider({ children }) {
     selectContainerName,
     nameContainer,
     encryptionSelected,
+    selectEncryption,
     addItem,
     addItemselected,
   };

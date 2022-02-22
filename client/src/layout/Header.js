@@ -16,6 +16,7 @@ import InputBase from '@mui/material/InputBase';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SearchIcon from '@mui/icons-material/Search';
 import UserContext from '../context/UserContext';
+import { Outlet, NavLink } from 'react-router-dom';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -55,14 +56,23 @@ export default function AccountMenu() {
               height: '60px',
             }}
           >
-            <Typography sx={{ ...navButtomStyle }}>Home</Typography>
-            <Typography sx={{ ...navButtomStyle, marginLeft: '-10rem' }}>
-              Settings
-            </Typography>
-            <Typography sx={{ ...navButtomStyle, marginLeft: '-10rem' }}>
-              Share
-            </Typography>
-
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                columnGap: '45px',
+              }}
+            >
+              <NavLink to="/" style={{ textDecoration: 'none' }}>
+                <Typography sx={{ ...navButtomStyle }}>Home</Typography>
+              </NavLink>
+              <NavLink to="/settings" style={{ textDecoration: 'none' }}>
+                <Typography sx={{ ...navButtomStyle }}>Settings</Typography>
+              </NavLink>
+              <NavLink to="/share" style={{ textDecoration: 'none' }}>
+                <Typography sx={{ ...navButtomStyle }}>Share</Typography>
+              </NavLink>
+            </Box>
             <Paper
               component="form"
               sx={{

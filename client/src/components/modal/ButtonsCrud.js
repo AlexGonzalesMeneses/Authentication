@@ -1,13 +1,7 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
 
-function ButtonsCrud({
-  id,
-  addDataForm,
-  updateDataForm,
-  closeDataForm,
-  action,
-}) {
+function ButtonsCrud({ addDataForm, updateDataForm, closeDataForm, action }) {
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
       {action == 'Add' && (

@@ -1,4 +1,4 @@
-export const PutInformation = (idContainer, data, idInformation) => {
+export const PutInformation = (idContainer, data, type, idInformation) => {
   const isToken = localStorage.getItem('token');
   const UserId = localStorage.getItem('UserId');
   fetch(

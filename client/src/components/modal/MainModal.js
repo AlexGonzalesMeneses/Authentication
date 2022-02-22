@@ -13,7 +13,13 @@ const style = {
   bgcolor: 'primary.light',
 };
 
-export default function MainModal({ data, action, closeModal, typeSelect }) {
+export default function MainModal({
+  data,
+  idItem,
+  action,
+  closeModal,
+  typeSelect,
+}) {
   return (
     <Box sx={style}>
       <Box
@@ -38,6 +44,7 @@ export default function MainModal({ data, action, closeModal, typeSelect }) {
       >
         <ContentModal
           data={data}
+          idItem={idItem}
           action={action}
           closeModal={closeModal}
           typeSelect={typeSelect}

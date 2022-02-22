@@ -4,16 +4,21 @@ import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
 import ListContext from '../../context/ListContext';
 import { PostInformation } from '../../services/information/Post';
+import { PutInformation } from '../../services/information/Put';
 
-function NotesForm({ id, data, closeModal, action }) {
+function NotesForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const { text, name, tags, favorite, description, type, encryptionType } =
     data;
+  let tagsResponse = '';
+  if (action != 'Add') {
+    tagsResponse = tags.toString();
+  }
   const [noteData, setNoteData] = useState({
     text: text || '',
     containerId: idContainer,
     name: name || '',
-    tags: tags || '',
+    tags: tagsResponse || '',
     favorite: favorite || true,
     description: description || '',
     type: 'Note',
@@ -24,7 +29,7 @@ function NotesForm({ id, data, closeModal, action }) {
     closeModal();
   };
   const updateDataForm = () => {
-    //SendPutContainer(containerData, id);
+    PutInformation(idContainer, noteData, 'Note', idItem);
     closeModal();
   };
   const closeDataForm = () => {
@@ -63,7 +68,7 @@ function NotesForm({ id, data, closeModal, action }) {
         />
       </Grid>
       <ButtonsCrud
-        id={id}
+        idItem={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
         closeDataForm={closeDataForm}

@@ -23,6 +23,7 @@ import Swal from 'sweetalert2';
 import ListContext from '../../context/ListContext';
 import { GetInformation } from '../../services/information/Get';
 import { DeleteInformation } from '../../services/information/Delete';
+import { PutInformation } from '../../services/information/Put';
 
 function Item({ data, reRender }) {
   const { name, informationType, favorite } = data;
@@ -33,7 +34,6 @@ function Item({ data, reRender }) {
   const { idContainer } = useContext(ListContext);
   const [itemInformation, setItemInformation] = React.useState({});
   const open = Boolean(anchorEl);
-
   const iconType = () => {
     switch (informationType) {
       case 'Key':
@@ -92,10 +92,17 @@ function Item({ data, reRender }) {
   };
   const handleFavorite = (e) => {
     e.stopPropagation();
-    setIsFavorite(!isFavorite);
+    /*  let tagsResponse = isFavorite.tags.toString();
+    console.log(isFavorite.tags);
+    console.log(tagsResponse);
+    setIsFavorite({ ...isFavorite, favorite: !isFavorite.favorite });
+    setIsFavorite({ ...isFavorite, tags: tagsResponse });
     //To do update
+    console.log(isFavorite);
+    PutInformation(idContainer, isFavorite, informationType, data.id); */
   };
   const editItem = () => {
+    setAction('Edit');
     setOpenMainModal(true);
   };
   const copyItem = () => {
@@ -125,6 +132,7 @@ function Item({ data, reRender }) {
   };
 
   const handleOpenMainModal = () => {
+    setAction('Show');
     setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {
@@ -278,6 +286,7 @@ function Item({ data, reRender }) {
         <Box>
           <MainModal
             data={itemInformation}
+            idItem={data.id}
             action={action}
             closeModal={handleCloseMainModal}
             typeSelect={informationType}

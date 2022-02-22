@@ -75,7 +75,6 @@ function Container({ data, reRender }) {
   };
   const handleSelectContainer = () => {
     selectContainer(id);
-    setAction('Show');
     selectContainerName(name);
   };
   return (
