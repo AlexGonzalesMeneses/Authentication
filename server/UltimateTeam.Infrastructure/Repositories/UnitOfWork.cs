@@ -20,6 +20,7 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
         public IInformationRepository InformationRepository => new InformationRepository(context);
         public INoteRepository NoteRepository => new NoteRepository(context);
         public ITagRepository TagRepository => new TagRepository(context);
+        public IKeyRepository KeyRepository => new KeyRepository(context);
 
         public async Task SaveChangesAsync()
         {

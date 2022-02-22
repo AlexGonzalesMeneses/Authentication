@@ -26,6 +26,7 @@ namespace Dev33.UltimateTeam.Infrastructure.DataManagers
             modelBuilder.ApplyConfiguration(new InformationConfiguration());
             modelBuilder.ApplyConfiguration(new TagConfiguration());
             modelBuilder.ApplyConfiguration(new NoteConfiguration());
+            modelBuilder.ApplyConfiguration(new KeyConfiguration());
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))

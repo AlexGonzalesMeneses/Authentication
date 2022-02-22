@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Dev33.UltimateTeam.Application.Dtos;
 using Dev33.UltimateTeam.Domain.Enums;
 using UltimateTeam.Application.Dtos;
 using UltimateTeam.Application.Helpers;
@@ -26,6 +27,24 @@ namespace Dev33.UltimateTeam.Application.Helpers
             };
         }
 
+        public static Information Map(KeyRequestDto key)
+        {
+            var id = Guid.NewGuid();
+
+            return new Information
+            {
+                Id = id,
+                ContainerId = key.ContainerId,
+                Description = key.Description,
+                Favorite = key.Favorite,
+                Name = key.Name,
+                InformationType = (InformationType)Enum.Parse(typeof(InformationType), key.Type),
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), key.EncryptionType),
+                Tags = TagMapper.GetTags(key.Tags, id)
+            };
+        }
+
+
         public static Information Map(Guid id, NoteRequestDto note)
         {
             return new Information
@@ -38,6 +57,21 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 InformationType = (InformationType)Enum.Parse(typeof(InformationType), note.Type),
                 EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptionType),
                 Tags = TagMapper.GetTags(note.Tags, id)
+            };
+        }
+
+        public static Information Map(Guid id, KeyRequestDto key)
+        {
+            return new Information
+            {
+                Id = id,
+                ContainerId = key.ContainerId,
+                Description = key.Description,
+                Favorite = key.Favorite,
+                Name = key.Name,
+                InformationType = (InformationType)Enum.Parse(typeof(InformationType), key.Type),
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), key.EncryptionType),
+                Tags = TagMapper.GetTags(key.Tags, id)
             };
         }
     }

@@ -58,6 +58,8 @@ namespace Dev33.UltimateTeam.Api
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IContainerRepository, ContainerRepository>();
             services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<IKeyService, KeyService>();
+            services.AddTransient<IKeyRepository, KeyRepository>();
             services.AddTransient<IInformationRepository, InformationRepository>();
             services.AddTransient<IAuthenticateService, AuthenticateService>();
             services.AddTransient<IContainerService, ContainerService>();

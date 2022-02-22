@@ -19,6 +19,7 @@ namespace Dev33.UltimateTeam.Application.Services
     public class NoteService : INoteService
     {
         private readonly IUnitOfWork unitOfWork;
+        private IEncryptor encryptor;
 
         public NoteService(IUnitOfWork unitOfWork)
         {
@@ -36,7 +37,7 @@ namespace Dev33.UltimateTeam.Application.Services
                     throw new Exception("Not found container");
                 }
 
-                IEncryptor encryptor = FactoryEncryptor.Create(note.EncryptionType);
+                encryptor = FactoryEncryptor.Create(note.EncryptionType);
 
                 var informationMapped = InformationMapper.Map(note);
 
@@ -91,7 +92,7 @@ namespace Dev33.UltimateTeam.Application.Services
                 throw new ArgumentException("Note not found");
             }
 
-            IEncryptor encryptor = FactoryEncryptor.Create(information.EncryptorType.ToString());
+            encryptor = FactoryEncryptor.Create(information.EncryptorType.ToString());
             var noteDecrypted = HandleEncryption.HandleEncryptData(note, encryptor, false);
 
             return NoteMapper.Map((Note)noteDecrypted, information);
@@ -112,7 +113,7 @@ namespace Dev33.UltimateTeam.Application.Services
             await unitOfWork.TagRepository.RemoveTagsAsync(informationExisted.Id);
             await unitOfWork.TagRepository.AddTagsAsync(informationMapped.Tags);
 
-            IEncryptor encryptor = FactoryEncryptor.Create(informationMapped.EncryptorType.ToString());
+            encryptor = FactoryEncryptor.Create(informationMapped.EncryptorType.ToString());
             var noteEncrypted = HandleEncryption.HandleEncryptData(noteMapped, encryptor, true);
 
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
