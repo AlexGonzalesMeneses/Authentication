@@ -15,7 +15,6 @@ export const PostInformation = (idContainer, data, type) => {
   )
     .then((resp) => resp.json())
     .catch((error) => {
-      if ((error = 'Error')) {
-      }
+      console.log(error);
     });
 };

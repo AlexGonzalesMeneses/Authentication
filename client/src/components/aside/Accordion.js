@@ -59,7 +59,6 @@ function Accordion() {
     const containerList = () => {
       fetchContainer().then((data) => setInformation(data));
     };
-    setRender(render);
     containerList();
   }, [render]);
   return (

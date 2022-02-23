@@ -15,7 +15,7 @@ const style = {
   bgcolor: 'primary.light',
 };
 
-function ContainerModal({ name, favorite, id, closeModal, action }) {
+function ContainerModal({ name, favorite, idItem, closeModal, action }) {
   return (
     <Box sx={style}>
       <Box
@@ -39,7 +39,7 @@ function ContainerModal({ name, favorite, id, closeModal, action }) {
         <ContainerForm
           name={name}
           favorite={favorite}
-          id={id}
+          idItem={idItem}
           closeModal={closeModal}
           action={action}
         />

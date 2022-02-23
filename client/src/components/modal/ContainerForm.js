@@ -9,17 +9,19 @@ import {
   TextField,
 } from '@mui/material';
 import Swal from 'sweetalert2';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 
 import { SendPostContainer } from '@pathSendPost';
 import { SendPutContainer } from '@pathSendPut';
 import ButtonsCrud from './ButtonsCrud';
 
-function ContainerForm({ name, favorite, id, closeModal, action }) {
+function ContainerForm({ name, favorite, idItem, closeModal, action }) {
+  const UserId = localStorage.getItem('UserId');
   const [containerData, setContainerData] = useState({
     name: name || '',
-    favorite: favorite || true,
+    favorite: favorite == undefined ? true : favorite,
+    userId: UserId,
   });
   const handleSubmit = () => {};
   const addDataForm = () => {
@@ -34,7 +36,7 @@ function ContainerForm({ name, favorite, id, closeModal, action }) {
   };
 
   const updateDataForm = () => {
-    SendPutContainer(containerData, id);
+    SendPutContainer(containerData, idItem);
     Swal.fire({
       title: 'Container updated',
       icon: 'success',
@@ -87,7 +89,7 @@ function ContainerForm({ name, favorite, id, closeModal, action }) {
               onChange={(e) =>
                 setContainerData({
                   ...containerData,
-                  favorite: e.target.value == 'true' ? true : false,
+                  favorite: e.target.value,
                 })
               }
               label="Favorite"
@@ -99,7 +101,7 @@ function ContainerForm({ name, favorite, id, closeModal, action }) {
         </Grid>
 
         <ButtonsCrud
-          id={id}
+          idItem={idItem}
           addDataForm={addDataForm}
           updateDataForm={updateDataForm}
           action={action}

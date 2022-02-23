@@ -6,6 +6,7 @@ function ButtonsCrud({
   updateDataForm,
   cloneDataForm,
   closeDataForm,
+  shareDataForm,
   action,
 }) {
   return (
@@ -15,7 +16,7 @@ function ButtonsCrud({
           sx={{
             bgcolor: 'tertiary.main',
             color: 'quaternary.light',
-            width: '50%',
+            width: '40%',
             margin: '20px auto',
             '&:hover': {
               bgcolor: 'tertiary.dark',
@@ -32,7 +33,7 @@ function ButtonsCrud({
           sx={{
             bgcolor: 'tertiary.main',
             color: 'quaternary.light',
-            width: '50%',
+            width: '40%',
             margin: '20px auto',
             '&:hover': {
               bgcolor: 'tertiary.dark',
@@ -49,7 +50,7 @@ function ButtonsCrud({
           sx={{
             bgcolor: 'tertiary.main',
             color: 'quaternary.light',
-            width: '50%',
+            width: '40%',
             margin: '20px auto',
             '&:hover': {
               bgcolor: 'tertiary.dark',
@@ -61,23 +62,39 @@ function ButtonsCrud({
           Clone
         </Button>
       )}
-      {action == 'Show' && (
+      {action == 'Share' && (
         <Button
           sx={{
             bgcolor: 'tertiary.main',
             color: 'quaternary.light',
-            width: '50%',
+            width: '40%',
             margin: '20px auto',
             '&:hover': {
               bgcolor: 'tertiary.dark',
             },
           }}
           variant="contained"
-          onClick={closeDataForm}
+          onClick={shareDataForm}
         >
-          Close
+          Share
         </Button>
       )}
+
+      <Button
+        sx={{
+          bgcolor: 'tertiary.main',
+          color: 'quaternary.light',
+          width: '40%',
+          margin: '20px auto',
+          '&:hover': {
+            bgcolor: 'tertiary.dark',
+          },
+        }}
+        variant="contained"
+        onClick={closeDataForm}
+      >
+        Close
+      </Button>
     </Box>
   );
 }

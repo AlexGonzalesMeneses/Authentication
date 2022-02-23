@@ -8,6 +8,7 @@ import CredentialsForm from './CredentialsForm';
 import { Grid } from '@mui/material';
 import ListContext from '../../context/ListContext';
 import { GetInformation } from '../../services/information/Get';
+import ShareForm from './ShareForm';
 
 export default function ContentModal({
   data,
@@ -88,7 +89,16 @@ export default function ContentModal({
             },
           }}
         >
-          {formType()}
+          {action == 'Share' ? (
+            <ShareForm
+              idItem={idItem}
+              data={data}
+              action={action}
+              closeModal={closeModal}
+            />
+          ) : (
+            formType()
+          )}
         </Grid>
       </Box>
     </Box>

@@ -17,13 +17,15 @@ import ListContext from '../../context/ListContext';
 
 function Container({ data, reRender }) {
   const { name, id, favorite } = data;
-  const { nameContainer, selectContainerName, idContainer, selectContainer } =
+  const { nameContainer, selectContainerName, selectContainer } =
     useContext(ListContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isfavorite, setIsFavorite] = React.useState(favorite);
+  const UserId = localStorage.getItem('UserId');
   const [dataContainer, SetDataContainer] = React.useState({
     name: name,
     favorite: favorite,
+    userId: UserId,
   });
   const [action, setAction] = React.useState('Show');
   const [openMainModal, setOpenMainModal] = React.useState(false);
@@ -196,7 +198,7 @@ function Container({ data, reRender }) {
           <ContainerModal
             name={name}
             favorite={favorite}
-            id={id}
+            idItem={id}
             closeModal={handleCloseMainModal}
             action={action}
           />

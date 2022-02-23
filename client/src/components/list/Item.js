@@ -113,7 +113,8 @@ function Item({ data, reRender }) {
     setOpenMainModal(true);
   };
   const shareItem = () => {
-    console.log('share');
+    setAction('Share');
+    setOpenMainModal(true);
   };
   const removeItem = () => {
     Swal.fire({
