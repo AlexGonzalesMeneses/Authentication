@@ -23,7 +23,7 @@ function NotesForm({ idItem, data, closeModal, action }) {
     favorite: favorite == undefined ? true : favorite,
     description: description || '',
     type: 'Note',
-    encryptionType: encryptionType || encryptionSelected,
+    encryptionType: encryptionType || encryptionSelected
   });
   const addDataForm = () => {
     PostInformation(idContainer, noteData, 'Note');
@@ -52,7 +52,7 @@ function NotesForm({ idItem, data, closeModal, action }) {
     name,
     tags,
     text,
-    type,
+    type
   };
   return (
     <>

@@ -5,7 +5,7 @@ import InformationForm from './InformationForm';
 import ListContext from '../../context/ListContext';
 import { PostInformation } from '../../services/information/Post';
 
-function CredentialsForm({ id, data, closeModal, action }) {
+function CredentialsForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
     name,
@@ -21,8 +21,8 @@ function CredentialsForm({ id, data, closeModal, action }) {
   const [credentialData, setCredentialData] = useState({
     name: name || '',
     containerId: idContainer || '',
-    informationType: informationType || '',
-    favorite: favorite || true,
+    type: 'Credential',
+    favorite: favorite == undefined ? true : favorite,
     description: description || '',
     tags: tags || '',
     encryptionType: encryptionType || encryptionSelected,
@@ -35,7 +35,11 @@ function CredentialsForm({ id, data, closeModal, action }) {
     closeModal();
   };
   const updateDataForm = () => {
-    // To doSendPutContainer(containerData, id);
+    PutInformation(idContainer, credentialData, 'Credential', idItem);
+    closeModal();
+  };
+  const cloneDataForm = () => {
+    PostInformation(idContainer, credentialData, 'Credential');
     closeModal();
   };
   const closeDataForm = () => {
@@ -43,7 +47,7 @@ function CredentialsForm({ id, data, closeModal, action }) {
     closeModal();
   };
   const updateInputs = (input) => (e) => {
-    setCreditCardData({ ...credentialData, [input]: e.target.value });
+    setCredentialData({ ...credentialData, [input]: e.target.value });
   };
   const values = {
     name,
@@ -93,7 +97,7 @@ function CredentialsForm({ id, data, closeModal, action }) {
         />
       </Grid>
       <ButtonsCrud
-        id={id}
+        id={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
         closeDataForm={closeDataForm}

@@ -5,7 +5,7 @@ import InformationForm from './InformationForm';
 import ListContext from '../../context/ListContext';
 import { PostInformation } from '../../services/information/Post';
 
-function CreditCardsForm({ id, data, closeModal, action }) {
+function CreditCardsForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
     name,
@@ -18,12 +18,17 @@ function CreditCardsForm({ id, data, closeModal, action }) {
     expiration,
     cvv,
   } = data;
+  let tagsResponse = '';
+  if (action != 'Add') {
+    tagsResponse = tags.toString();
+  }
+  let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
 
   const [creditCardData, setCreditCardData] = useState({
     name: name || '',
     containerId: idContainer || '',
-    informationType: informationType || '',
-    favorite: favorite || true,
+    type: 'CreditCard',
+    favorite: favorite == undefined ? true : favorite,
     description: description || '',
     tags: tags || '',
     encryptionType: encryptionType || encryptionSelected,
@@ -36,7 +41,11 @@ function CreditCardsForm({ id, data, closeModal, action }) {
     closeModal();
   };
   const updateDataForm = () => {
-    //SendPutContainer(containerData, id);
+    PutInformation(idContainer, creditCardData, 'CreditCard', idItem);
+    closeModal();
+  };
+  const cloneDataForm = () => {
+    PostInformation(idContainer, creditCardData, 'CreditCard');
     closeModal();
   };
   const closeDataForm = () => {
@@ -92,7 +101,7 @@ function CreditCardsForm({ id, data, closeModal, action }) {
               expiration: e.target.value,
             })
           }
-          informationType="date"
+          type="date"
           InputLabelProps={{
             shrink: true,
           }}
@@ -112,7 +121,7 @@ function CreditCardsForm({ id, data, closeModal, action }) {
         />
       </Grid>
       <ButtonsCrud
-        id={id}
+        id={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
         closeDataForm={closeDataForm}

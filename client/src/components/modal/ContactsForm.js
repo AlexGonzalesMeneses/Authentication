@@ -5,7 +5,7 @@ import InformationForm from './InformationForm';
 import ListContext from '../../context/ListContext';
 import { PostInformation } from '../../services/information/Post';
 
-function ContactsForm({ id, data, closeModal, action }) {
+function ContactsForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
     name,
@@ -29,8 +29,8 @@ function ContactsForm({ id, data, closeModal, action }) {
   const [contactData, setContactData] = useState({
     name: name || '',
     containerId: idContainer || '',
-    informationType: informationType || '',
-    favorite: favorite || true,
+    type: 'Contact',
+    favorite: favorite == undefined ? true : favorite,
     description: description || '',
     tags: tags || '',
     encryptionType: encryptionType || encryptionSelected,
@@ -52,7 +52,11 @@ function ContactsForm({ id, data, closeModal, action }) {
     closeModal();
   };
   const updateDataForm = () => {
-    //SendPutContainer(containerData, id);
+    PutInformation(idContainer, contactData, 'Contact', idItem);
+    closeModal();
+  };
+  const cloneDataForm = () => {
+    PostInformation(idContainer, contactData, 'Contact');
     closeModal();
   };
   const closeDataForm = () => {
@@ -60,7 +64,7 @@ function ContactsForm({ id, data, closeModal, action }) {
     closeModal();
   };
   const updateInputs = (input) => (e) => {
-    setCreditCardData({ ...contactData, [input]: e.target.value });
+    setContactData({ ...contactData, [input]: e.target.value });
   };
   const values = {
     name,
@@ -237,7 +241,7 @@ function ContactsForm({ id, data, closeModal, action }) {
         />
       </Grid>
       <ButtonsCrud
-        id={id}
+        id={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
         closeDataForm={closeDataForm}
