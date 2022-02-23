@@ -150,8 +150,8 @@ function ContactsForm({ idItem, data, closeModal, action }) {
           margin="normal"
           required
           fullWidth
-          id="contry"
-          label="Contry"
+          id="coutry"
+          label="Country"
           defaultValue={contry}
           onChange={(e) =>
             setContactData({ ...contactData, contry: e.target.value })
@@ -241,10 +241,11 @@ function ContactsForm({ idItem, data, closeModal, action }) {
         />
       </Grid>
       <ButtonsCrud
-        id={idItem}
+        idItem={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
         closeDataForm={closeDataForm}
+        cloneDataForm={cloneDataForm}
         action={action}
       />
     </>

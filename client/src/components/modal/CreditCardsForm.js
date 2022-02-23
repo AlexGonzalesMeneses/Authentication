@@ -121,10 +121,11 @@ function CreditCardsForm({ idItem, data, closeModal, action }) {
         />
       </Grid>
       <ButtonsCrud
-        id={idItem}
+        idItem={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
         closeDataForm={closeDataForm}
+        cloneDataForm={cloneDataForm}
         action={action}
       />
     </>
