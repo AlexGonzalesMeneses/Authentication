@@ -11,6 +11,10 @@ namespace Dev33.UltimateTeam.Application.Contracts.Repositories
     public interface IUnitOfWork
     {
         ITagRepository TagRepository { get; }
+        IContactRepository ContactRepository { get; }
+        IAddressRepository AddressRepository { get; }
+        IPhoneRepository PhoneRepository { get; }
+        IEmailRepository EmailRepository { get; }
         IKeyRepository KeyRepository { get; }
         IUserRepository UserRepository { get; }
         INoteRepository NoteRepository { get; }

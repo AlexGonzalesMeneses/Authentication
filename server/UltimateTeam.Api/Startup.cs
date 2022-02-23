@@ -60,6 +60,8 @@ namespace Dev33.UltimateTeam.Api
             services.AddTransient<INoteRepository, NoteRepository>();
             services.AddTransient<IKeyService, KeyService>();
             services.AddTransient<IKeyRepository, KeyRepository>();
+            services.AddTransient<IContactRepository, ContactRepository>();
+            services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IInformationRepository, InformationRepository>();
             services.AddTransient<IAuthenticateService, AuthenticateService>();
             services.AddTransient<IContainerService, ContainerService>();

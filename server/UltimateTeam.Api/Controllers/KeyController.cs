@@ -1,13 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using Dev33.UltimateTeam.Api.Services.LoggerService;
 using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Dtos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UltimateTeam.Application.Dtos;
 
 namespace UltimateTeam.Api.Controllers
 {
@@ -18,13 +16,11 @@ namespace UltimateTeam.Api.Controllers
     {
         private IKeyService keyService;
         private readonly ILoggerManager loggerManager;
-        private IMapper mapper;
 
-        public KeyController(IKeyService keyService, ILoggerManager loggerManager, IMapper mapper)
+        public KeyController(IKeyService keyService, ILoggerManager loggerManager)
         {
             this.keyService = keyService;
             this.loggerManager = loggerManager;
-            this.mapper = mapper;
         }
 
         [HttpGet("{keyId:guid}")]

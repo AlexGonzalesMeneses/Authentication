@@ -2,35 +2,35 @@ using System;
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Api.Services.LoggerService;
 using Dev33.UltimateTeam.Application.Contracts.Services;
+using Dev33.UltimateTeam.Application.Dtos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UltimateTeam.Application.Dtos;
 
 namespace UltimateTeam.Api.Controllers
 {
     [Route("api/users/{userId:guid}/containers/{containerId:guid}/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    public class NoteController : ControllerBase
+    public class ContactController : ControllerBase
     {
-        private INoteService noteService;
+        private IContactService contactService;
         private readonly ILoggerManager loggerManager;
 
-        public NoteController(INoteService noteService, ILoggerManager loggerManager)
+        public ContactController(IContactService contactService, ILoggerManager loggerManager)
         {
-            this.noteService = noteService;
+            this.contactService = contactService;
             this.loggerManager = loggerManager;
         }
 
-        [HttpGet("{noteId:guid}")]
-        public async Task<ActionResult<NoteResponseDto>> GetById(Guid noteId)
+        [HttpGet("{contactId:guid}")]
+        public async Task<ActionResult<ContactResponseDto>> GetById(Guid contactId)
         {
             try
             {
-                var note = await noteService.GetNoteById(noteId);
+                var response = await contactService.GetContactById(contactId);
 
-                return Ok(note);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -41,13 +41,13 @@ namespace UltimateTeam.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<NoteResponseDto>> Create(NoteRequestDto note)
+        public async Task<ActionResult<ContactResponseDto>> Create(ContactRequestDto contact)
         {
             try
             {
-                var createdNote = await noteService.CreateNote(note);
+                var response = await contactService.CreateContact(contact);
 
-                return Ok(createdNote);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -57,29 +57,31 @@ namespace UltimateTeam.Api.Controllers
             }
         }
 
-        [HttpPut("{noteId:guid}")]
-        public async Task<ActionResult<NoteResponseDto>> Update(Guid noteId, NoteRequestDto note)
+        [HttpPut("{contactId:guid}")]
+        public async Task<ActionResult<ContactResponseDto>> Update(Guid contactId, ContactRequestDto contact)
         {
             try
             {
-                var updatedNote = await noteService.UpdateNote(note, noteId);
-                return Ok(updatedNote);
+                var response = await contactService.UpdateContact(contact, contactId);
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
                 loggerManager.LogError(ex);
+
                 return BadRequest(ex.Message);
             }
         }
 
-        [HttpDelete("{noteId:guid}")]
-        public async Task<ActionResult<NoteResponseDto>> Delete(Guid noteId)
+        [HttpDelete("{contactId:guid}")]
+        public async Task<ActionResult<ContactResponseDto>> Delete(Guid contactId)
         {
             try
             {
-                var deletedNote = await noteService.DeleteNote(noteId);
+                var response = await contactService.DeleteContact(contactId);
 
-                return Ok(deletedNote);
+                return Ok(response);
             }
             catch (Exception ex)
             {

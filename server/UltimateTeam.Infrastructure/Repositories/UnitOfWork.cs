@@ -16,11 +16,24 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
         }
 
         public IUserRepository UserRepository => new UserRepository(context);
+        
         public IContainerRepository ContainerRepository => new ContainerRepository(context);
+
         public IInformationRepository InformationRepository => new InformationRepository(context);
+
         public INoteRepository NoteRepository => new NoteRepository(context);
+
         public ITagRepository TagRepository => new TagRepository(context);
+
         public IKeyRepository KeyRepository => new KeyRepository(context);
+
+        public IContactRepository ContactRepository => new ContactRepository(context);
+
+        public IAddressRepository AddressRepository => new AddressRepository(context);
+
+        public IPhoneRepository PhoneRepository => new PhoneRepository(context);
+
+        public IEmailRepository EmailRepository => new EmailRepository(context);
 
         public async Task SaveChangesAsync()
         {

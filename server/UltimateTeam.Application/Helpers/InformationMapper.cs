@@ -44,6 +44,22 @@ namespace Dev33.UltimateTeam.Application.Helpers
             };
         }
 
+        public static Information Map(ContactRequestDto contact)
+        {
+            var id = Guid.NewGuid();
+
+            return new Information
+            {
+                Id = id,
+                ContainerId = contact.ContainerId,
+                Description = contact.Description,
+                Favorite = contact.Favorite,
+                Name = contact.Name,
+                InformationType = (InformationType)Enum.Parse(typeof(InformationType), contact.Type),
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), contact.EncryptionType),
+                Tags = TagMapper.GetTags(contact.Tags, id)
+            };
+        }
 
         public static Information Map(Guid id, NoteRequestDto note)
         {
@@ -72,6 +88,21 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 InformationType = (InformationType)Enum.Parse(typeof(InformationType), key.Type),
                 EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), key.EncryptionType),
                 Tags = TagMapper.GetTags(key.Tags, id)
+            };
+        }
+
+        public static Information Map(Guid id, ContactRequestDto contact)
+        {
+            return new Information
+            {
+                Id = id,
+                ContainerId = contact.ContainerId,
+                Description = contact.Description,
+                Favorite = contact.Favorite,
+                Name = contact.Name,
+                InformationType = (InformationType)Enum.Parse(typeof(InformationType), contact.Type),
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), contact.EncryptionType),
+                Tags = TagMapper.GetTags(contact.Tags, id)
             };
         }
     }

@@ -39,7 +39,8 @@ namespace UltimateTeam.Infrastructure.DataManagers.Configurations
 
             builder.HasMany(x => x.Tags)
                 .WithOne(x => x.Information)
-                .HasForeignKey(x => x.InformationId);
+                .HasForeignKey(x => x.InformationId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

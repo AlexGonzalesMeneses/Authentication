@@ -35,7 +35,8 @@ namespace Dev33.UltimateTeam.Infrastructure.DataManagers.Configurations
 
             builder.HasMany(x => x.Informations)
                 .WithOne(x => x.Container)
-                .HasForeignKey(x => x.ContainerId);
+                .HasForeignKey(x => x.ContainerId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
