@@ -14,10 +14,11 @@ function NotesForm({ idItem, data, closeModal, action }) {
   if (action != 'Add') {
     tagsResponse = tags.toString();
   }
+  let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
   const [noteData, setNoteData] = useState({
     text: text || '',
     containerId: idContainer,
-    name: name || '',
+    name: nameResponse || '',
     tags: tagsResponse || '',
     favorite: favorite == undefined ? true : favorite,
     description: description || '',

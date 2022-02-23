@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 const UserContext = createContext();
 const isToken = localStorage.getItem('token');
-const InitialUser = isToken.length > 600 ? true : null;
+const InitialUser = true;
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(InitialUser);

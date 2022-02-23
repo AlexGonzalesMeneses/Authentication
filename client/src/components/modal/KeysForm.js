@@ -4,8 +4,9 @@ import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
 import ListContext from '../../context/ListContext';
 import { PostInformation } from '../../services/information/Post';
+import { PutInformation } from '../../services/information/Put';
 
-function KeysForm({ id, data, closeModal, action }) {
+function KeysForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
     name,
@@ -17,14 +18,18 @@ function KeysForm({ id, data, closeModal, action }) {
     serial,
     urls,
   } = data;
-
+  let tagsResponse = '';
+  if (action != 'Add') {
+    tagsResponse = tags.toString();
+  }
+  let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
   const [keyData, setKeyData] = useState({
-    name: name || '',
+    name: nameResponse || '',
     containerId: idContainer || '',
-    informationType: informationType || '',
-    favorite: favorite || true,
+    type: 'Key',
+    favorite: favorite == undefined ? true : favorite,
     description: description || '',
-    tags: tags || '',
+    tags: tagsResponse || '',
     encryptionType: encryptionType || encryptionSelected,
     serial: serial || '',
     urls: urls || '',
@@ -34,11 +39,14 @@ function KeysForm({ id, data, closeModal, action }) {
     closeModal();
   };
   const updateDataForm = () => {
-    //SendPutContainer(containerData, id);
+    PutInformation(idContainer, keyData, 'Key', idItem);
+    closeModal();
+  };
+  const cloneDataForm = () => {
+    PostInformation(idContainer, keyData, 'Key');
     closeModal();
   };
   const closeDataForm = () => {
-    //SendPutContainer(containerData, id);
     closeModal();
   };
   const updateInputs = (input) => (e) => {
@@ -74,27 +82,12 @@ function KeysForm({ id, data, closeModal, action }) {
           onChange={(e) => setKeyData({ ...keyData, serial: e.target.value })}
         />
       </Grid>
-      <Grid item xs={6}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="urls"
-          label="Urls:"
-          defaultValue={urls}
-          onChange={(e) =>
-            setKeyData({
-              ...keyData,
-              urls: e.target.value,
-            })
-          }
-        />
-      </Grid>
       <ButtonsCrud
-        id={id}
+        idItem={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
         closeDataForm={closeDataForm}
+        cloneDataForm={cloneDataForm}
         action={action}
       />
     </>
