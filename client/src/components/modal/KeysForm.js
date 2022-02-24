@@ -2,9 +2,9 @@ import { Box, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
-import ListContext from '../../context/ListContext';
-import { PostInformation } from '../../services/information/Post';
-import { PutInformation } from '../../services/information/Put';
+import ListContext from '@pathListContext';
+import { PostInformation } from '@pathPost';
+import { PutInformation } from '@pathPut';
 
 function KeysForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);

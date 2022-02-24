@@ -27,12 +27,18 @@ module.exports = {
       '@pathSendGet': path.resolve(__dirname, 'src/services/SendGet'),
       '@pathstylesindex': path.resolve(__dirname, 'src/styles/index'),
       '@pathUserContext': path.resolve(__dirname, 'src/context/UserContext'),
+      '@pathListContext': path.resolve(__dirname, 'src/context/ListContext'),
       '@pathvalidatePassword': path.resolve(
         __dirname,
         'src/helpers/validatePassword'
       ),
       '@pathSendPost': path.resolve(__dirname, 'src/services/SendPost'),
       '@pathSendPut': path.resolve(__dirname, 'src/services/SendPut'),
+      '@pathGet': path.resolve(__dirname, 'src/services/information/Get'),
+      '@pathPut': path.resolve(__dirname, 'src/services/information/Put'),
+      '@pathPost': path.resolve(__dirname, 'src/services/information/Post'),
+      '@pathDelete': path.resolve(__dirname, 'src/services/information/Delete'),
+      '@pathShare': path.resolve(__dirname, 'src/services/information/Share'),
     },
   },
   module: {

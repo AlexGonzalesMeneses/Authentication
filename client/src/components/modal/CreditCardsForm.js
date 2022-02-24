@@ -2,8 +2,8 @@ import { Box, Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
-import ListContext from '../../context/ListContext';
-import { PostInformation } from '../../services/information/Post';
+import ListContext from '@pathListContext';
+import { PostInformation } from '@pathPost';
 
 function CreditCardsForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);

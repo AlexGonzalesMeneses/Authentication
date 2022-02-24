@@ -8,6 +8,7 @@ function IconNav({ element, title, navClick }) {
       title={title}
       enterDelay={500}
       leaveDelay={200}
+      placement={title == 'Add' ? 'right' : 'bottom'}
       onClick={(e) => navClick(e, title)}
     >
       <IconButton>{element}</IconButton>

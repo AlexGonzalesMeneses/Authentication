@@ -7,7 +7,7 @@ import {
   TextField,
 } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import ListContext from '../../context/ListContext';
+import ListContext from '@pathListContext';
 
 function InformationForm({ type, values, updateInputs }) {
   const { nameContainer, encryptionSelected } = useContext(ListContext);

@@ -6,8 +6,7 @@ import KeysForm from './KeysForm';
 import NotesForm from './NotesForm';
 import CredentialsForm from './CredentialsForm';
 import { Grid } from '@mui/material';
-import ListContext from '../../context/ListContext';
-import { GetInformation } from '../../services/information/Get';
+import ListContext from '@pathListContext';
 import ShareForm from './ShareForm';
 
 export default function ContentModal({

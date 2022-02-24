@@ -13,7 +13,7 @@ import { SendDelete } from '@pathSendDelete';
 import Modal from '@mui/material/Modal';
 import ContainerModal from '../modal/ContainerModal';
 import Swal from 'sweetalert2';
-import ListContext from '../../context/ListContext';
+import ListContext from '@pathListContext';
 
 function Container({ data, reRender }) {
   const { name, id, favorite } = data;

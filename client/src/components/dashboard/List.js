@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import Item from '../list/Item';
 import Pagination from '../helpers/Pagination';
 import { SendGet } from '@pathSendGet';
-import ListContext from '../../context/ListContext';
+import ListContext from '@pathListContext';
 
 function List() {
   const { addItem, idContainer } = useContext(ListContext);

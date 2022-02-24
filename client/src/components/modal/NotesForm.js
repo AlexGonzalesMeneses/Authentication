@@ -2,9 +2,9 @@ import { Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
-import ListContext from '../../context/ListContext';
-import { PostInformation } from '../../services/information/Post';
-import { PutInformation } from '../../services/information/Put';
+import ListContext from '@pathListContext';
+import { PostInformation } from '@pathPost';
+import { PutInformation } from '@pathPut';
 
 function NotesForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
@@ -23,13 +23,14 @@ function NotesForm({ idItem, data, closeModal, action }) {
     favorite: favorite == undefined ? true : favorite,
     description: description || '',
     type: 'Note',
-    encryptionType: encryptionType || encryptionSelected
+    encryptionType: encryptionType || encryptionSelected,
   });
   const addDataForm = () => {
     PostInformation(idContainer, noteData, 'Note');
     closeModal();
   };
   const updateDataForm = () => {
+    console.log(noteData);
     PutInformation(idContainer, noteData, 'Note', idItem);
     closeModal();
   };
@@ -52,7 +53,7 @@ function NotesForm({ idItem, data, closeModal, action }) {
     name,
     tags,
     text,
-    type
+    type,
   };
   return (
     <>

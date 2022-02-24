@@ -1,15 +1,9 @@
 import React, { useContext, useEffect } from 'react';
-import { useState } from 'react';
 import { Box } from '@mui/system';
 import ShareIcon from '@mui/icons-material/Share';
 import EditIcon from '@mui/icons-material/Edit';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import PhoneIcon from '@mui/icons-material/Phone';
-import KeyIcon from '@mui/icons-material/Key';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -20,68 +14,20 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Tooltip from '@mui/material/Tooltip';
 import Swal from 'sweetalert2';
-import ListContext from '../../context/ListContext';
-import { GetInformation } from '../../services/information/Get';
-import { DeleteInformation } from '../../services/information/Delete';
-import { PutInformation } from '../../services/information/Put';
+import ListContext from '@pathListContext';
+import ItemsIcons from './ItemsIcons';
+import { GetInformation } from '@pathGet';
+import { DeleteInformation } from '@pathDelete';
+import { PutInformation } from '@pathPut';
 
 function Item({ data, reRender }) {
-  const { name, informationType, favorite } = data;
+  const { informationType, favorite } = data;
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isFavorite, setIsFavorite] = React.useState(favorite);
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const [action, setAction] = React.useState('Show');
   const { idContainer } = useContext(ListContext);
   const [itemInformation, setItemInformation] = React.useState({});
-  const [tagsInformation, setTagsInformation] = React.useState({});
   const open = Boolean(anchorEl);
-  const iconType = () => {
-    switch (informationType) {
-      case 'Key':
-        return (
-          <Tooltip title="Key" enterDelay={500} leaveDelay={200}>
-            <IconButton>
-              <KeyIcon />
-            </IconButton>
-          </Tooltip>
-        );
-      case 'Credential':
-        return (
-          <Tooltip title="Credential" enterDelay={500} leaveDelay={200}>
-            <IconButton>
-              <AccountBoxIcon />
-            </IconButton>
-          </Tooltip>
-        );
-      case 'CreditCard':
-        return (
-          <Tooltip title="CreditCard" enterDelay={500} leaveDelay={200}>
-            <IconButton>
-              <CreditCardIcon />
-            </IconButton>
-          </Tooltip>
-        );
-      case 'Contact':
-        return (
-          <Tooltip title="Contact" enterDelay={500} leaveDelay={200}>
-            <IconButton>
-              <PhoneIcon />
-            </IconButton>
-          </Tooltip>
-        );
-      case 'Note':
-        return (
-          <Tooltip title="Note" enterDelay={500} leaveDelay={200}>
-            <IconButton>
-              <LibraryBooksIcon />
-            </IconButton>
-          </Tooltip>
-        );
-
-      default:
-        return <h1>No icon match</h1>;
-    }
-  };
 
   const handleClickMore = (event) => {
     event.stopPropagation();
@@ -196,7 +142,7 @@ function Item({ data, reRender }) {
               justifyContent: 'space-between',
             }}
           >
-            {iconType()}
+            <ItemsIcons informationType={informationType} />
             {itemInformation.favorite ? (
               <Tooltip title="Favorite" enterDelay={500} leaveDelay={200}>
                 <IconButton onClick={(e) => handleFavorite(e, itemInformation)}>

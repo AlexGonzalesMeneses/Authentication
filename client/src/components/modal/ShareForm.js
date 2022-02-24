@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, TextField } from '@mui/material';
 import ButtonsCrud from './ButtonsCrud';
-import { ShareInformation } from '../../services/information/Share';
+import { ShareInformation } from '@pathShare';
 
 function ShareForm({ idItem, data, closeModal, action }) {
   //Userid
