@@ -20,7 +20,7 @@ function Container({ data, reRender }) {
   const { nameContainer, selectContainerName, selectContainer } =
     useContext(ListContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isfavorite, setIsFavorite] = React.useState(favorite);
+  const [isFavorite, setIsFavorite] = React.useState(favorite);
   const UserId = localStorage.getItem('UserId');
   const [dataContainer, SetDataContainer] = React.useState({
     name: name,
@@ -45,12 +45,11 @@ function Container({ data, reRender }) {
 
   const handleFavorite = (event) => {
     event.stopPropagation();
-    setIsFavorite(!isfavorite);
-    SetDataContainer({ ...dataContainer, favorite: !isfavorite });
+    setIsFavorite(!isFavorite);
+    reRender();
+    console.log('sadasd');
+    SendPutContainer({ ...dataContainer, favorite: !favorite }, id);
   };
-  useEffect(() => {
-    SendPutContainer(dataContainer, id);
-  }, [isfavorite]);
 
   const handleChangeNameItem = () => {
     setAction('Edit');
@@ -119,7 +118,7 @@ function Container({ data, reRender }) {
         {name}
       </Box>
       <Box sx={{ display: 'flex', columnGap: '15px' }}>
-        {isfavorite ? (
+        {favorite ? (
           <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
             <IconButton onClick={handleFavorite}>
               <StarIcon

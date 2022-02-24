@@ -8,7 +8,6 @@ import ListContext from '@pathListContext';
 function List() {
   const { addItem, idContainer } = useContext(ListContext);
   const [information, setInformation] = useState([]);
-  const [error, setError] = useState();
   const [render, setRender] = React.useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);

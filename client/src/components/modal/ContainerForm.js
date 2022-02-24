@@ -23,7 +23,9 @@ function ContainerForm({ name, favorite, idItem, closeModal, action }) {
     favorite: favorite == undefined ? true : favorite,
     userId: UserId,
   });
-  const handleSubmit = () => {};
+  const handleSubmit = (event) => {
+    event.stopPropagation();
+  };
   const addDataForm = () => {
     SendPostContainer(containerData);
     Swal.fire({
@@ -45,12 +47,14 @@ function ContainerForm({ name, favorite, idItem, closeModal, action }) {
     });
     closeModal();
   };
+  const closeDataForm = () => {
+    //SendPutContainer(containerData, id);
+    closeModal();
+  };
 
   return (
     <Box
-      component="form"
-      onSubmit={handleSubmit}
-      noValidate
+      onSubmit={(e) => handleSubmit(e)}
       sx={{ height: '100%', width: '80%', margin: 'auto' }}
     >
       <Grid
@@ -104,6 +108,7 @@ function ContainerForm({ name, favorite, idItem, closeModal, action }) {
           idItem={idItem}
           addDataForm={addDataForm}
           updateDataForm={updateDataForm}
+          closeDataForm={closeDataForm}
           action={action}
         />
       </Grid>
