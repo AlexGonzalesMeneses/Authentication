@@ -14,7 +14,8 @@ function List() {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts =
-    information && information.slice(indexOfFirstPost, indexOfLastPost);
+    information &&
+    information.sort(SortArray).slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber + 1);
   };
@@ -32,6 +33,15 @@ function List() {
     noteList();
   }, [idContainer, render, addItem]);
 
+  function SortArray(x, y) {
+    if (x.name < y.name) {
+      return -1;
+    }
+    if (x.name > y.name) {
+      return 1;
+    }
+    return 0;
+  }
   return (
     <Box sx={{ width: '80%', margin: 'auto' }}>
       {information && (
