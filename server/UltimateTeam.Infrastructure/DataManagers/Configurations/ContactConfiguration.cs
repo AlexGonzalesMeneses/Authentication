@@ -30,24 +30,19 @@ namespace Dev33.UltimateTeam.Infrastructure.DataManagers.Configurations
                 .HasMaxLength(55);
 
             builder.Property<string>(x => x.LastName)
-                .HasColumnName("LastName")
-                .HasMaxLength(55);
+                .HasColumnName("LastName");
 
             builder.Property<string>(x => x.Business)
-                .HasColumnName("Business")
-                .HasMaxLength(55);
+                .HasColumnName("Business");
 
             builder.Property<string>(x => x.Zip)
-                .HasColumnName("Zip")
-                .HasMaxLength(10);
+                .HasColumnName("Zip");
 
             builder.Property<string>(x => x.Country)
-                .HasColumnName("Country")
-                .HasMaxLength(15);
+                .HasColumnName("Country");
 
             builder.Property<string>(x => x.State)
-                .HasColumnName("State")
-                .HasMaxLength(25);
+                .HasColumnName("State");
 
             builder.Property<DateTime>(x => (DateTime)x.Birthday)
                 .HasColumnName("Birthday")
@@ -55,18 +50,15 @@ namespace Dev33.UltimateTeam.Infrastructure.DataManagers.Configurations
 
             builder.HasMany(x => x.Emails)
                 .WithOne(x => x.Contact)
-                .HasForeignKey(x => x.ContactId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(x => x.ContactId);
 
             builder.HasMany(x => x.Phones)
                 .WithOne(x => x.Contact)
-                .HasForeignKey(x => x.ContactId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(x => x.ContactId);
 
             builder.HasMany(x => x.Addresses)
                 .WithOne(x => x.Contact)
-                .HasForeignKey(x => x.ContactId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(x => x.ContactId);
         }
     }
 }

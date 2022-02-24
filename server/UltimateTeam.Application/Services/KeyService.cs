@@ -27,49 +27,35 @@ namespace Dev33.UltimateTeam.Application.Services
 
         public async Task<KeyResponseDto> CreateKey(KeyRequestDto key)
         {
-            try
+            var containerExisted = await unitOfWork.ContainerRepository.GetByIdAsync(key.ContainerId);
+
+            if (containerExisted == null)
             {
-                var containerExisted = await unitOfWork.ContainerRepository.GetByIdAsync(key.ContainerId);
-
-                if (containerExisted == null)
-                {
-                    throw new Exception("Container not found");
-                }
-
-                encryptor = FactoryEncryptor.Create(key.EncryptionType);
-                var informationMapped = InformationMapper.Map(key);
-                var keyMapped = KeyMapper.Map(key, informationMapped.Id);
-                var keyEncrypted = HandleEncryption.HandleEncryptData(keyMapped, encryptor, encrypt: true);
-                var informationCreated = await unitOfWork.InformationRepository.AddAsync(informationMapped);
-                var keyCreated = await unitOfWork.KeyRepository.AddAsync((Key)keyEncrypted);
-                var tags = await unitOfWork.TagRepository.GetTagsAsync(informationCreated.Id);
-                informationCreated.Tags = (List<Tag>)tags;
-
-                return KeyMapper.Map(keyCreated, informationCreated);
+                throw new Exception("Container not found");
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+
+            encryptor = FactoryEncryptor.Create(key.EncryptionType);
+            var informationMapped = InformationMapper.Map(key);
+            var keyMapped = KeyMapper.Map(key, informationMapped.Id);
+            var keyEncrypted = HandleEncryption.HandleEncryptData(keyMapped, encryptor, encrypt: true);
+            var informationCreated = await unitOfWork.InformationRepository.AddAsync(informationMapped);
+            var keyCreated = await unitOfWork.KeyRepository.AddAsync((Key)keyEncrypted);
+            var tags = await unitOfWork.TagRepository.GetTagsAsync(informationCreated.Id);
+            informationCreated.Tags = (List<Tag>)tags;
+
+            return KeyMapper.Map(keyCreated, informationCreated);
         }
 
         public async Task<KeyResponseDto> DeleteKey(Guid id)
         {
-            try
-            {
-                var key = await unitOfWork.KeyRepository.GetByIdAsync(id);
-                var information = await unitOfWork.InformationRepository.GetByIdAsync(key.Id);
-                var tags = await unitOfWork.TagRepository.GetTagsAsync(information.Id);
-                information.Tags = (List<Tag>)tags;
-                await unitOfWork.KeyRepository.DeleteAsync(key);
-                await unitOfWork.InformationRepository.DeleteAsync(information);
+            var key = await unitOfWork.KeyRepository.GetByIdAsync(id);
+            var information = await unitOfWork.InformationRepository.GetByIdAsync(key.Id);
+            var tags = await unitOfWork.TagRepository.GetTagsAsync(information.Id);
+            information.Tags = (List<Tag>)tags;
+            await unitOfWork.KeyRepository.DeleteAsync(key);
+            await unitOfWork.InformationRepository.DeleteAsync(information);
 
-                return KeyMapper.Map(key, information);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return KeyMapper.Map(key, information);
         }
 
         public async Task<KeyResponseDto> GetKeyById(Guid id)
@@ -78,12 +64,7 @@ namespace Dev33.UltimateTeam.Application.Services
             var tags = await unitOfWork.TagRepository.GetTagsAsync(information.Id);
             information.Tags = (List<Tag>)tags;
             var key = await unitOfWork.KeyRepository.GetByIdAsync(information.Id);
-
-            if (key == null || information == null)
-            {
-                throw new Exception("Key not found");
-            }
-
+            ValidateExistence(information, key);
             encryptor = FactoryEncryptor.Create(information.EncryptorType.ToString());
             var keyDecrypted = HandleEncryption.HandleEncryptData(key, encryptor, encrypt: false);
 
@@ -94,22 +75,26 @@ namespace Dev33.UltimateTeam.Application.Services
         {
             var informationExisted = await unitOfWork.InformationRepository.GetByIdAsync(keyId);
             var keyExisted = await unitOfWork.KeyRepository.GetByIdAsync(keyId);
-
-            if (informationExisted == null || keyExisted == null)
-            {
-                throw new Exception("Key not found");
-            }
-
+            ValidateExistence(informationExisted, keyExisted);
             var informationMapped = InformationMapper.Map(informationExisted.Id, key);
             var keyMapped = KeyMapper.Map(key, informationMapped.Id);
             await unitOfWork.TagRepository.RemoveTagsAsync(informationExisted.Id);
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
+            await unitOfWork.TagRepository.AddTagsAsync(informationMapped.Tags);
             encryptor = FactoryEncryptor.Create(informationMapped.EncryptorType.ToString());
             var keyEncrypted = HandleEncryption.HandleEncryptData(keyMapped, encryptor, encrypt: true);
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
             await unitOfWork.KeyRepository.UpdateAsync((Key)keyEncrypted);
 
-            return KeyMapper.Map(keyExisted, informationMapped);
+            return KeyMapper.Map((Key)keyEncrypted, informationMapped);
+        }
+
+        private void ValidateExistence(Information information, Key key)
+        {
+            if (information == null || key == null)
+            {
+                throw new Exception("Key not found");
+            }
         }
     }
 }

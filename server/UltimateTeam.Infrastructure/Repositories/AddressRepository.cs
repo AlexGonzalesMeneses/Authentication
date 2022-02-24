@@ -16,6 +16,12 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
         {
         }
 
+        public async Task AddAddresses(List<Address> addresses)
+        {
+            await context.Set<Address>().AddRangeAsync(addresses);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Address>> GetAddressesByContactId(Guid contactId)
         {
             return await context.Set<Address>().Where(x => x.ContactId == contactId).ToListAsync();

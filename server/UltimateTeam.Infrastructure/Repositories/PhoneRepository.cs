@@ -16,6 +16,12 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
         {
         }
 
+        public async Task AddPhones(List<Phone> phones)
+        {
+            await context.Set<Phone>().AddRangeAsync(phones);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Phone>> GetPhonesByContactId(Guid contactId)
         {
             return await context.Set<Phone>().Where(x => x.ContactId == contactId).ToListAsync();

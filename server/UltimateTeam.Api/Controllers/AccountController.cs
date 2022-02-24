@@ -71,7 +71,7 @@ namespace Dev33.UltimateTeam.Api.Controllers
                 audience: "UltimateTeam",
                 claims,
                 DateTime.Now,
-                DateTime.UtcNow.AddMinutes(60)
+                DateTime.UtcNow.AddMinutes(100)
             );
 
             var token = new JwtSecurityToken(header, payload);

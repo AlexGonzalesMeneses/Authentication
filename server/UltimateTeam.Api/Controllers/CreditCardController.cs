@@ -1,38 +1,38 @@
 using System;
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Api.Services.LoggerService;
-using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Dtos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UltimateTeam.Application.Contracts.Services;
+using UltimateTeam.Application.Dtos;
 
 namespace UltimateTeam.Api.Controllers
 {
     [Route("api/users/{userId:guid}/containers/{containerId:guid}/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    public class ContactController : ControllerBase
+    public class CreditCardController : ControllerBase
     {
-        private IContactService contactService;
+        private readonly ICreditCardService creditCardService;
         private readonly ILoggerManager loggerManager;
 
-        public ContactController(IContactService contactService, ILoggerManager loggerManager)
+        public CreditCardController(ICreditCardService creditCardService, ILoggerManager loggerManager)
         {
-            this.contactService = contactService;
+            this.creditCardService = creditCardService;
             this.loggerManager = loggerManager;
         }
 
-        [HttpGet("{contactId:guid}")]
-        public async Task<ActionResult<ContactResponseDto>> GetById(Guid contactId)
+        [HttpGet("{creditCardId:guid}")]
+        public async Task<ActionResult<CreditCardResponseDto>> GetById(Guid creditCardId)
         {
             try
             {
-                var response = await contactService.GetContactById(contactId);
+                var response = await creditCardService.GetCreditCardById(creditCardId);
 
                 return Ok(response);
             }
-
             catch (Exception ex)
             {
                 loggerManager.LogError(ex);
@@ -42,11 +42,11 @@ namespace UltimateTeam.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ContactResponseDto>> Create(ContactRequestDto contact)
+        public async Task<ActionResult<CreditCardResponseDto>> Create(CreditCardRequestDto contact)
         {
             try
             {
-                var response = await contactService.CreateContact(contact);
+                var response = await creditCardService.CreateCard(contact);
 
                 return Ok(response);
             }
@@ -58,12 +58,12 @@ namespace UltimateTeam.Api.Controllers
             }
         }
 
-        [HttpPut("{contactId:guid}")]
-        public async Task<ActionResult<ContactResponseDto>> Update(Guid contactId, ContactRequestDto contact)
+        [HttpPut("{creditCardId:guid}")]
+        public async Task<ActionResult<CreditCardResponseDto>> Update(Guid creditCardId, CreditCardRequestDto creditCard)
         {
             try
             {
-                var response = await contactService.UpdateContact(contact, contactId);
+                var response = await creditCardService.UpdateCard(creditCard, creditCardId);
 
                 return Ok(response);
             }
@@ -75,12 +75,12 @@ namespace UltimateTeam.Api.Controllers
             }
         }
 
-        [HttpDelete("{contactId:guid}")]
-        public async Task<ActionResult<ContactResponseDto>> Delete(Guid contactId)
+        [HttpDelete("{creditCardId:guid}")]
+        public async Task<ActionResult<CreditCardResponseDto>> Delete(Guid creditCardId)
         {
             try
             {
-                var response = await contactService.DeleteContact(contactId);
+                var response = await creditCardService.DeleteCard(creditCardId);
 
                 return Ok(response);
             }

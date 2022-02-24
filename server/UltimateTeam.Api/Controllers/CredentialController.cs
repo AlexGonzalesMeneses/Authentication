@@ -1,38 +1,37 @@
 using System;
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Api.Services.LoggerService;
-using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Dtos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UltimateTeam.Application.Contracts.Services;
 
 namespace UltimateTeam.Api.Controllers
 {
     [Route("api/users/{userId:guid}/containers/{containerId:guid}/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    public class ContactController : ControllerBase
+    public class CredentialController : ControllerBase
     {
-        private IContactService contactService;
+        private readonly ICredentialService credentialService;
         private readonly ILoggerManager loggerManager;
 
-        public ContactController(IContactService contactService, ILoggerManager loggerManager)
+        public CredentialController(ICredentialService credentialService, ILoggerManager loggerManager)
         {
-            this.contactService = contactService;
+            this.credentialService = credentialService;
             this.loggerManager = loggerManager;
         }
 
-        [HttpGet("{contactId:guid}")]
-        public async Task<ActionResult<ContactResponseDto>> GetById(Guid contactId)
+        [HttpGet("{credentialId:guid}")]
+        public async Task<ActionResult<CredentialResponseDto>> GetById(Guid credentialId)
         {
             try
             {
-                var response = await contactService.GetContactById(contactId);
+                var response = await credentialService.GetCredentialById(credentialId);
 
                 return Ok(response);
             }
-
             catch (Exception ex)
             {
                 loggerManager.LogError(ex);
@@ -42,11 +41,11 @@ namespace UltimateTeam.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ContactResponseDto>> Create(ContactRequestDto contact)
+        public async Task<ActionResult<CredentialResponseDto>> Create(CredentialRequestDto contact)
         {
             try
             {
-                var response = await contactService.CreateContact(contact);
+                var response = await credentialService.CreateCredential(contact);
 
                 return Ok(response);
             }
@@ -58,12 +57,12 @@ namespace UltimateTeam.Api.Controllers
             }
         }
 
-        [HttpPut("{contactId:guid}")]
-        public async Task<ActionResult<ContactResponseDto>> Update(Guid contactId, ContactRequestDto contact)
+        [HttpPut("{credentialId:guid}")]
+        public async Task<ActionResult<CredentialResponseDto>> Update(Guid credentialId, CredentialRequestDto credentialCard)
         {
             try
             {
-                var response = await contactService.UpdateContact(contact, contactId);
+                var response = await credentialService.UpdateCredential(credentialCard, credentialId);
 
                 return Ok(response);
             }
@@ -75,12 +74,12 @@ namespace UltimateTeam.Api.Controllers
             }
         }
 
-        [HttpDelete("{contactId:guid}")]
-        public async Task<ActionResult<ContactResponseDto>> Delete(Guid contactId)
+        [HttpDelete("{credentialId:guid}")]
+        public async Task<ActionResult<CredentialResponseDto>> Delete(Guid credentialId)
         {
             try
             {
-                var response = await contactService.DeleteContact(contactId);
+                var response = await credentialService.DeleteCredential(credentialId);
 
                 return Ok(response);
             }

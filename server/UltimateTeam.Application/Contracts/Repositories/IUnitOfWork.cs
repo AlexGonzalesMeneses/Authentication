@@ -10,6 +10,9 @@ namespace Dev33.UltimateTeam.Application.Contracts.Repositories
 {
     public interface IUnitOfWork
     {
+        IUrlRepository UrlRepository { get; }
+        ICredentialRepository CredentialRepository { get; }
+        ICreditCardRepository CreditCardRepository { get; }
         ITagRepository TagRepository { get; }
         IContactRepository ContactRepository { get; }
         IAddressRepository AddressRepository { get; }

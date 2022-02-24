@@ -82,16 +82,17 @@ namespace Dev33.UltimateTeam.Application.Services
             var informationExisted = await unitOfWork.InformationRepository.GetByIdAsync(id);
             var contactExisted = await unitOfWork.ContactRepository.GetByIdAsync(id);
             ValidateContact(contactExisted, informationExisted);
+            await unitOfWork.ContactRepository.DeleteAsync(contactExisted);
             var informationMapped = InformationMapper.Map(id, contact);
-            var contactMapped = ContactMapper.Map(contact, id);
-            await RemoveItems(id);
+            var contactMapped = ContactMapper.Map(contact, informationMapped.Id);
+            await unitOfWork.TagRepository.RemoveTagsAsync(informationExisted.Id);
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
+            await unitOfWork.TagRepository.AddTagsAsync(informationMapped.Tags);
             encryptor = FactoryEncryptor.Create(informationMapped.EncryptorType.ToString());
             var contactEncrypted = HandleEncryption.HandleEncryptData(contactMapped, encryptor, encrypt: true);
-            await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
-            await unitOfWork.ContactRepository.UpdateAsync((Contact)contactEncrypted);
+            await unitOfWork.ContactRepository.AddAsync((Contact)contactEncrypted);
 
-            return ContactMapper.Map(contactExisted, informationExisted);
+            return ContactMapper.Map((Contact)contactEncrypted, informationMapped);
         }
 
         private void ValidateContact(Contact contact, Information information)
@@ -100,14 +101,6 @@ namespace Dev33.UltimateTeam.Application.Services
             {
                 throw new Exception("Contact not found");
             }
-        }
-
-        private async Task RemoveItems(Guid id)
-        {
-            await unitOfWork.TagRepository.RemoveTagsAsync(id);
-            await unitOfWork.EmailRepository.RemoveEmailsByContactId(id);
-            await unitOfWork.PhoneRepository.RemovePhonesByContactId(id);
-            await unitOfWork.AddressRepository.RemoveAddressesByContactId(id);
         }
     }
 }

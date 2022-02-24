@@ -11,5 +11,6 @@ namespace Dev33.UltimateTeam.Application.Contracts.Repositories
     {
         Task<IEnumerable<Phone>> GetPhonesByContactId(Guid contactId);
         Task RemovePhonesByContactId(Guid contactId);
+        Task AddPhones(List<Phone> phones);
     }
 }

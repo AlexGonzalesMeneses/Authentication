@@ -11,5 +11,6 @@ namespace Dev33.UltimateTeam.Application.Contracts.Repositories
     {
         Task<IEnumerable<Email>> GetEmailsByContactId(Guid contactId);
         Task RemoveEmailsByContactId(Guid contactId);
+        Task AddEmails(List<Email> emails);
     }
 }

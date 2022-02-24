@@ -15,8 +15,10 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
             this.context = context;
         }
 
+        public ICreditCardRepository CreditCardRepository => new CreditCardRepository(context);
+
         public IUserRepository UserRepository => new UserRepository(context);
-        
+
         public IContainerRepository ContainerRepository => new ContainerRepository(context);
 
         public IInformationRepository InformationRepository => new InformationRepository(context);
@@ -34,6 +36,10 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
         public IPhoneRepository PhoneRepository => new PhoneRepository(context);
 
         public IEmailRepository EmailRepository => new EmailRepository(context);
+
+        public IUrlRepository UrlRepository => new UrlRepository(context);
+
+        public ICredentialRepository CredentialRepository => new CredentialRepository(context);
 
         public async Task SaveChangesAsync()
         {

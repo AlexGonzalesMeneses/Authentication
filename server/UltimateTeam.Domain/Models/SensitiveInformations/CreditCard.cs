@@ -13,7 +13,7 @@ namespace UltimateTeam.Domain.Models.SensitiveInformations
         [Display(Encrypted = true, Sensitive = true)]
         public string Issuer { get; set; }
 
-        public DateTime? Expiration { get; set; }
+        public DateTime Expiration { get; set; }
 
         [Display(Encrypted = true, Sensitive = true)]
         public string Cvv { get; set; }

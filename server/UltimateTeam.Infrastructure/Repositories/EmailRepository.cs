@@ -16,6 +16,12 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
         {
         }
 
+        public async Task AddEmails(List<Email> emails)
+        {
+            await context.Set<Email>().AddRangeAsync(emails);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Email>> GetEmailsByContactId(Guid contactId)
         {
             return await context.Set<Email>().Where(x => x.ContactId == contactId).ToListAsync();

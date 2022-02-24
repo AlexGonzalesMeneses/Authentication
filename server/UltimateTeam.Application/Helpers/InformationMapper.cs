@@ -27,6 +27,23 @@ namespace Dev33.UltimateTeam.Application.Helpers
             };
         }
 
+        public static Information Map(CreditCardRequestDto creditCard)
+        {
+            var id = Guid.NewGuid();
+
+            return new Information
+            {
+                Id = id,
+                ContainerId = creditCard.ContainerId,
+                Description = creditCard.Description,
+                Favorite = creditCard.Favorite,
+                Name = creditCard.Name,
+                InformationType = InformationType.CreditCard,
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), creditCard.EncryptionType),
+                Tags = TagMapper.GetTags(creditCard.Tags, id)
+            };
+        }
+
         public static Information Map(KeyRequestDto key)
         {
             var id = Guid.NewGuid();
@@ -58,6 +75,23 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 InformationType = (InformationType)Enum.Parse(typeof(InformationType), contact.Type),
                 EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), contact.EncryptionType),
                 Tags = TagMapper.GetTags(contact.Tags, id)
+            };
+        }
+
+        public static Information Map(CredentialRequestDto credential)
+        {
+            var id = Guid.NewGuid();
+
+            return new Information
+            {
+                Id = id,
+                ContainerId = credential.ContainerId,
+                Description = credential.Description,
+                Favorite = credential.Favorite,
+                Name = credential.Name,
+                InformationType = (InformationType)Enum.Parse(typeof(InformationType), credential.Type),
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), credential.EncryptionType),
+                Tags = TagMapper.GetTags(credential.Tags, id)
             };
         }
 
@@ -103,6 +137,36 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 InformationType = (InformationType)Enum.Parse(typeof(InformationType), contact.Type),
                 EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), contact.EncryptionType),
                 Tags = TagMapper.GetTags(contact.Tags, id)
+            };
+        }
+
+        public static Information Map(Guid id, CreditCardRequestDto creditCard)
+        {
+            return new Information
+            {
+                Id = id,
+                ContainerId = creditCard.ContainerId,
+                Description = creditCard.Description,
+                Favorite = creditCard.Favorite,
+                Name = creditCard.Name,
+                InformationType = (InformationType)Enum.Parse(typeof(InformationType), creditCard.Type),
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), creditCard.EncryptionType),
+                Tags = TagMapper.GetTags(creditCard.Tags, id)
+            };
+        }
+
+        public static Information Map(Guid id, CredentialRequestDto credential)
+        {
+            return new Information
+            {
+                Id = id,
+                ContainerId = credential.ContainerId,
+                Description = credential.Description,
+                Favorite = credential.Favorite,
+                Name = credential.Name,
+                InformationType = (InformationType)Enum.Parse(typeof(InformationType), credential.Type),
+                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), credential.EncryptionType),
+                Tags = TagMapper.GetTags(credential.Tags, id)
             };
         }
     }
