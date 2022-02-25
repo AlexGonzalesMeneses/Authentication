@@ -15,13 +15,13 @@ function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [typeSelect, setTypeSelect] = React.useState('Note');
-  const { addItemselected } = useContext(ListContext);
-  const [filterSelected, setFilterSelected] = useState('All');
+  const { addItemselected, filterSelected, selectFilter } =
+    useContext(ListContext);
   const navClick = (e, title) => {
     if (title == 'Add') {
       handleClickMore(e);
     } else {
-      setFilterSelected(title);
+      selectFilter(title);
     }
   };
 

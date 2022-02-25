@@ -64,6 +64,7 @@ function Item({ data, reRender }) {
       ...itemInformation,
       favorite: newFavorite,
     });
+    reRender();
   };
   const editItem = () => {
     setAction('Edit');

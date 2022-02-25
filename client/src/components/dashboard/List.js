@@ -6,19 +6,60 @@ import { SendGet } from '@pathSendGet';
 import ListContext from '@pathListContext';
 
 function List() {
-  const { addItem, idContainer } = useContext(ListContext);
+  const { addItem, idContainer, filterSelected } = useContext(ListContext);
   const [information, setInformation] = useState([]);
   const [render, setRender] = React.useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts =
-    information &&
-    information
-      .sort(SortArrayName)
-      .sort(SortArrayFavorite)
-      .slice(indexOfFirstPost, indexOfLastPost);
+
+  let listfilter = [];
+  if (filterSelected == 'All') {
+    listfilter = information && information;
+  } else if (filterSelected == 'Notes') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.informationType == 'Note';
+      });
+  } else if (filterSelected == 'Credentials') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.informationType == 'Credential';
+      });
+  } else if (filterSelected == 'Keys') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.informationType == 'Key';
+      });
+  } else if (filterSelected == 'CreditCards') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.informationType == 'CreditCard';
+      });
+  } else if (filterSelected == 'Contacts') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.informationType == 'Contact';
+      });
+  } else if (filterSelected == 'Favorites') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.favorite == true;
+      });
+  }
+
+  const currentPosts = listfilter
+    .sort(SortArrayName)
+    .sort(SortArrayFavorite)
+    .slice(indexOfFirstPost, indexOfLastPost);
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber + 1);
   };
@@ -32,9 +73,10 @@ function List() {
         setInformation(data.informations);
       });
     };
+    console.log('hola');
     setRender(render);
     noteList();
-  }, [idContainer, render, addItem]);
+  }, [idContainer, render, addItem, filterSelected]);
 
   function SortArrayName(x, y) {
     if (x.name < y.name) {

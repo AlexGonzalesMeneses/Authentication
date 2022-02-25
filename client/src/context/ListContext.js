@@ -24,6 +24,11 @@ function ListProvider({ children }) {
     setAddItem(!addItem);
   };
 
+  const [filterSelected, setFilterSelected] = useState('All');
+  const selectFilter = (filter) => {
+    setFilterSelected(filter);
+  };
+
   const dataContainer = {
     idRootContainer,
     idContainer,
@@ -34,6 +39,8 @@ function ListProvider({ children }) {
     selectEncryption,
     addItem,
     addItemselected,
+    filterSelected,
+    selectFilter,
   };
   return (
     <ListContext.Provider value={dataContainer}>
