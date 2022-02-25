@@ -44,6 +44,21 @@ function Item({ data, reRender }) {
     item.favorite = newFavorite;
     item.tags = tagsResponse;
     item.containerId = idContainer;
+    if (informationType == 'CreditCard') {
+      item.cardName = '';
+    }
+    if (informationType == 'Credential') {
+      let urlsResponse = itemInformation.urls.toString();
+      item.urls = urlsResponse;
+    }
+    if (informationType == 'Contact') {
+      let emailsResponse = itemInformation.emails.toString();
+      let phonesResponse = itemInformation.phones.toString();
+      let addressesResponse = itemInformation.addresses.toString();
+      item.emails = emailsResponse;
+      item.phones = phonesResponse;
+      item.addresses = addressesResponse;
+    }
     PutInformation(idContainer, item, informationType, data.id);
     setItemInformation({
       ...itemInformation,
