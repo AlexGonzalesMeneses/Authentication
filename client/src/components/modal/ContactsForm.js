@@ -4,6 +4,7 @@ import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
 import ListContext from '@pathListContext';
 import { PostInformation } from '@pathPost';
+import { PutInformation } from '@pathPut';
 
 function ContactsForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
@@ -18,35 +19,48 @@ function ContactsForm({ idItem, data, closeModal, action }) {
     firstName,
     lastName,
     business,
-    contry,
+    country,
     state,
     zip,
     birthday,
     phones,
     emails,
-    address,
+    addresses,
   } = data;
+  let tagsResponse = '';
+  let emailsResponse = '';
+  let phonesResponse = '';
+  let addressesResponse = '';
+  let birthdayResponse = '';
+  if (action != 'Add') {
+    tagsResponse = tags.toString();
+    emailsResponse = emails.toString();
+    phonesResponse = phones.toString();
+    addressesResponse = addresses.toString();
+    let birthdayResponseFormat = birthday.split('T');
+    birthdayResponse = birthdayResponseFormat[0];
+  }
   const [contactData, setContactData] = useState({
     name: name || '',
     containerId: idContainer || '',
     type: 'Contact',
     favorite: favorite == undefined ? true : favorite,
     description: description || '',
-    tags: tags || '',
+    tags: tagsResponse || '',
     encryptionType: encryptionType || encryptionSelected,
     fullName: fullName || '',
     firstName: firstName || '',
     lastName: lastName || '',
     business: business || '',
-    contry: contry || '',
+    country: country || '',
     state: state || '',
     zip: zip || '',
-    birthday: birthday || '',
-    phones: phones || '',
-    emails: emails || '',
-    address: address || '',
+    birthday: birthdayResponse || '',
+    phones: phonesResponse || '',
+    emails: emailsResponse || '',
+    addresses: addressesResponse || '',
   });
-
+  console.log(contactData);
   const addDataForm = () => {
     PostInformation(idContainer, contactData, 'Contact');
     closeModal();
@@ -78,13 +92,13 @@ function ContactsForm({ idItem, data, closeModal, action }) {
     firstName,
     lastName,
     business,
-    contry,
+    country,
     state,
     zip,
     birthday,
     phones,
     emails,
-    address,
+    addresses,
   };
   return (
     <>
@@ -150,11 +164,11 @@ function ContactsForm({ idItem, data, closeModal, action }) {
           margin="normal"
           required
           fullWidth
-          id="coutry"
+          id="country"
           label="Country"
-          defaultValue={contry}
+          defaultValue={country}
           onChange={(e) =>
-            setContactData({ ...contactData, contry: e.target.value })
+            setContactData({ ...contactData, country: e.target.value })
           }
         />
       </Grid>
@@ -191,7 +205,7 @@ function ContactsForm({ idItem, data, closeModal, action }) {
           fullWidth
           id="birthday"
           label="Birthday"
-          defaultValue={birthday}
+          defaultValue={birthdayResponse}
           onChange={(e) =>
             setContactData({ ...contactData, birthday: e.target.value })
           }
@@ -208,7 +222,7 @@ function ContactsForm({ idItem, data, closeModal, action }) {
           fullWidth
           id="phones"
           label="phones"
-          defaultValue={contry}
+          defaultValue={phones}
           onChange={(e) =>
             setContactData({ ...contactData, phones: e.target.value })
           }
@@ -234,9 +248,9 @@ function ContactsForm({ idItem, data, closeModal, action }) {
           fullWidth
           id="address"
           label="Address"
-          defaultValue={address}
+          defaultValue={addresses}
           onChange={(e) =>
-            setContactData({ ...contactData, address: e.target.value })
+            setContactData({ ...contactData, addresses: e.target.value })
           }
         />
       </Grid>

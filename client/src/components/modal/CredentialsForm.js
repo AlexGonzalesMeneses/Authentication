@@ -4,6 +4,7 @@ import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
 import ListContext from '@pathListContext';
 import { PostInformation } from '@pathPost';
+import { PutInformation } from '@pathPut';
 
 function CredentialsForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
@@ -14,20 +15,28 @@ function CredentialsForm({ idItem, data, closeModal, action }) {
     description,
     tags,
     encryptionType,
-    userName,
+    username,
     password,
+    urls,
   } = data;
-
+  let tagsResponse = '';
+  let urlsResponse = '';
+  if (action != 'Add') {
+    tagsResponse = tags.toString();
+    urlsResponse = urls.toString();
+  }
+  let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
   const [credentialData, setCredentialData] = useState({
-    name: name || '',
+    name: nameResponse || '',
     containerId: idContainer || '',
     type: 'Credential',
     favorite: favorite == undefined ? true : favorite,
     description: description || '',
-    tags: tags || '',
+    tags: tagsResponse || '',
     encryptionType: encryptionType || encryptionSelected,
-    userName: userName || '',
+    username: username || '',
     password: password || '',
+    urls: urlsResponse || '',
   });
 
   const addDataForm = () => {
@@ -57,8 +66,9 @@ function CredentialsForm({ idItem, data, closeModal, action }) {
     description,
     tags,
     encryptionType,
-    userName,
+    username,
     password,
+    urls,
   };
   return (
     <>
@@ -72,11 +82,11 @@ function CredentialsForm({ idItem, data, closeModal, action }) {
           margin="normal"
           required
           fullWidth
-          id="userName"
+          id="username"
           label="UserName:"
-          defaultValue={userName}
+          defaultValue={username}
           onChange={(e) =>
-            setCredentialData({ ...credentialData, userName: e.target.value })
+            setCredentialData({ ...credentialData, username: e.target.value })
           }
         />
       </Grid>
@@ -92,6 +102,22 @@ function CredentialsForm({ idItem, data, closeModal, action }) {
             setCredentialData({
               ...credentialData,
               password: e.target.value,
+            })
+          }
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="urls"
+          label="Urls:"
+          defaultValue={urlsResponse}
+          onChange={(e) =>
+            setCredentialData({
+              ...credentialData,
+              urls: e.target.value,
             })
           }
         />

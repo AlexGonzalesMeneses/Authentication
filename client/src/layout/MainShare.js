@@ -13,7 +13,10 @@ function MainShare() {
       }}
     >
       <NavbarShare />
-      <ListShare />
+      <Box sx={{ display: 'flex' }}>
+        <ListShare />
+        <ListShare />
+      </Box>
     </Box>
   );
 }

@@ -4,6 +4,7 @@ import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
 import ListContext from '@pathListContext';
 import { PostInformation } from '@pathPost';
+import { PutInformation } from '@pathPut';
 
 function CreditCardsForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
@@ -15,27 +16,35 @@ function CreditCardsForm({ idItem, data, closeModal, action }) {
     tags,
     encryptionType,
     number,
+    issuer,
+    cardName,
     expiration,
     cvv,
   } = data;
   let tagsResponse = '';
+  let expirationResponse = '';
   if (action != 'Add') {
     tagsResponse = tags.toString();
+    let expirationResponseFormat = expiration.split('T');
+    expirationResponse = expirationResponseFormat[0];
   }
   let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
 
   const [creditCardData, setCreditCardData] = useState({
-    name: name || '',
+    name: nameResponse || '',
     containerId: idContainer || '',
     type: 'CreditCard',
     favorite: favorite == undefined ? true : favorite,
     description: description || '',
-    tags: tags || '',
+    tags: tagsResponse || '',
     encryptionType: encryptionType || encryptionSelected,
     number: number || '',
-    expiration: expiration || '',
+    issuer: issuer || '',
+    cardName: cardName || '',
+    expiration: expirationResponse || '',
     cvv: cvv || '',
   });
+  console.log(creditCardData);
   const addDataForm = () => {
     PostInformation(idContainer, creditCardData, 'CreditCard');
     closeModal();
@@ -64,6 +73,8 @@ function CreditCardsForm({ idItem, data, closeModal, action }) {
     tags,
     encryptionType,
     number,
+    issuer,
+    cardName,
     expiration,
     cvv,
   };
@@ -74,7 +85,7 @@ function CreditCardsForm({ idItem, data, closeModal, action }) {
         values={values}
         updateInputs={updateInputs}
       />
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <TextField
           margin="normal"
           required
@@ -92,9 +103,22 @@ function CreditCardsForm({ idItem, data, closeModal, action }) {
           margin="normal"
           required
           fullWidth
+          id="issuer"
+          label="Issuer:"
+          defaultValue={issuer}
+          onChange={(e) =>
+            setCreditCardData({ ...creditCardData, issuer: e.target.value })
+          }
+        />
+      </Grid>
+      <Grid item xs={6}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
           id="expiration"
           label="Expiration:"
-          defaultValue={expiration}
+          defaultValue={expirationResponse}
           onChange={(e) =>
             setCreditCardData({
               ...creditCardData,

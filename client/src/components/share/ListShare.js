@@ -59,7 +59,7 @@ function ListShare() {
     setCurrentPage(pageNumber + 1);
   };
   return (
-    <Box sx={{ width: '50%', margin: 'auto' }}>
+    <Box sx={{ width: '45%', margin: 'auto' }}>
       <Box>
         {currentPosts.map((item) => (
           <ItemShare data={item} key={item.id} />

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box } from '@mui/system';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -16,9 +16,12 @@ function Navbar() {
   const open = Boolean(anchorEl);
   const [typeSelect, setTypeSelect] = React.useState('Note');
   const { addItemselected } = useContext(ListContext);
+  const [filterSelected, setFilterSelected] = useState('All');
   const navClick = (e, title) => {
     if (title == 'Add') {
       handleClickMore(e);
+    } else {
+      setFilterSelected(title);
     }
   };
 
@@ -77,8 +80,10 @@ function Navbar() {
           height: '100%',
         }}
       >
-        {iconsNavBar.map(({ element, title, id }) => (
+        {iconsNavBar.map(({ elementActive, element, title, id }) => (
           <IconNav
+            filterSelected={filterSelected}
+            elementActive={elementActive}
             element={element}
             title={title}
             key={id}

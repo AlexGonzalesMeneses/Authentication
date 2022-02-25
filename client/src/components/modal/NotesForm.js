@@ -30,7 +30,6 @@ function NotesForm({ idItem, data, closeModal, action }) {
     closeModal();
   };
   const updateDataForm = () => {
-    console.log(noteData);
     PutInformation(idContainer, noteData, 'Note', idItem);
     closeModal();
   };

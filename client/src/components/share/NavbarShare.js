@@ -1,9 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box } from '@mui/system';
 import IconNav from '../navbar/IconNav';
-import { iconsShareNavmar } from '../navbar/ListIconsNavbar';
+import { iconsShareNavbar } from '../navbar/ListIconsNavbar';
 function NavbarShare() {
-  const navClick = (e, title) => {};
+  const [filterSelected, setFilterSelected] = useState('All');
+  const navClick = (e, title) => {
+    setFilterSelected(title);
+  };
+
   return (
     <Box
       sx={{
@@ -22,8 +26,10 @@ function NavbarShare() {
           height: '100%',
         }}
       >
-        {iconsShareNavmar.map(({ element, title, id }) => (
+        {iconsShareNavbar.map(({ elementActive, element, title, id }) => (
           <IconNav
+            filterSelected={filterSelected}
+            elementActive={elementActive}
             element={element}
             title={title}
             key={id}

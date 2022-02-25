@@ -8,21 +8,14 @@ import { PutInformation } from '@pathPut';
 
 function KeysForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
-  const {
-    name,
-    type,
-    favorite,
-    description,
-    tags,
-    encryptionType,
-    serial,
-    urls,
-  } = data;
+  const { name, type, favorite, description, tags, encryptionType, serial } =
+    data;
   let tagsResponse = '';
   if (action != 'Add') {
     tagsResponse = tags.toString();
   }
   let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
+
   const [keyData, setKeyData] = useState({
     name: nameResponse || '',
     containerId: idContainer || '',
@@ -32,7 +25,6 @@ function KeysForm({ idItem, data, closeModal, action }) {
     tags: tagsResponse || '',
     encryptionType: encryptionType || encryptionSelected,
     serial: serial || '',
-    urls: urls || '',
   });
   const addDataForm = () => {
     PostInformation(idContainer, keyData, 'Key');
@@ -61,7 +53,6 @@ function KeysForm({ idItem, data, closeModal, action }) {
     tags,
     encryptionType,
     serial,
-    urls,
   };
 
   return (
