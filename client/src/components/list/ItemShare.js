@@ -10,8 +10,7 @@ function ItemShare({ data }) {
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const [action, setAction] = React.useState('Show');
   const handleOpenMainModal = () => {
-    console.log('Show');
-    //setAction('Show');
+    setAction('Show');
     setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {

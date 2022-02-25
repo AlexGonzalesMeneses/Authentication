@@ -5,6 +5,8 @@ import InformationForm from './InformationForm';
 import ListContext from '@pathListContext';
 import { PostInformation } from '@pathPost';
 import { PutInformation } from '@pathPut';
+import { validateEmail, validateDate } from '../../helpers/validateEmail';
+import Swal from 'sweetalert2';
 
 function ContactsForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
@@ -62,10 +64,21 @@ function ContactsForm({ idItem, data, closeModal, action }) {
     emails: emailsResponse || '',
     addresses: addressesResponse || '',
   });
-  console.log(contactData);
   const addDataForm = () => {
-    PostInformation(idContainer, contactData, 'Contact');
-    closeModal();
+    let validate = validateEmail(contactData.emails);
+    let validateD = validateDate(contactData.birthday);
+    if (!validate || !validateD) {
+      Swal.fire({
+        target: document.getElementById('ModalMain'),
+        title: 'Register denied',
+        text: 'The Email is wrong or The Date is not selected',
+        icon: 'error',
+        showCloseButton: true,
+      });
+    } else {
+      PostInformation(idContainer, contactData, 'Contact');
+      closeModal();
+    }
   };
   const updateDataForm = () => {
     PutInformation(idContainer, contactData, 'Contact', idItem);

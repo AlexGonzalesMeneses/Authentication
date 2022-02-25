@@ -45,7 +45,6 @@ function CreditCardsForm({ idItem, data, closeModal, action }) {
     expiration: expirationResponse || '',
     cvv: cvv || '',
   });
-  console.log(creditCardData);
   const addDataForm = () => {
     PostInformation(idContainer, creditCardData, 'CreditCard');
     closeModal();

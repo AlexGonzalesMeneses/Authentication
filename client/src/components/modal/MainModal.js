@@ -21,7 +21,7 @@ export default function MainModal({
   typeSelect,
 }) {
   return (
-    <Box sx={style}>
+    <Box sx={style} id="ModalMain">
       <Box
         sx={{
           width: '100%',

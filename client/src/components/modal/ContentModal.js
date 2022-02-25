@@ -69,9 +69,7 @@ export default function ContentModal({
         console.log('This is a form built with React');
     }
   };
-  const handleSubmit = () => {
-    console.log('action');
-  };
+  const handleSubmit = () => {};
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <Box

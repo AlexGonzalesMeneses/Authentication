@@ -47,7 +47,6 @@ function Container({ data, reRender }) {
     event.stopPropagation();
     setIsFavorite(!isFavorite);
     reRender();
-    console.log('sadasd');
     SendPutContainer({ ...dataContainer, favorite: !favorite }, id);
   };
 

@@ -73,7 +73,6 @@ function List() {
         setInformation(data.informations);
       });
     };
-    console.log('hola');
     setRender(render);
     noteList();
   }, [idContainer, render, addItem, filterSelected]);
@@ -107,7 +106,7 @@ function List() {
           </Box>
           <Pagination
             postsPerPage={postsPerPage}
-            totalPosts={information.length}
+            totalPosts={listfilter.length}
             paginate={paginate}
           />
         </>
