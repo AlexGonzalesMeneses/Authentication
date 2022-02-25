@@ -10,6 +10,7 @@ function KeysForm({ idItem, data, closeModal, action }) {
   const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const { name, type, favorite, description, tags, encryptionType, serial } =
     data;
+
   let tagsResponse = '';
   if (action != 'Add') {
     tagsResponse = tags.toString();
@@ -26,6 +27,7 @@ function KeysForm({ idItem, data, closeModal, action }) {
     encryptionType: encryptionType || encryptionSelected,
     serial: serial || '',
   });
+
   const addDataForm = () => {
     PostInformation(idContainer, keyData, 'Key');
     closeModal();

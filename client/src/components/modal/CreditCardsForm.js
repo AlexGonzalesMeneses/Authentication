@@ -21,6 +21,7 @@ function CreditCardsForm({ idItem, data, closeModal, action }) {
     expiration,
     cvv,
   } = data;
+
   let tagsResponse = '';
   let expirationResponse = '';
   if (action != 'Add') {

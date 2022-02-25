@@ -27,6 +27,7 @@ function ContactsForm({ idItem, data, closeModal, action }) {
     emails,
     addresses,
   } = data;
+
   let tagsResponse = '';
   let emailsResponse = '';
   let phonesResponse = '';
@@ -40,8 +41,9 @@ function ContactsForm({ idItem, data, closeModal, action }) {
     let birthdayResponseFormat = birthday.split('T');
     birthdayResponse = birthdayResponseFormat[0];
   }
+  let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
   const [contactData, setContactData] = useState({
-    name: name || '',
+    name: nameResponse || '',
     containerId: idContainer || '',
     type: 'Contact',
     favorite: favorite == undefined ? true : favorite,

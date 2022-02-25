@@ -15,7 +15,10 @@ function List() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts =
     information &&
-    information.sort(SortArray).slice(indexOfFirstPost, indexOfLastPost);
+    information
+      .sort(SortArrayName)
+      .sort(SortArrayFavorite)
+      .slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber + 1);
   };
@@ -33,11 +36,20 @@ function List() {
     noteList();
   }, [idContainer, render, addItem]);
 
-  function SortArray(x, y) {
+  function SortArrayName(x, y) {
     if (x.name < y.name) {
       return -1;
     }
     if (x.name > y.name) {
+      return 1;
+    }
+    return 0;
+  }
+  function SortArrayFavorite(x, y) {
+    if (x.favorite > y.favorite) {
+      return -1;
+    }
+    if (x.favorite < y.favorite) {
       return 1;
     }
     return 0;

@@ -15,7 +15,6 @@ function MainShare() {
       <NavbarShare />
       <Box sx={{ display: 'flex' }}>
         <ListShare />
-        <ListShare />
       </Box>
     </Box>
   );

@@ -92,7 +92,6 @@ function InformationForm({ type, values, updateInputs }) {
             <MenuItem value={'Base64'}>Base64</MenuItem>
             <MenuItem value={'Hex'}>Hex</MenuItem>
             <MenuItem value={'Aes'}>Aes</MenuItem>
-            <MenuItem value={'Rsa'}>Rsa</MenuItem>
           </Select>
         </FormControl>
       </Grid>
