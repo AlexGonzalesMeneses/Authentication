@@ -24,7 +24,7 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Zip = contact.Zip,
                 Country = contact.Country,
                 State = contact.State,
-                Birthday = contact.BirthDate,
+                Birthday = contact.Birthday,
                 Emails = EmailMapper.Map(contact.Emails, id),
                 Phones = PhoneMapper.Map(contact.Phones, id),
                 Addresses = AddressMapper.Map(contact.Addresses, id),

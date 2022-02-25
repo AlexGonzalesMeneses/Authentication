@@ -16,7 +16,7 @@ namespace Dev33.UltimateTeam.Application.Dtos
         public string Zip { get; set; }
         public string Country { get; set; }
         public string State { get; set; }
-        public DateTime? Birthday { get; set; }
+        public DateTime Birthday { get; set; }
         public List<string> Emails { get; set; }
         public List<string> Phones { get; set; }
         public List<string> Addresses { get; set; }

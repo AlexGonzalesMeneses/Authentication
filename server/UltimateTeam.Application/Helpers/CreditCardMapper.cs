@@ -26,10 +26,10 @@ namespace UltimateTeam.Application.Helpers
             return new CreditCardResponseDto
             {
                 Id = creditCard.Id,
-                CardNumber = creditCard.Number,
+                Number = creditCard.Number,
                 Issuer = creditCard.Issuer,
                 Cvv = creditCard.Cvv,
-                ExpirationDate = (DateTime)creditCard.Expiration,
+                Expiration = (DateTime)creditCard.Expiration,
                 Favorite = information.Favorite,
                 Name = information.Name,
                 EncryptionType = information.EncryptorType.ToString(),
