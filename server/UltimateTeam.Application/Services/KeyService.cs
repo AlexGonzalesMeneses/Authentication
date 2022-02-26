@@ -3,6 +3,7 @@ using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Dtos;
 using Dev33.UltimateTeam.Application.Encyptors;
 using Dev33.UltimateTeam.Application.Helpers;
+using Dev33.UltimateTeam.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using UltimateTeam.Application.Helpers;
 using UltimateTeam.Application.Helpers.Factories;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace Dev33.UltimateTeam.Application.Services
 {
@@ -49,7 +48,7 @@ namespace Dev33.UltimateTeam.Application.Services
         public async Task<KeyResponseDto> DeleteKey(Guid id)
         {
             var key = await unitOfWork.KeyRepository.GetByIdAsync(id);
-            var information = await unitOfWork.InformationRepository.GetByIdAsync(key.Id);
+            var information = await unitOfWork.InformationRepository.GetByIdAsync(key.InformationsId);
             var tags = await unitOfWork.TagRepository.GetTagsAsync(information.Id);
             information.Tags = (List<Tag>)tags;
             await unitOfWork.KeyRepository.DeleteAsync(key);
@@ -65,7 +64,7 @@ namespace Dev33.UltimateTeam.Application.Services
             information.Tags = (List<Tag>)tags;
             var key = await unitOfWork.KeyRepository.GetByIdAsync(information.Id);
             ValidateExistence(information, key);
-            encryptor = FactoryEncryptor.Create(information.EncryptorType.ToString());
+            encryptor = FactoryEncryptor.Create(information.EncryptionType.ToString());
             var keyDecrypted = HandleEncryption.HandleEncryptData(key, encryptor, encrypt: false);
 
             return KeyMapper.Map((Key)keyDecrypted, information);
@@ -80,8 +79,8 @@ namespace Dev33.UltimateTeam.Application.Services
             var keyMapped = KeyMapper.Map(key, informationMapped.Id);
             await unitOfWork.TagRepository.RemoveTagsAsync(informationExisted.Id);
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
-            await unitOfWork.TagRepository.AddTagsAsync(informationMapped.Tags);
-            encryptor = FactoryEncryptor.Create(informationMapped.EncryptorType.ToString());
+            await unitOfWork.TagRepository.AddTagsAsync((List<Tag>)informationMapped.Tags);
+            encryptor = FactoryEncryptor.Create(informationMapped.EncryptionType.ToString());
             var keyEncrypted = HandleEncryption.HandleEncryptData(keyMapped, encryptor, encrypt: true);
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
             await unitOfWork.KeyRepository.UpdateAsync((Key)keyEncrypted);

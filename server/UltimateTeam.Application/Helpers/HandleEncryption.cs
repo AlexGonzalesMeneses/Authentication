@@ -1,4 +1,5 @@
 ﻿using Dev33.UltimateTeam.Application.Encyptors;
+using Dev33.UltimateTeam.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UltimateTeam.Application.Helpers.Factories;
-using UltimateTeam.Domain.Models;
 
 namespace Dev33.UltimateTeam.Application.Helpers
 {

@@ -18,11 +18,11 @@ using Dev33.UltimateTeam.Api.Services.LoggerService;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Services;
-using Dev33.UltimateTeam.Infrastructure.DataManagers;
 using Dev33.UltimateTeam.Infrastructure.Repositories;
 using UltimateTeam.Infrastructure.Repositories;
 using UltimateTeam.Application.Contracts.Services;
 using UltimateTeam.Application.Services;
+using Dev33.UltimateTeam.Infrastructure;
 
 namespace Dev33.UltimateTeam.Api
 {
@@ -48,7 +48,7 @@ namespace Dev33.UltimateTeam.Api
                 });
             });
 
-            services.AddDbContext<ContextDB>(options =>
+            services.AddDbContext<SafeInformationDBContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 sqlServerOptionsAction: sqlOptions =>
                 { 

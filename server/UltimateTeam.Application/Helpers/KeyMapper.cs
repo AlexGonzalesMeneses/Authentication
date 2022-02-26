@@ -1,7 +1,6 @@
 using System;
 using Dev33.UltimateTeam.Application.Dtos;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
+using Dev33.UltimateTeam.Domain;
 
 namespace UltimateTeam.Application.Helpers
 {
@@ -11,7 +10,7 @@ namespace UltimateTeam.Application.Helpers
         {
             return new Key
             {
-                Id = id,
+                InformationsId = id,
                 Serial = key.Serial
             };
         }
@@ -24,8 +23,8 @@ namespace UltimateTeam.Application.Helpers
                 Description = information.Description,
                 Serial = key.Serial,
                 Favorite = information.Favorite,
-                EncryptionType = information.EncryptorType.ToString(),
-                Type = information.InformationType.ToString(),
+                EncryptionType = information.EncryptionType.ToString(),
+                Type = information.Type.ToString(),
                 Tags = TagMapper.Map(information.Tags)
             };
         }

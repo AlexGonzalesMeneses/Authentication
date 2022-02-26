@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Dev33.UltimateTeam.Domain.Models;
-using Dev33.UltimateTeam.Infrastructure.DataManagers;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
+using Dev33.UltimateTeam.Domain;
 
 namespace Dev33.UltimateTeam.Infrastructure.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(ContextDB context) : base(context)
+        public UserRepository(SafeInformationDBContext context) : base(context)
         {
         }
         public async Task<User> GetByEmailAsync(string email)

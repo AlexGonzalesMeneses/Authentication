@@ -11,6 +11,7 @@ using Dev33.UltimateTeam.Application.Encyptors;
 using Dev33.UltimateTeam.Domain.Models;
 using Dev33.UltimateTeam.Api.Services.LoggerService;
 using AutoMapper;
+using Dev33.UltimateTeam.Domain;
 
 namespace Dev33.UltimateTeam.Api.Controllers
 {

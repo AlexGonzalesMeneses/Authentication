@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dev33.UltimateTeam.Infrastructure.DataManagers;
+using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Infrastructure;
 using Dev33.UltimateTeam.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using UltimateTeam.Application.Contracts.Repositories;
-using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace UltimateTeam.Infrastructure.Repositories
 {
     public class UrlRepository : BaseRepository<Url>, IUrlRepository
     {
-        public UrlRepository(ContextDB context) : base(context)
+        public UrlRepository(SafeInformationDBContext context) : base(context)
         {
         }
 

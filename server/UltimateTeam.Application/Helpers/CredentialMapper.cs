@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Dev33.UltimateTeam.Application.Dtos;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
+using Dev33.UltimateTeam.Domain;
 
 namespace UltimateTeam.Application.Helpers
 {
@@ -11,8 +11,8 @@ namespace UltimateTeam.Application.Helpers
         {
             return new Credential
             {
-                Id = id,
-                Username = credential.Username,
+                InformationsId = id,
+                UserName = credential.Username,
                 Password = credential.Password,
                 Urls = UrlMapper.Map(credential.Urls, id)
             };
@@ -22,16 +22,16 @@ namespace UltimateTeam.Application.Helpers
         {
             return new CredentialResponseDto
             {
-                Id = credential.Id,
-                Username = credential.Username,
+                Id = credential.InformationsId,
+                Username = credential.UserName,
                 Password = credential.Password,
-                Urls = UrlMapper.Map(credential.Urls),
+                Urls = UrlMapper.Map((List<Url>)credential.Urls),
                 Name = information.Name,
                 Description = information.Description,
                 Favorite = information.Favorite,
                 ContainerId = information.ContainerId,
-                Type = information.InformationType.ToString(),
-                EncryptionType = information.EncryptorType.ToString(),
+                Type = information.Type.ToString(),
+                EncryptionType = information.EncryptionType.ToString(),
                 Tags = TagMapper.Map(information.Tags)
             };
         }

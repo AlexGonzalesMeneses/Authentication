@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Dev33.UltimateTeam.Application.Dtos;
+using Dev33.UltimateTeam.Domain;
 using Dev33.UltimateTeam.Domain.Enums;
 using UltimateTeam.Application.Dtos;
 using UltimateTeam.Application.Helpers;
-using UltimateTeam.Domain.Models;
 
 namespace Dev33.UltimateTeam.Application.Helpers
 {
@@ -21,8 +21,8 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Description = note.Description,
                 Favorite = note.Favorite,
                 Name = note.Name,
-                InformationType = (InformationType)Enum.Parse(typeof(InformationType), note.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptionType),
+                Type = (InformationType)Enum.Parse(typeof(InformationType), note.Type),
+                EncryptionType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptionType),
                 Tags = TagMapper.GetTags(note.Tags, id)
             };
         }
@@ -38,8 +38,8 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Description = creditCard.Description,
                 Favorite = creditCard.Favorite,
                 Name = creditCard.Name,
-                InformationType = InformationType.CreditCard,
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), creditCard.EncryptionType),
+                Type = InformationType.CreditCard,
+                EncryptionType = (EncryptorType)Enum.Parse(typeof(EncryptorType), creditCard.EncryptionType),
                 Tags = TagMapper.GetTags(creditCard.Tags, id)
             };
         }
@@ -55,10 +55,30 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Description = key.Description,
                 Favorite = key.Favorite,
                 Name = key.Name,
-                InformationType = (InformationType)Enum.Parse(typeof(InformationType), key.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), key.EncryptionType),
+                Type = (InformationType)Enum.Parse(typeof(InformationType), key.Type),
+                EncryptionType = (EncryptorType)Enum.Parse(typeof(EncryptorType), key.EncryptionType),
                 Tags = TagMapper.GetTags(key.Tags, id)
             };
+        }
+
+        public static List<InformationResponseDto> Map(IEnumerable<Information> informations)
+        {
+            var informationResponseDtos = new List<InformationResponseDto>();
+
+            foreach (var information in informations)
+            {
+                var informationResponseDto = new InformationResponseDto
+                {
+                    Id = information.Id,
+                    Favorite = information.Favorite,
+                    Name = information.Name,
+                    InformationType = information.Type.ToString()
+                };
+
+                informationResponseDtos.Add(informationResponseDto);
+            }
+
+            return informationResponseDtos;
         }
 
         public static Information Map(ContactRequestDto contact)
@@ -72,8 +92,8 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Description = contact.Description,
                 Favorite = contact.Favorite,
                 Name = contact.Name,
-                InformationType = (InformationType)Enum.Parse(typeof(InformationType), contact.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), contact.EncryptionType),
+                Type = (InformationType)Enum.Parse(typeof(InformationType), contact.Type),
+                EncryptionType = (EncryptorType)Enum.Parse(typeof(EncryptorType), contact.EncryptionType),
                 Tags = TagMapper.GetTags(contact.Tags, id)
             };
         }
@@ -89,8 +109,8 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Description = credential.Description,
                 Favorite = credential.Favorite,
                 Name = credential.Name,
-                InformationType = (InformationType)Enum.Parse(typeof(InformationType), credential.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), credential.EncryptionType),
+                Type = (InformationType)Enum.Parse(typeof(InformationType), credential.Type),
+                EncryptionType = (EncryptorType)Enum.Parse(typeof(EncryptorType), credential.EncryptionType),
                 Tags = TagMapper.GetTags(credential.Tags, id)
             };
         }
@@ -104,8 +124,8 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Description = note.Description,
                 Favorite = note.Favorite,
                 Name = note.Name,
-                InformationType = (InformationType)Enum.Parse(typeof(InformationType), note.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptionType),
+                Type = (InformationType)Enum.Parse(typeof(InformationType), note.Type),
+                EncryptionType = (EncryptorType)Enum.Parse(typeof(EncryptorType), note.EncryptionType),
                 Tags = TagMapper.GetTags(note.Tags, id)
             };
         }
@@ -119,8 +139,8 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Description = key.Description,
                 Favorite = key.Favorite,
                 Name = key.Name,
-                InformationType = (InformationType)Enum.Parse(typeof(InformationType), key.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), key.EncryptionType),
+                Type = (InformationType)Enum.Parse(typeof(InformationType), key.Type),
+                EncryptionType = (EncryptorType)Enum.Parse(typeof(EncryptorType), key.EncryptionType),
                 Tags = TagMapper.GetTags(key.Tags, id)
             };
         }
@@ -134,8 +154,8 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Description = contact.Description,
                 Favorite = contact.Favorite,
                 Name = contact.Name,
-                InformationType = (InformationType)Enum.Parse(typeof(InformationType), contact.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), contact.EncryptionType),
+                Type = (InformationType)Enum.Parse(typeof(InformationType), contact.Type),
+                EncryptionType = (EncryptorType)Enum.Parse(typeof(EncryptorType), contact.EncryptionType),
                 Tags = TagMapper.GetTags(contact.Tags, id)
             };
         }
@@ -149,8 +169,8 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Description = creditCard.Description,
                 Favorite = creditCard.Favorite,
                 Name = creditCard.Name,
-                InformationType = (InformationType)Enum.Parse(typeof(InformationType), creditCard.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), creditCard.EncryptionType),
+                Type = (InformationType)Enum.Parse(typeof(InformationType), creditCard.Type),
+                EncryptionType = (EncryptorType)Enum.Parse(typeof(EncryptorType), creditCard.EncryptionType),
                 Tags = TagMapper.GetTags(creditCard.Tags, id)
             };
         }
@@ -164,8 +184,8 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Description = credential.Description,
                 Favorite = credential.Favorite,
                 Name = credential.Name,
-                InformationType = (InformationType)Enum.Parse(typeof(InformationType), credential.Type),
-                EncryptorType = (EncryptorType)Enum.Parse(typeof(EncryptorType), credential.EncryptionType),
+                Type = (InformationType)Enum.Parse(typeof(InformationType), credential.Type),
+                EncryptionType = (EncryptorType)Enum.Parse(typeof(EncryptorType), credential.EncryptionType),
                 Tags = TagMapper.GetTags(credential.Tags, id)
             };
         }

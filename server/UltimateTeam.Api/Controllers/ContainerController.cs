@@ -2,6 +2,8 @@ using AutoMapper;
 using Dev33.UltimateTeam.Api.Services.LoggerService;
 using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Dtos;
+using Dev33.UltimateTeam.Application.Helpers;
+using Dev33.UltimateTeam.Domain;
 using Dev33.UltimateTeam.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -55,10 +57,11 @@ namespace Dev33.UltimateTeam.Api.Controllers
             try
             {
                 var containerMapped = mapper.Map<Container>(request);
-                var container = await containerService.CreateContainer(containerMapped);
-                var response = mapper.Map<ContainerResponseDto>(container);
+                containerMapped.Id = Guid.NewGuid();
+                var response = await containerService.CreateContainer(containerMapped);
+                var responseDto = mapper.Map<ContainerResponseDto>(response);
 
-                return Ok(response);
+                return Ok(responseDto);
             }
             catch (Exception ex)
             {
@@ -91,10 +94,12 @@ namespace Dev33.UltimateTeam.Api.Controllers
         {
             try
             {
-                var container = await containerService.GetContainerById(containerId);
-                var response = mapper.Map<ContainerSpecifyResponseDto>(container);
+                var response = await containerService.GetContainerById(containerId);
+                var responseDto = mapper.Map<ContainerSpecifyResponseDto>(response);
+                List<InformationResponseDto> informations = InformationMapper.Map(response.Information);
+                responseDto.Informations = informations;
 
-                return Ok(response);
+                return Ok(responseDto);
             }
             catch (Exception ex)
             {

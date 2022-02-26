@@ -2,6 +2,7 @@
 using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Encyptors;
 using Dev33.UltimateTeam.Application.Helpers;
+using Dev33.UltimateTeam.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,6 @@ using System.Threading.Tasks;
 using UltimateTeam.Application.Dtos;
 using UltimateTeam.Application.Helpers;
 using UltimateTeam.Application.Helpers.Factories;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace Dev33.UltimateTeam.Application.Services
 {
@@ -50,7 +49,7 @@ namespace Dev33.UltimateTeam.Application.Services
         public async Task<NoteResponseDto> DeleteNote(Guid id)
         {
             var note = await unitOfWork.NoteRepository.GetByIdAsync(id);
-            var information = await unitOfWork.InformationRepository.GetByIdAsync(note.Id);
+            var information = await unitOfWork.InformationRepository.GetByIdAsync(note.InformationsId);
             ValidateExistence(note, information);
             var tags = await unitOfWork.TagRepository.GetTagsAsync(information.Id);
             information.Tags = (List<Tag>)tags;
@@ -67,7 +66,7 @@ namespace Dev33.UltimateTeam.Application.Services
             information.Tags = (List<Tag>)tags;
             var note = await unitOfWork.NoteRepository.GetByIdAsync(id);
             ValidateExistence(note, information);
-            encryptor = FactoryEncryptor.Create(information.EncryptorType.ToString());
+            encryptor = FactoryEncryptor.Create(information.EncryptionType.ToString());
             var noteDecrypted = HandleEncryption.HandleEncryptData(note, encryptor, false);
 
             return NoteMapper.Map((Note)noteDecrypted, information);
@@ -81,8 +80,8 @@ namespace Dev33.UltimateTeam.Application.Services
             var informationMapped = InformationMapper.Map(noteId, note);
             var noteMapped = NoteMapper.Map(note, informationMapped.Id);
             await unitOfWork.TagRepository.RemoveTagsAsync(informationExisted.Id);
-            await unitOfWork.TagRepository.AddTagsAsync(informationMapped.Tags);
-            encryptor = FactoryEncryptor.Create(informationMapped.EncryptorType.ToString());
+            await unitOfWork.TagRepository.AddTagsAsync((List<Tag>)informationMapped.Tags);
+            encryptor = FactoryEncryptor.Create(informationMapped.EncryptionType.ToString());
             var noteEncrypted = HandleEncryption.HandleEncryptData(noteMapped, encryptor, true);
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
             await unitOfWork.NoteRepository.UpdateAsync((Note)noteEncrypted);

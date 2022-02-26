@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Application.Dtos;
+using Dev33.UltimateTeam.Domain;
 using UltimateTeam.Application.Helpers;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace Dev33.UltimateTeam.Application.Helpers
 {
@@ -16,7 +15,7 @@ namespace Dev33.UltimateTeam.Application.Helpers
         {
             return new Contact
             {
-                Id = id,
+                InformationsId = id,
                 FullName = contact.FullName,
                 FirstName = contact.FirstName,
                 LastName = contact.LastName,
@@ -35,7 +34,7 @@ namespace Dev33.UltimateTeam.Application.Helpers
         {
             return new ContactResponseDto
             {
-                Id = contact.Id,
+                Id = contact.InformationsId,
                 FullName = contact.FullName,
                 FirstName = contact.FirstName,
                 LastName = contact.LastName,
@@ -43,16 +42,16 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 Zip = contact.Zip,
                 Country = contact.Country,
                 State = contact.State,
-                Birthday = contact.Birthday,
-                Emails = EmailMapper.Map(contact.Emails),
-                Phones = PhoneMapper.Map(contact.Phones),
-                Addresses = AddressMapper.Map(contact.Addresses),
+                Birthday = (DateTime)contact.Birthday,
+                Emails = EmailMapper.Map((List<Email>)contact.Emails),
+                Phones = PhoneMapper.Map((List<Phone>)contact.Phones),
+                Addresses = AddressMapper.Map((List<Address>)contact.Addresses),
                 Name = information.Name,
                 Description = information.Description,
                 Favorite = information.Favorite,
                 Tags = TagMapper.Map(information.Tags),
-                Type = information.InformationType.ToString(),
-                EncryptionType = information.EncryptorType.ToString()
+                Type = information.Type.ToString(),
+                EncryptionType = information.EncryptionType.ToString()
             };
         }
     }

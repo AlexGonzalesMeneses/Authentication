@@ -5,12 +5,11 @@ using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using Dev33.UltimateTeam.Application.Dtos;
 using Dev33.UltimateTeam.Application.Encyptors;
 using Dev33.UltimateTeam.Application.Helpers;
+using Dev33.UltimateTeam.Domain;
 using UltimateTeam.Application.Contracts.Services;
 using UltimateTeam.Application.Dtos;
 using UltimateTeam.Application.Helpers;
 using UltimateTeam.Application.Helpers.Factories;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace UltimateTeam.Application.Services
 {
@@ -65,7 +64,7 @@ namespace UltimateTeam.Application.Services
             ValidateExistingCard(creditCard, information);
             var tags = await unitOfWork.TagRepository.GetTagsAsync(id);
             information.Tags = (List<Tag>)tags;
-            encryptor = FactoryEncryptor.Create(information.EncryptorType.ToString());
+            encryptor = FactoryEncryptor.Create(information.EncryptionType.ToString());
             var creditCardDecrypted = HandleEncryption.HandleEncryptData(creditCard, encryptor, encrypt: false);
 
             return CreditCardMapper.Map((CreditCard)creditCardDecrypted, information);
@@ -80,7 +79,7 @@ namespace UltimateTeam.Application.Services
             var creditCardMapped = CreditCardMapper.Map(creditCard, id);
             await unitOfWork.TagRepository.RemoveTagsAsync(id);
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
-            await unitOfWork.TagRepository.AddTagsAsync(informationMapped.Tags);
+            await unitOfWork.TagRepository.AddTagsAsync((List<Tag>)informationMapped.Tags);
             encryptor = FactoryEncryptor.Create(creditCard.EncryptionType);
             var creditCardEncrypted = HandleEncryption.HandleEncryptData(creditCardMapped, encryptor, encrypt: true);
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);

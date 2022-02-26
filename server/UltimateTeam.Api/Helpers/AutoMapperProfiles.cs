@@ -1,9 +1,7 @@
 using AutoMapper;
 using Dev33.UltimateTeam.Application.Dtos;
-using Dev33.UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Domain;
 using UltimateTeam.Application.Dtos;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace UltimateTeam.Api.Helpers
 {

@@ -5,11 +5,10 @@ using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using Dev33.UltimateTeam.Application.Dtos;
 using Dev33.UltimateTeam.Application.Encyptors;
 using Dev33.UltimateTeam.Application.Helpers;
+using Dev33.UltimateTeam.Domain;
 using UltimateTeam.Application.Contracts.Services;
 using UltimateTeam.Application.Helpers;
 using UltimateTeam.Application.Helpers.Factories;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace UltimateTeam.Application.Services
 {
@@ -74,7 +73,7 @@ namespace UltimateTeam.Application.Services
             var urls = await unitOfWork.UrlRepository.GetUrlsByCredentialId(id);
             information.Tags = (List<Tag>)tags;
             credential.Urls = (List<Url>)urls;
-            encryptor = FactoryEncryptor.Create(information.EncryptorType.ToString());
+            encryptor = FactoryEncryptor.Create(information.EncryptionType.ToString());
             var credentialDecrypted = HandleEncryption.HandleEncryptData(credential, encryptor, encrypt: false);
 
             return CredentialMapper.Map((Credential)credentialDecrypted, information);
@@ -90,7 +89,7 @@ namespace UltimateTeam.Application.Services
             var credentialMapped = CredentialMapper.Map(credential, id);
             await unitOfWork.TagRepository.RemoveTagsAsync(id);
             await unitOfWork.InformationRepository.UpdateAsync(informationMapped);
-            await unitOfWork.TagRepository.AddTagsAsync(informationMapped.Tags);
+            await unitOfWork.TagRepository.AddTagsAsync((List<Tag>)informationMapped.Tags);
             encryptor = FactoryEncryptor.Create(credential.EncryptionType);
             var credentialEncrypted = HandleEncryption.HandleEncryptData(credentialMapped, encryptor, encrypt: true);
             await unitOfWork.CredentialRepository.AddAsync((Credential)credentialEncrypted);

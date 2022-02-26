@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dev33.UltimateTeam.Infrastructure.DataManagers;
+using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Infrastructure;
 using Dev33.UltimateTeam.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using UltimateTeam.Application.Contracts.Repositories;
-using UltimateTeam.Domain.Models;
 
 namespace UltimateTeam.Infrastructure.Repositories
 {
     public class TagRepository : BaseRepository<Tag>, ITagRepository
     {
-        public TagRepository(ContextDB context) : base(context)
+        public TagRepository(SafeInformationDBContext context) : base(context)
         {
         }
 

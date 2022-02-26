@@ -1,6 +1,6 @@
+using Dev33.UltimateTeam.Domain;
 using System;
 using System.Collections.Generic;
-using UltimateTeam.Domain.Models;
 
 namespace UltimateTeam.Application.Helpers
 {

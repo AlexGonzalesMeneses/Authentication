@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
-using Dev33.UltimateTeam.Infrastructure.DataManagers;
 using UltimateTeam.Application.Contracts.Repositories;
 using UltimateTeam.Infrastructure.Repositories;
 
@@ -8,9 +7,9 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ContextDB context;
+        private readonly SafeInformationDBContext context;
 
-        public UnitOfWork(ContextDB context)
+        public UnitOfWork(SafeInformationDBContext context)
         {
             this.context = context;
         }

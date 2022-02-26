@@ -1,8 +1,7 @@
 using System;
 using Dev33.UltimateTeam.Application.Dtos;
+using Dev33.UltimateTeam.Domain;
 using UltimateTeam.Application.Dtos;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace UltimateTeam.Application.Helpers
 {
@@ -12,12 +11,12 @@ namespace UltimateTeam.Application.Helpers
         {
             return new CreditCard
             {
-                Id = id,
+                InformationsId = id,
                 Number = creditCard.Number,
                 Issuer = creditCard.Issuer,
                 Cvv = creditCard.Cvv,
                 Expiration = creditCard.Expiration,
-                CardName = creditCard.CardName,
+                Name = creditCard.CardName,
             };
         }
 
@@ -25,15 +24,15 @@ namespace UltimateTeam.Application.Helpers
         {
             return new CreditCardResponseDto
             {
-                Id = creditCard.Id,
+                Id = creditCard.InformationsId,
                 Number = creditCard.Number,
                 Issuer = creditCard.Issuer,
                 Cvv = creditCard.Cvv,
                 Expiration = (DateTime)creditCard.Expiration,
                 Favorite = information.Favorite,
                 Name = information.Name,
-                EncryptionType = information.EncryptorType.ToString(),
-                Type = information.InformationType.ToString(),
+                EncryptionType = information.EncryptionType.ToString(),
+                Type = information.Type.ToString(),
                 Description = information.Description,
                 Tags = TagMapper.Map(information.Tags)
             };

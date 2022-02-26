@@ -1,8 +1,7 @@
+using Dev33.UltimateTeam.Domain;
 using System;
 using System.Collections.Generic;
 using UltimateTeam.Application.Dtos;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
 
 namespace UltimateTeam.Application.Helpers
 {
@@ -12,7 +11,7 @@ namespace UltimateTeam.Application.Helpers
         {
             return new Note
             {
-                Id = id,
+                InformationsId = id,
                 Text = note.Text,
             };
         }
@@ -24,9 +23,9 @@ namespace UltimateTeam.Application.Helpers
                 Name = information.Name,
                 Text = note.Text,
                 Description = information.Description,
-                Type = information.InformationType.ToString(),
+                Type = information.Type.ToString(),
                 Favorite = information.Favorite,
-                EncryptionType = information.EncryptorType.ToString(),
+                EncryptionType = information.EncryptionType.ToString(),
                 Tags = TagMapper.Map(information.Tags)
             };
         }

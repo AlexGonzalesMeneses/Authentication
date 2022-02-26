@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
-using UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Domain;
 
 namespace UltimateTeam.Application.Contracts.Repositories
 {
