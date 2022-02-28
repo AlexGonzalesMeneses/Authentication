@@ -1,12 +1,16 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 
-namespace UltimateTeam.Domain.Models
+#nullable disable
+
+namespace Dev33.UltimateTeam.Domain
 {
-    public class Tag
+    public partial class Tag
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public Guid InformationId { get; set; }
-        public Information Information { get; set; }
+
+        public virtual Information Information { get; set; }
     }
 }

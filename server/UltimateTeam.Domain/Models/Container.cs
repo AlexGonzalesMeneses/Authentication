@@ -1,18 +1,25 @@
-﻿using System;
+﻿using Dev33.UltimateTeam.Domain.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UltimateTeam.Domain.Models;
-using UltimateTeam.Domain.Models.SensitiveInformations;
 
-namespace Dev33.UltimateTeam.Domain.Models
+#nullable disable
+
+namespace Dev33.UltimateTeam.Domain
 {
-    public class Container : ModelBase
+    public partial class Container
     {
+        public Container()
+        {
+            Information = new HashSet<Information>();
+        }
+
+        public Guid Id { get; set; }
+        [Display(Encrypted = true, Sensitive = false)]
+        public string Name { get; set; }
+        public bool Favorite { get; set; }
         public Guid UserId { get; set; }
-        public User User { get; set; }
-        public List<Information> Informations { get; set; } = new List<Information>();
+
+        public virtual User User { get; set; }
+        public virtual ICollection<Information> Information { get; set; }
     }
 }

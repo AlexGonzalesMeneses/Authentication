@@ -1,5 +1,5 @@
 ﻿using Dev33.UltimateTeam.Application.Dtos;
-using Dev33.UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +11,11 @@ namespace Dev33.UltimateTeam.Application.Contracts.Services
 {
     public interface IContainerService
     {
-        Task<IEnumerable<ContainerResponseDto>> GetContainersByUserId(Guid request);
+        Task<IEnumerable<Container>> GetContainersByUserId(Guid request);
 
-        Task<ContainerResponseDto> CreateContainer(Guid userId, ContainerRequestDto request);
-        Task DeleteContainer(Guid userId, Guid containerId);
-        Task<ContainerSpecifyResponseDto> GetContainerById(Guid userId, Guid containerId);
-        Task UpdateContainer(ContainerSpecifyResponseDto container);
+        Task<Container> CreateContainer(Container request);
+        Task<Container> DeleteContainer(Guid containerId);
+        Task<Container> GetContainerById(Guid containerId);
+        Task<Container> UpdateContainer(Container container);
     }
 }

@@ -18,8 +18,11 @@ using Dev33.UltimateTeam.Api.Services.LoggerService;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Services;
-using Dev33.UltimateTeam.Infrastructure.DataManagers;
 using Dev33.UltimateTeam.Infrastructure.Repositories;
+using UltimateTeam.Infrastructure.Repositories;
+using UltimateTeam.Application.Contracts.Services;
+using UltimateTeam.Application.Services;
+using Dev33.UltimateTeam.Infrastructure;
 
 namespace Dev33.UltimateTeam.Api
 {
@@ -45,16 +48,34 @@ namespace Dev33.UltimateTeam.Api
                 });
             });
 
-            services.AddDbContext<ContextDB>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            services.AddDbContext<SafeInformationDBContext>(options =>
+              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                sqlServerOptionsAction: sqlOptions =>
+                { 
+                    sqlOptions.EnableRetryOnFailure();
+                }
+              )
+              .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+              .EnableSensitiveDataLogging()
             );
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddSingleton<ILoggerManager, LoggerManager>();
-            services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
+            services.AddTransient(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IContainerRepository, ContainerRepository>();
+            services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<IKeyService, KeyService>();
+            services.AddTransient<ICredentialService, CredentialService>();
+            services.AddTransient<ICreditCardService, CreditCardService>();
+            services.AddTransient<IKeyRepository, KeyRepository>();
+            services.AddTransient<IContactRepository, ContactRepository>();
+            services.AddTransient<IContactService, ContactService>();
+            services.AddTransient<IInformationRepository, InformationRepository>();
             services.AddTransient<IAuthenticateService, AuthenticateService>();
             services.AddTransient<IContainerService, ContainerService>();
+            services.AddTransient<INoteService, NoteService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddAuthentication(options =>

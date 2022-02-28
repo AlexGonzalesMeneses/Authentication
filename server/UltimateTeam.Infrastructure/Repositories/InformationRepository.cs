@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
-using Dev33.UltimateTeam.Infrastructure.DataManagers;
+using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Infrastructure;
 using Dev33.UltimateTeam.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using UltimateTeam.Domain.Models;
 
 namespace UltimateTeam.Infrastructure.Repositories
 {
     public class InformationRepository : BaseRepository<Information>, IInformationRepository
     {
-        public InformationRepository(ContextDB context) : base(context)
+        public InformationRepository(SafeInformationDBContext context) : base(context)
         {
         }
 

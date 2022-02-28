@@ -1,30 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Dev33.UltimateTeam.Domain.Models
+#nullable disable
+
+namespace Dev33.UltimateTeam.Domain
 {
-    public class User
+    public partial class User
     {
-        [Required]
+        public User()
+        {
+            Containers = new HashSet<Container>();
+        }
+
         public Guid Id { get; set; }
-        
-        [Required]
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         public string FullName { get; set; }
 
-        [Required]
-        public string UserName { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        public List<Container> Containers { get; set; } = new List<Container>();
+        public virtual ICollection<Container> Containers { get; set; }
     }
 }

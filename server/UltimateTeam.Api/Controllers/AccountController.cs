@@ -10,6 +10,8 @@ using Dev33.UltimateTeam.Application.Dtos;
 using Dev33.UltimateTeam.Application.Encyptors;
 using Dev33.UltimateTeam.Domain.Models;
 using Dev33.UltimateTeam.Api.Services.LoggerService;
+using AutoMapper;
+using Dev33.UltimateTeam.Domain;
 
 namespace Dev33.UltimateTeam.Api.Controllers
 {
@@ -20,12 +22,14 @@ namespace Dev33.UltimateTeam.Api.Controllers
         private IAuthenticateService authenticateService;
         private IEncryptor encryptor;
         private readonly ILoggerManager loggerManager;
+        private IMapper mapper;
 
-        public AccountController(IAuthenticateService authenticateService, ILoggerManager loggerManager)
+        public AccountController(IAuthenticateService authenticateService, ILoggerManager loggerManager, IMapper mapper)
         {
             this.authenticateService = authenticateService;
             encryptor = new MD5Encryptor();
             this.loggerManager = loggerManager;
+            this.mapper = mapper;
         }
 
         [HttpPost("authenticate")]
@@ -34,14 +38,16 @@ namespace Dev33.UltimateTeam.Api.Controllers
             try
             {
                 request.Password = encryptor.EncryptData(request.Password);
-                var user = await authenticateService.AuthenticateAsync(request);
-                user.Token = GenerateToken(user);
+                var user = await authenticateService.AuthenticateAsync(request.Email, request.UserName, request.Password);
+                var userResponse = mapper.Map<UserResponseDto>(user);
+                userResponse.Token = GenerateToken(userResponse);
 
-                return Ok(user);
+                return Ok(userResponse);
             }
             catch (Exception ex)
             {
                 loggerManager.LogError(ex);
+
                 return BadRequest(ex.Message);
             }
         }
@@ -66,7 +72,7 @@ namespace Dev33.UltimateTeam.Api.Controllers
                 audience: "UltimateTeam",
                 claims,
                 DateTime.Now,
-                DateTime.UtcNow.AddMinutes(60)
+                DateTime.UtcNow.AddMinutes(100)
             );
 
             var token = new JwtSecurityToken(header, payload);
@@ -81,16 +87,17 @@ namespace Dev33.UltimateTeam.Api.Controllers
             {
                 request.Password = encryptor.EncryptData(request.Password);
                 var user = await authenticateService.RegisterAsync(request);
-                user.Token = GenerateToken(user);
+                var userResponse = mapper.Map<UserResponseDto>(user);
+                userResponse.Token = GenerateToken(userResponse);
 
-                return Ok(user);
+                return Ok(userResponse);
             }
             catch (Exception ex)
             {
                 loggerManager.LogError(ex);
+
                 return BadRequest(new { message = "Username or email already exists" });
             }
-
         }
     }
 }
