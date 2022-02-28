@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Application.Dtos;
-using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Domain.Models;
 using UltimateTeam.Application.Helpers;
 
 namespace Dev33.UltimateTeam.Application.Helpers

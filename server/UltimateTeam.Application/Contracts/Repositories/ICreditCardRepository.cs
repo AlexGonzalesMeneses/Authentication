@@ -1,5 +1,5 @@
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
-using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Domain.Models;
 
 namespace UltimateTeam.Application.Contracts.Repositories
 {

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
+using Dev33.UltimateTeam.Infrastructure.Context;
 using UltimateTeam.Application.Contracts.Repositories;
 using UltimateTeam.Infrastructure.Repositories;
 
@@ -39,6 +40,8 @@ namespace Dev33.UltimateTeam.Infrastructure.Repositories
         public IUrlRepository UrlRepository => new UrlRepository(context);
 
         public ICredentialRepository CredentialRepository => new CredentialRepository(context);
+
+        public IShareInformationRepository shareInformationRepository => new ShareInformationRepository(context);
 
         public async Task SaveChangesAsync()
         {

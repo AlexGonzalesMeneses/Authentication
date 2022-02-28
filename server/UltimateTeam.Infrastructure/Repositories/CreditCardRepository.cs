@@ -1,6 +1,5 @@
-
-using Dev33.UltimateTeam.Domain;
-using Dev33.UltimateTeam.Infrastructure;
+using Dev33.UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Infrastructure.Context;
 using Dev33.UltimateTeam.Infrastructure.Repositories;
 using UltimateTeam.Application.Contracts.Repositories;
 

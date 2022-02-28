@@ -22,7 +22,7 @@ using Dev33.UltimateTeam.Infrastructure.Repositories;
 using UltimateTeam.Infrastructure.Repositories;
 using UltimateTeam.Application.Contracts.Services;
 using UltimateTeam.Application.Services;
-using Dev33.UltimateTeam.Infrastructure;
+using Dev33.UltimateTeam.Infrastructure.Context;
 
 namespace Dev33.UltimateTeam.Api
 {
@@ -51,7 +51,7 @@ namespace Dev33.UltimateTeam.Api
             services.AddDbContext<SafeInformationDBContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 sqlServerOptionsAction: sqlOptions =>
-                { 
+                {
                     sqlOptions.EnableRetryOnFailure();
                 }
               )
@@ -76,6 +76,8 @@ namespace Dev33.UltimateTeam.Api
             services.AddTransient<IAuthenticateService, AuthenticateService>();
             services.AddTransient<IContainerService, ContainerService>();
             services.AddTransient<INoteService, NoteService>();
+            services.AddTransient<ISharedInformation, SharedInformation>();
+            services.AddTransient<IInformationRepository, InformationRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddAuthentication(options =>

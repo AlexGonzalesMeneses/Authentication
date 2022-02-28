@@ -1,5 +1,6 @@
 ﻿using Dev33.UltimateTeam.Application.Contracts.Repositories;
-using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

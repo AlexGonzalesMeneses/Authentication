@@ -1,11 +1,11 @@
 ﻿using System;
-using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Dev33.UltimateTeam.Infrastructure
+namespace Dev33.UltimateTeam.Infrastructure.Context
 {
     public partial class SafeInformationDBContext : DbContext
     {
@@ -28,6 +28,7 @@ namespace Dev33.UltimateTeam.Infrastructure
         public virtual DbSet<Key> Keys { get; set; }
         public virtual DbSet<Note> Notes { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
+        public virtual DbSet<ShareInformation> ShareInformations { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Url> Urls { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -165,6 +166,24 @@ namespace Dev33.UltimateTeam.Infrastructure
                     .WithMany(p => p.Phones)
                     .HasForeignKey(d => d.ContactId)
                     .HasConstraintName("FK_Phones_Contacts_InformationsId");
+            });
+
+            modelBuilder.Entity<ShareInformation>(entity =>
+            {
+                entity.HasKey(e => e.GuessId)
+                    .HasName("PK__ShareInf__0B84EA59B59511F1");
+
+                entity.Property(e => e.GuessId).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Guess)
+                    .WithOne(p => p.ShareInformation)
+                    .HasForeignKey<ShareInformation>(d => d.GuessId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.Information)
+                    .WithMany(p => p.ShareInformations)
+                    .HasForeignKey(d => d.InformationId)
+                    .HasConstraintName("FK_ShareInformations_Informations_InformationsId");
             });
 
             modelBuilder.Entity<Tag>(entity =>

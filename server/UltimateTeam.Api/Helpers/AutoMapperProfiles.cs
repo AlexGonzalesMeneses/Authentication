@@ -1,6 +1,6 @@
 using AutoMapper;
 using Dev33.UltimateTeam.Application.Dtos;
-using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Domain.Models;
 using UltimateTeam.Application.Dtos;
 
 namespace UltimateTeam.Api.Helpers

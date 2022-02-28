@@ -1,6 +1,7 @@
 using System;
 using Dev33.UltimateTeam.Application.Helpers;
 using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Domain.Models;
 
 namespace UltimateTeam.Application.Dtos
 {
