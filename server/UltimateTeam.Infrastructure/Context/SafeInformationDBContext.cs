@@ -39,7 +39,7 @@ namespace Dev33.UltimateTeam.Infrastructure.Context
 
             modelBuilder.Entity<Address>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.Contact)
                     .WithMany(p => p.Addresses)
