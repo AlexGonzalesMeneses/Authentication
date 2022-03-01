@@ -19,13 +19,11 @@ namespace UltimateTeam.Application.Helpers
 
             foreach (var tag in tagArray)
             {
-                tagsList.Add(new Tag { Name = tag, InformationId = informationId, Id = Guid.NewGuid() });
+                tagsList.Add(new Tag { Name = tag, InformationId = informationId });
             }
 
             return tagsList;
         }
-
-
 
         public static List<string> Map(IEnumerable<Tag> tags)
         {

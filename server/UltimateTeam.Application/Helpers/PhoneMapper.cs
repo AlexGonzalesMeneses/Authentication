@@ -21,7 +21,6 @@ namespace UltimateTeam.Application.Helpers
             {
                 phoneList.Add(new Phone
                 {
-                    Id = Guid.NewGuid(),
                     ContactId = id,
                     Number = phone
                 });

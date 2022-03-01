@@ -21,7 +21,6 @@ namespace UltimateTeam.Application.Helpers
             {
                 emailList.Add(new Email
                 {
-                    Id = Guid.NewGuid(),
                     ContactId = id,
                     Mail = email
                 });

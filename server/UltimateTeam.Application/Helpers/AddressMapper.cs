@@ -22,7 +22,6 @@ namespace UltimateTeam.Application.Helpers
             {
                 addressList.Add(new Address
                 {
-                    Id = Guid.NewGuid(),
                     ContactId = id,
                     Location = address
                 });

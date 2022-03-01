@@ -21,7 +21,6 @@ namespace UltimateTeam.Application.Helpers
             {
                 urlList.Add(new Url
                 {
-                    Id = Guid.NewGuid(),
                     CredentialId = id,
                     Address = url
                 });
