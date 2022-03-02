@@ -15,8 +15,12 @@ namespace Dev33.UltimateTeam.Domain.Models
         }
 
         public Guid Id { get; set; }
+
+        [Display(Encrypted = false, Sensitive = false)]
         public string Name { get; set; }
         public bool Favorite { get; set; }
+
+        [Display(Encrypted = false, Sensitive = false)]
         public string Description { get; set; }
         public Guid ContainerId { get; set; }
         public InformationType Type { get; set; }
@@ -27,6 +31,7 @@ namespace Dev33.UltimateTeam.Domain.Models
         public virtual Credential Credential { get; set; }
         public virtual Key Key { get; set; }
         public virtual Note Note { get; set; }
+        public virtual CreditCard CreditCard { get; set; }
         public virtual ICollection<ShareInformation> ShareInformations { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
     }

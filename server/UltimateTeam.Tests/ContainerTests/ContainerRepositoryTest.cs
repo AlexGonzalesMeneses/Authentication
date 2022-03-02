@@ -5,7 +5,6 @@ using Moq;
 using Dev33.UltimateTeam.Domain.Models;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using System;
-using Dev33.UltimateTeam.Domain;
 
 namespace UltimateTeam.Tests.ContainerTests
 {

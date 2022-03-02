@@ -15,7 +15,7 @@ namespace Dev33.UltimateTeam.Domain.Models
         public Guid InformationsId { get; set; }
         [Display(Encrypted = true, Sensitive = false)]
         public string UserName { get; set; }
-        [Display(Encrypted = true, Sensitive = false)]
+        [Display(Encrypted = true, Sensitive = true)]
         public string Password { get; set; }
 
 
