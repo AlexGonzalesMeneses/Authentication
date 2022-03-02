@@ -1,18 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box } from '@mui/system';
 import ShareIcon from '@mui/icons-material/Share';
 import EditIcon from '@mui/icons-material/Edit';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import PhoneIcon from '@mui/icons-material/Phone';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import PersonIcon from '@mui/icons-material/Person';
-import KeyIcon from '@mui/icons-material/Key';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -22,63 +13,21 @@ import Modal from '@mui/material/Modal';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Tooltip from '@mui/material/Tooltip';
+import Swal from 'sweetalert2';
+import ListContext from '@pathListContext';
+import ItemsIcons from './ItemsIcons';
+import { GetInformation } from '@pathGet';
+import { DeleteInformation } from '@pathDelete';
+import { PutInformation } from '@pathPut';
 
-function Item({ data }) {
-  const { name, type, favorite } = data;
+function Item({ data, reRender }) {
+  const { informationType, favorite } = data;
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isFavorite, setIsFavorite] = React.useState(favorite);
   const [openMainModal, setOpenMainModal] = React.useState(false);
-  const [action, setAction] = React.useState();
-
+  const [action, setAction] = React.useState('Show');
+  const { idContainer } = useContext(ListContext);
+  const [itemInformation, setItemInformation] = React.useState({});
   const open = Boolean(anchorEl);
-
-  const iconType = () => {
-    switch (type) {
-      case 'key':
-        return (
-          <Tooltip title="Key" enterDelay={500} leaveDelay={200}>
-            <IconButton>
-              <KeyIcon />
-            </IconButton>
-          </Tooltip>
-        );
-      case 'credential':
-        return (
-          <Tooltip title="Credential" enterDelay={500} leaveDelay={200}>
-            <IconButton>
-              <AccountBoxIcon />
-            </IconButton>
-          </Tooltip>
-        );
-      case 'creditCard':
-        return (
-          <Tooltip title="CreditCard" enterDelay={500} leaveDelay={200}>
-            <IconButton>
-              <CreditCardIcon />
-            </IconButton>
-          </Tooltip>
-        );
-      case 'contact':
-        return (
-          <Tooltip title="Contact" enterDelay={500} leaveDelay={200}>
-            <IconButton>
-              <PhoneIcon />
-            </IconButton>
-          </Tooltip>
-        );
-      case 'note':
-        return (
-          <Tooltip title="Note" enterDelay={500} leaveDelay={200}>
-            <IconButton>
-              <LibraryBooksIcon />
-            </IconButton>
-          </Tooltip>
-        );
-
-      default:
-        return <h1>No icon match</h1>;
-    }
-  };
 
   const handleClickMore = (event) => {
     event.stopPropagation();
@@ -88,30 +37,80 @@ function Item({ data }) {
     e.stopPropagation();
     setAnchorEl(null);
   };
-  const handleFavorite = (e) => {
+  const handleFavorite = (e, item) => {
     e.stopPropagation();
-    setIsFavorite(!isFavorite);
-    //To do update
+    const newFavorite = !itemInformation.favorite;
+    let tagsResponse = itemInformation.tags.toString();
+    item.favorite = newFavorite;
+    item.tags = tagsResponse;
+    item.containerId = idContainer;
+    if (informationType == 'CreditCard') {
+      item.cardName = '';
+    }
+    if (informationType == 'Credential') {
+      let urlsResponse = itemInformation.urls.toString();
+      item.urls = urlsResponse;
+    }
+    if (informationType == 'Contact') {
+      let emailsResponse = itemInformation.emails.toString();
+      let phonesResponse = itemInformation.phones.toString();
+      let addressesResponse = itemInformation.addresses.toString();
+      item.emails = emailsResponse;
+      item.phones = phonesResponse;
+      item.addresses = addressesResponse;
+    }
+    PutInformation(idContainer, item, informationType, data.id);
+    setItemInformation({
+      ...itemInformation,
+      favorite: newFavorite,
+    });
+    reRender();
   };
   const editItem = () => {
+    setAction('Edit');
     setOpenMainModal(true);
   };
   const copyItem = () => {
-    console.log('copy');
+    setAction('Clone');
+    setOpenMainModal(true);
   };
   const shareItem = () => {
-    console.log('share');
+    setAction('Share');
+    setOpenMainModal(true);
   };
   const removeItem = () => {
-    console.log('remove');
+    Swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCloseButton: true,
+      showConfirmButton: true,
+      showDenyButton: true,
+      confirmButtonText: 'Deleted',
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        DeleteInformation(idContainer, informationType, data.id);
+        Swal.fire('Deleted!', '', 'success');
+        reRender();
+      } else if (result.isDenied) {
+        Swal.fire('Deleted canceled', '', 'info');
+      }
+    });
   };
 
   const handleOpenMainModal = () => {
+    setAction('Show');
     setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {
+    reRender();
     setOpenMainModal(false);
   };
+  useEffect(() => {
+    GetInformation(idContainer, informationType, data.id).then((data) => {
+      setItemInformation(data);
+    });
+  }, [data]);
 
   return (
     <>
@@ -149,7 +148,7 @@ function Item({ data }) {
               pb: '25px',
             }}
           >
-            {name.length > 100 ? `${name.substring(0, 100)}...` : name}
+            {itemInformation.name}
           </Box>
           <Box
             sx={{
@@ -159,10 +158,10 @@ function Item({ data }) {
               justifyContent: 'space-between',
             }}
           >
-            {iconType()}
-            {isFavorite ? (
+            <ItemsIcons informationType={informationType} />
+            {itemInformation.favorite ? (
               <Tooltip title="Favorite" enterDelay={500} leaveDelay={200}>
-                <IconButton onClick={handleFavorite}>
+                <IconButton onClick={(e) => handleFavorite(e, itemInformation)}>
                   <StarIcon
                     sx={{
                       color: 'secondary.dark',
@@ -175,7 +174,7 @@ function Item({ data }) {
               </Tooltip>
             ) : (
               <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
-                <IconButton onClick={handleFavorite}>
+                <IconButton onClick={(e) => handleFavorite(e, itemInformation)}>
                   <StarBorderIcon
                     sx={{
                       color: 'secondary.dark',
@@ -222,7 +221,7 @@ function Item({ data }) {
                   </IconButton>
                 </MenuItem>
               </Tooltip>
-              <Tooltip title="Copy" disableInteractive placement="right">
+              <Tooltip title="Clone" disableInteractive placement="right">
                 <MenuItem onClick={handleCloseMore}>
                   <IconButton onClick={copyItem} sx={{ padding: '0px' }}>
                     <ContentCopyIcon />
@@ -253,10 +252,11 @@ function Item({ data }) {
       <Modal open={openMainModal} onClose={handleCloseMainModal}>
         <Box>
           <MainModal
-            data={data}
-            action="show"
+            data={itemInformation}
+            idItem={data.id}
+            action={action}
             closeModal={handleCloseMainModal}
-            typeSelect={type}
+            typeSelect={informationType}
           />
         </Box>
       </Modal>

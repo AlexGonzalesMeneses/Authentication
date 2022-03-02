@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import ContentModal from './ContentModal';
+import ListContext from '../../context/ListContext';
+import { GetInformation } from '../../services/information/Get';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -13,9 +15,25 @@ const style = {
   bgcolor: 'primary.light',
 };
 
-export default function MainModal({ data, action, closeModal, typeSelect }) {
+export default function MainModal({
+  data,
+  idItem,
+  action,
+  closeModal,
+  typeSelect,
+}) {
+  const [itemShare, setItemShare] = React.useState('');
+  React.useEffect(() => {
+    const getItem = () => {
+      GetInformation(idItem, typeSelect, idItem).then((data) => {
+        setItemShare(data);
+      });
+    };
+    getItem();
+  }, []);
+  console.log(itemShare);
   return (
-    <Box sx={style}>
+    <Box sx={style} id="ModalMain">
       <Box
         sx={{
           width: '100%',
@@ -32,16 +50,30 @@ export default function MainModal({ data, action, closeModal, typeSelect }) {
         sx={{
           width: '100%',
           bgcolor: 'primary.light',
-          overflowY: 'scroll',
+          overflowY: 'auto',
           maxHeight: '70vh',
         }}
       >
-        <ContentModal
-          data={data}
-          action={action}
-          closeModal={closeModal}
-          typeSelect={typeSelect}
-        />
+        {action != 'ShowShare' ? (
+          <ContentModal
+            data={data}
+            idItem={idItem}
+            action={action}
+            closeModal={closeModal}
+            typeSelect={typeSelect}
+          />
+        ) : (
+          itemShare && (
+            <ContentModal
+              data={data}
+              idItem={idItem}
+              action={action}
+              closeModal={closeModal}
+              typeSelect={typeSelect}
+              itemShare={itemShare}
+            />
+          )
+        )}
       </Box>
     </Box>
   );

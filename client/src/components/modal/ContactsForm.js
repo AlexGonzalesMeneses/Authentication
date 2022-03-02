@@ -1,84 +1,128 @@
-import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
-import { Box } from '@mui/system';
+import { Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
-import CustomeInput from './CustomeInput';
 import InformationForm from './InformationForm';
+import ListContext from '@pathListContext';
+import { PostInformation } from '@pathPost';
+import { PutInformation } from '@pathPut';
+import { validateEmail, validateDate } from '../../helpers/validateEmail';
+import Swal from 'sweetalert2';
 
-function ContactsForm({ data, closeModal }) {
+function ContactsForm({ idItem, data, closeModal, action }) {
+  const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
-    id,
     name,
-    container,
     type,
     favorite,
     description,
     tags,
+    encryptionType,
     fullName,
     firstName,
     lastName,
     business,
-    contry,
+    country,
     state,
     zip,
     birthday,
     phones,
     emails,
-    address,
+    addresses,
   } = data;
+
+  let tagsResponse = '';
+  let emailsResponse = '';
+  let phonesResponse = '';
+  let addressesResponse = '';
+  let birthdayResponse = '';
+  if (action != 'Add') {
+    tagsResponse = tags.toString();
+    emailsResponse = emails.toString();
+    phonesResponse = phones.toString();
+    addressesResponse = addresses.toString();
+    let birthdayResponseFormat = birthday.split('T');
+    birthdayResponse = birthdayResponseFormat[0];
+  }
+  let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
   const [contactData, setContactData] = useState({
-    name: name || '',
-    container: container || '',
-    type: type || '',
-    favorite: favorite || true,
+    name: nameResponse || '',
+    containerId: idContainer || '',
+    type: 'Contact',
+    favorite: favorite == undefined ? true : favorite,
     description: description || '',
-    tags: tags || '',
+    tags: tagsResponse || '',
+    encryptionType: encryptionType || encryptionSelected,
     fullName: fullName || '',
     firstName: firstName || '',
     lastName: lastName || '',
     business: business || '',
-    contry: contry || '',
+    country: country || '',
     state: state || '',
     zip: zip || '',
-    birthday: birthday || '',
-    phones: phones || '',
-    emails: emails || '',
-    address: address || '',
+    birthday: birthdayResponse || '',
+    phones: phonesResponse || '',
+    emails: emailsResponse || '',
+    addresses: addressesResponse || '',
   });
-
   const addDataForm = () => {
-    //SendPostContainer(containerData);
-    closeModal();
+    let validate = validateEmail(contactData.emails);
+    let validateD = validateDate(contactData.birthday);
+    if (!validate || !validateD) {
+      Swal.fire({
+        target: document.getElementById('ModalMain'),
+        title: 'Register denied',
+        text: 'The Email is wrong or The Date is not selected',
+        icon: 'error',
+        showCloseButton: true,
+      });
+    } else {
+      PostInformation(idContainer, contactData, 'Contact');
+      closeModal();
+    }
   };
   const updateDataForm = () => {
+    PutInformation(idContainer, contactData, 'Contact', idItem);
+    closeModal();
+  };
+  const cloneDataForm = () => {
+    PostInformation(idContainer, contactData, 'Contact');
+    closeModal();
+  };
+  const closeDataForm = () => {
     //SendPutContainer(containerData, id);
     closeModal();
   };
   const updateInputs = (input) => (e) => {
-    setCreditCardData({ [input]: e.target.value });
+    setContactData({ ...contactData, [input]: e.target.value });
   };
   const values = {
     name,
-    container,
+    idContainer,
     type,
     favorite,
     description,
     tags,
+    encryptionType,
     fullName,
     firstName,
     lastName,
     business,
-    contry,
+    country,
     state,
     zip,
     birthday,
     phones,
     emails,
-    address,
+    addresses,
   };
   return (
     <>
-      <InformationForm values={values} updateInputs={updateInputs} />
+      <InformationForm
+        type={'Contact'}
+        values={values}
+        updateInputs={updateInputs}
+        action={action}
+      />
       <Grid item xs={6}>
         <TextField
           margin="normal"
@@ -136,11 +180,11 @@ function ContactsForm({ data, closeModal }) {
           margin="normal"
           required
           fullWidth
-          id="contry"
-          label="Contry"
-          defaultValue={contry}
+          id="country"
+          label="Country"
+          defaultValue={country}
           onChange={(e) =>
-            setContactData({ ...contactData, contry: e.target.value })
+            setContactData({ ...contactData, country: e.target.value })
           }
         />
       </Grid>
@@ -177,7 +221,7 @@ function ContactsForm({ data, closeModal }) {
           fullWidth
           id="birthday"
           label="Birthday"
-          defaultValue={birthday}
+          defaultValue={birthdayResponse}
           onChange={(e) =>
             setContactData({ ...contactData, birthday: e.target.value })
           }
@@ -194,7 +238,7 @@ function ContactsForm({ data, closeModal }) {
           fullWidth
           id="phones"
           label="phones"
-          defaultValue={contry}
+          defaultValue={phones}
           onChange={(e) =>
             setContactData({ ...contactData, phones: e.target.value })
           }
@@ -220,16 +264,19 @@ function ContactsForm({ data, closeModal }) {
           fullWidth
           id="address"
           label="Address"
-          defaultValue={address}
+          defaultValue={addresses}
           onChange={(e) =>
-            setContactData({ ...contactData, address: e.target.value })
+            setContactData({ ...contactData, addresses: e.target.value })
           }
         />
       </Grid>
       <ButtonsCrud
-        id={id}
+        idItem={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
+        closeDataForm={closeDataForm}
+        cloneDataForm={cloneDataForm}
+        action={action}
       />
     </>
   );

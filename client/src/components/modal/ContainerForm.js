@@ -9,19 +9,23 @@ import {
   TextField,
 } from '@mui/material';
 import Swal from 'sweetalert2';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 
-import { SendPostContainer } from '../../services/SendPost';
-import { SendPutContainer } from '../../services/SendPut';
+import { SendPostContainer } from '@pathSendPost';
+import { SendPutContainer } from '@pathSendPut';
 import ButtonsCrud from './ButtonsCrud';
 
-function ContainerForm({ name, favorite, id, closeModal }) {
+function ContainerForm({ name, favorite, idItem, closeModal, action }) {
+  const UserId = localStorage.getItem('UserId');
   const [containerData, setContainerData] = useState({
     name: name || '',
-    favorite: favorite || true,
+    favorite: favorite == undefined ? true : favorite,
+    userId: UserId,
   });
-  const handleSubmit = () => {};
+  const handleSubmit = (event) => {
+    event.stopPropagation();
+  };
   const addDataForm = () => {
     SendPostContainer(containerData);
     Swal.fire({
@@ -34,7 +38,7 @@ function ContainerForm({ name, favorite, id, closeModal }) {
   };
 
   const updateDataForm = () => {
-    SendPutContainer(containerData, id);
+    SendPutContainer(containerData, idItem);
     Swal.fire({
       title: 'Container updated',
       icon: 'success',
@@ -43,12 +47,14 @@ function ContainerForm({ name, favorite, id, closeModal }) {
     });
     closeModal();
   };
+  const closeDataForm = () => {
+    //SendPutContainer(containerData, id);
+    closeModal();
+  };
 
   return (
     <Box
-      component="form"
-      onSubmit={handleSubmit}
-      noValidate
+      onSubmit={(e) => handleSubmit(e)}
       sx={{ height: '100%', width: '80%', margin: 'auto' }}
     >
       <Grid
@@ -87,7 +93,7 @@ function ContainerForm({ name, favorite, id, closeModal }) {
               onChange={(e) =>
                 setContainerData({
                   ...containerData,
-                  favorite: e.target.value == 'true' ? true : false,
+                  favorite: e.target.value,
                 })
               }
               label="Favorite"
@@ -99,9 +105,11 @@ function ContainerForm({ name, favorite, id, closeModal }) {
         </Grid>
 
         <ButtonsCrud
-          id={id}
+          idItem={idItem}
           addDataForm={addDataForm}
           updateDataForm={updateDataForm}
+          closeDataForm={closeDataForm}
+          action={action}
         />
       </Grid>
     </Box>

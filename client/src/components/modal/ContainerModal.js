@@ -1,6 +1,5 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
 import ContainerForm from './ContainerForm';
 
 const style = {
@@ -15,10 +14,7 @@ const style = {
   bgcolor: 'primary.light',
 };
 
-function ContainerModal({ name, favorite, id, closeModal }) {
-  const handleSubmit = () => {
-    console.log('action');
-  };
+function ContainerModal({ name, favorite, idItem, closeModal, action }) {
   return (
     <Box sx={style}>
       <Box
@@ -31,7 +27,7 @@ function ContainerModal({ name, favorite, id, closeModal }) {
           borderBotton: '3px solid quaternary.dark',
         }}
       >
-        {'Container'}
+        {action.toUpperCase()}
       </Box>
       <Box
         sx={{
@@ -42,8 +38,9 @@ function ContainerModal({ name, favorite, id, closeModal }) {
         <ContainerForm
           name={name}
           favorite={favorite}
-          id={id}
+          idItem={idItem}
           closeModal={closeModal}
+          action={action}
         />
       </Box>
     </Box>

@@ -1,34 +1,27 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Box } from '@mui/system';
-import StarIcon from '@mui/icons-material/Star';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import KeyIcon from '@mui/icons-material/Key';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import PhoneIcon from '@mui/icons-material/Phone';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import IconNav from '../navbar/IconNav';
 import { IconButton, Menu, MenuItem, Modal, Tooltip } from '@mui/material';
 import MainModal from '../modal/MainModal';
+import ListContext from '@pathListContext';
+import { iconsNavBar } from '../navbar/ListIconsNavbar';
 function Navbar() {
-  const iconStyle = {
-    fontSize: '30px',
-    color: 'secondary.light',
-    cursor: 'pointer',
-    '&:hover': {
-      bgcolor: 'primary.contrastText',
-      transform: 'scale(1.5)',
-      borderRadius: '12px',
-    },
-  };
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const [typeSelect, setTypeSelect] = React.useState('note');
+  const [typeSelect, setTypeSelect] = React.useState('Note');
+  const { addItemselected, filterSelected, selectFilter } =
+    useContext(ListContext);
   const navClick = (e, title) => {
     if (title == 'Add') {
       handleClickMore(e);
+    } else {
+      selectFilter(title);
     }
   };
 
@@ -44,83 +37,31 @@ function Navbar() {
     setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {
+    addItemselected();
     setOpenMainModal(false);
   };
 
   const noteSelected = () => {
-    setTypeSelect('note');
+    setTypeSelect('Note');
     handleOpenMainModal();
   };
   const credentialSelected = () => {
-    setTypeSelect('credential');
+    setTypeSelect('Credential');
     handleOpenMainModal();
   };
   const keySelected = () => {
-    setTypeSelect('key');
+    setTypeSelect('Key');
     handleOpenMainModal();
   };
   const creditCardSelected = () => {
-    setTypeSelect('creditCard');
+    setTypeSelect('CreditCard');
     handleOpenMainModal();
   };
   const contactSelected = () => {
-    setTypeSelect('contact');
+    setTypeSelect('Contact');
     handleOpenMainModal();
   };
-  const icons = [
-    {
-      id: 1,
-      title: 'All',
-      element: <FormatListBulletedIcon title="All" sx={{ ...iconStyle }} />,
-    },
-    {
-      id: 2,
-      title: 'Notes',
-      element: <LibraryBooksIcon title="Notes" sx={{ ...iconStyle }} />,
-    },
-    {
-      id: 3,
-      title: 'Credentials',
-      element: <AccountBoxIcon title="Credentials" sx={{ ...iconStyle }} />,
-    },
-    {
-      id: 4,
-      title: 'Keys',
-      element: <KeyIcon title="Keys" sx={{ ...iconStyle }} />,
-    },
-    {
-      id: 5,
-      title: 'CreditCards',
-      element: <CreditCardIcon title="CreditCards" sx={{ ...iconStyle }} />,
-    },
-    {
-      id: 6,
-      title: 'Contacts',
-      element: <PhoneIcon title="Contacts" sx={{ ...iconStyle }} />,
-    },
-    {
-      id: 7,
-      title: 'Favorites',
-      element: <StarIcon title="Favorites" sx={{ ...iconStyle }} />,
-    },
-    {
-      id: 8,
-      title: 'Add',
-      element: (
-        <AddCircleOutlineIcon
-          title="Add"
-          sx={{
-            ...iconStyle,
-            fontSize: '50px',
-          }}
-          id="basic-button"
-          aria-controls={open ? 'basic-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-        />
-      ),
-    },
-  ];
+
   return (
     <Box
       sx={{
@@ -139,8 +80,10 @@ function Navbar() {
           height: '100%',
         }}
       >
-        {icons.map(({ element, title, id }) => (
+        {iconsNavBar.map(({ elementActive, element, title, id }) => (
           <IconNav
+            filterSelected={filterSelected}
+            elementActive={elementActive}
             element={element}
             title={title}
             key={id}

@@ -10,21 +10,13 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import BrowserNotSupportedIcon from '@mui/icons-material/BrowserNotSupported';
 import Crop169Icon from '@mui/icons-material/Crop169';
 import Container from './Container';
-import fetchContainer from '../../services/useFetch';
+import fetchContainer from '@pathuseFetch';
 import { Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
-import IconNav from '../navbar/IconNav';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ContainerModal from '../modal/ContainerModal';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
-
-const containerRoot = {
-  id: '0',
-  name: 'Root',
-  container: 'root',
-  isFavorite: 'true',
-};
 
 const iconStyle = {
   fontSize: '30px',
@@ -42,6 +34,7 @@ function Accordion() {
   const [openNoContainer, setOpenNoContainer] = React.useState(true);
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const [render, setRender] = React.useState(true);
+  const [action, setAction] = React.useState('Add');
 
   const handleClickContainers = () => {
     setOpenContainer(!openContainer);
@@ -54,6 +47,7 @@ function Accordion() {
     setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {
+    setAction('Add');
     setOpenMainModal(false);
     setRender(!render);
   };
@@ -65,7 +59,6 @@ function Accordion() {
     const containerList = () => {
       fetchContainer().then((data) => setInformation(data));
     };
-    setRender(render);
     containerList();
   }, [render]);
   return (
@@ -113,7 +106,21 @@ function Accordion() {
 
       <Collapse in={openNoContainer} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Container data={containerRoot} />
+          {information ? (
+            information.map((container) => {
+              if (container.name == 'Root') {
+                return (
+                  <Container
+                    data={container}
+                    reRender={reRender}
+                    key={container.id}
+                  />
+                );
+              }
+            })
+          ) : (
+            <h1>Loading .....</h1>
+          )}
         </List>
       </Collapse>
 
@@ -142,7 +149,7 @@ function Accordion() {
           disablePadding
           sx={{
             height: '100%',
-            overflowY: 'scroll',
+            overflowY: 'auto',
 
             '&::-webkit-scrollbar': {
               bgcolor: 'secondary.dark',
@@ -156,13 +163,17 @@ function Accordion() {
           }}
         >
           {information ? (
-            information.map((container) => (
-              <Container
-                data={container}
-                reRender={reRender}
-                key={container.id}
-              />
-            ))
+            information.map((container) => {
+              if (container.name != 'Root') {
+                return (
+                  <Container
+                    data={container}
+                    reRender={reRender}
+                    key={container.id}
+                  />
+                );
+              }
+            })
           ) : (
             <h1>Loading .....</h1>
           )}
@@ -175,6 +186,7 @@ function Accordion() {
             favorite={true}
             id={null}
             closeModal={handleCloseMainModal}
+            action={action}
           />
         </Box>
       </Modal>

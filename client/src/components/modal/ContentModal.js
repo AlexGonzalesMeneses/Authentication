@@ -6,37 +6,79 @@ import KeysForm from './KeysForm';
 import NotesForm from './NotesForm';
 import CredentialsForm from './CredentialsForm';
 import { Grid } from '@mui/material';
+import ListContext from '@pathListContext';
+import ShareForm from './ShareForm';
 
-export default function ContentModal({ data, action, closeModal, typeSelect }) {
-  const { type } = data;
-
-  console.log(typeSelect);
-  console.log(type);
+export default function ContentModal({
+  data,
+  idItem,
+  action,
+  closeModal,
+  typeSelect,
+  itemShare,
+}) {
+  const { informationType } = data;
+  const { idContainer } = React.useContext(ListContext);
+  if (action == 'ShowShare') {
+    data = itemShare;
+  }
   const formType = () => {
-    switch (type || typeSelect) {
-      case 'note':
-        return <NotesForm data={data} closeModal={closeModal} />;
-      case 'credential':
-        return <CredentialsForm data={data} closeModal={closeModal} />;
-      case 'key':
-        return <KeysForm data={data} closeModal={closeModal} />;
-      case 'creditCard':
-        return <CreditCardsForm data={data} closeModal={closeModal} />;
-      case 'contact':
-        return <ContactsForm data={data} closeModal={closeModal} />;
+    switch (informationType || typeSelect) {
+      case 'Note':
+        return (
+          <NotesForm
+            idItem={idItem}
+            data={data}
+            action={action}
+            closeModal={closeModal}
+          />
+        );
+      case 'Credential':
+        return (
+          <CredentialsForm
+            idItem={idItem}
+            data={data}
+            action={action}
+            closeModal={closeModal}
+          />
+        );
+      case 'Key':
+        return (
+          <KeysForm
+            idItem={idItem}
+            data={data}
+            action={action}
+            closeModal={closeModal}
+          />
+        );
+      case 'CreditCard':
+        return (
+          <CreditCardsForm
+            idItem={idItem}
+            data={data}
+            action={action}
+            closeModal={closeModal}
+          />
+        );
+      case 'Contact':
+        return (
+          <ContactsForm
+            idItem={idItem}
+            data={data}
+            action={action}
+            closeModal={closeModal}
+          />
+        );
       default:
-        console.log('This is a form built with React.');
+        console.log('This is a form built with React');
     }
   };
-  const handleSubmit = () => {
-    console.log('action');
-  };
+  const handleSubmit = () => {};
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <Box
         component="form"
         onSubmit={handleSubmit}
-        noValidate
         sx={{ height: '100%', padding: '20px' }}
       >
         <Grid
@@ -48,7 +90,16 @@ export default function ContentModal({ data, action, closeModal, typeSelect }) {
             },
           }}
         >
-          {formType()}
+          {action == 'Share' ? (
+            <ShareForm
+              idItem={idItem}
+              data={data}
+              action={action}
+              closeModal={closeModal}
+            />
+          ) : (
+            formType()
+          )}
         </Grid>
       </Box>
     </Box>

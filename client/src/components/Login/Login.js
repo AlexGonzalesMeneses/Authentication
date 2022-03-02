@@ -11,10 +11,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
-import CreateTheme from '../../styles/index';
-import UserContext from '../../context/UserContext';
+import CreateTheme from '@pathstylesindex';
+import UserContext from '@pathUserContext';
+import { validateBothPasswords } from '@pathvalidatePassword';
 import Swal from 'sweetalert2';
-import { validateBothPasswords } from '../../helpers/validatePassword';
+
 function Copyright(props) {
   return (
     <Typography

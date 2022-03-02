@@ -2,65 +2,92 @@ import { Box, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
+import ListContext from '@pathListContext';
+import { PostInformation } from '@pathPost';
+import { PutInformation } from '@pathPut';
 
-function CredentialsForm({ data, closeModal }) {
+function CredentialsForm({ idItem, data, closeModal, action }) {
+  const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
-    id,
     name,
-    container,
     type,
     favorite,
     description,
     tags,
-    userName,
+    encryptionType,
+    username,
     password,
+    urls,
   } = data;
-
+  let tagsResponse = '';
+  let urlsResponse = '';
+  if (action != 'Add') {
+    tagsResponse = tags.toString();
+    urlsResponse = urls.toString();
+  }
+  let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
   const [credentialData, setCredentialData] = useState({
-    name: name || '',
-    container: container || '',
-    type: type || '',
-    favorite: favorite || true,
+    name: nameResponse || '',
+    containerId: idContainer || '',
+    type: 'Credential',
+    favorite: favorite == undefined ? true : favorite,
     description: description || '',
-    tags: tags || '',
-    userName: userName || '',
+    tags: tagsResponse || '',
+    encryptionType: encryptionType || encryptionSelected,
+    username: username || '',
     password: password || '',
+    urls: urlsResponse || '',
   });
 
   const addDataForm = () => {
-    //To do SendPostContainer(containerData);
+    PostInformation(idContainer, credentialData, 'Credential');
     closeModal();
   };
   const updateDataForm = () => {
-    // To doSendPutContainer(containerData, id);
+    PutInformation(idContainer, credentialData, 'Credential', idItem);
+    closeModal();
+  };
+  const cloneDataForm = () => {
+    PostInformation(idContainer, credentialData, 'Credential');
+    closeModal();
+  };
+  const closeDataForm = () => {
+    //SendPutContainer(containerData, id);
     closeModal();
   };
   const updateInputs = (input) => (e) => {
-    setCreditCardData({ [input]: e.target.value });
+    setCredentialData({ ...credentialData, [input]: e.target.value });
   };
   const values = {
     name,
-    container,
+    idContainer,
     type,
     favorite,
     description,
     tags,
-    userName,
+    encryptionType,
+    username,
     password,
+    urls,
   };
   return (
     <>
-      <InformationForm values={values} updateInputs={updateInputs} />
+      <InformationForm
+        type={'Credential'}
+        values={values}
+        updateInputs={updateInputs}
+        action={action}
+      />
       <Grid item xs={6}>
         <TextField
           margin="normal"
           required
           fullWidth
-          id="userName"
+          id="username"
           label="UserName:"
-          defaultValue={userName}
+          defaultValue={username}
           onChange={(e) =>
-            setCredentialData({ ...credentialData, userName: e.target.value })
+            setCredentialData({ ...credentialData, username: e.target.value })
           }
         />
       </Grid>
@@ -80,10 +107,29 @@ function CredentialsForm({ data, closeModal }) {
           }
         />
       </Grid>
+      <Grid item xs={12}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="urls"
+          label="Urls:"
+          defaultValue={urlsResponse}
+          onChange={(e) =>
+            setCredentialData({
+              ...credentialData,
+              urls: e.target.value,
+            })
+          }
+        />
+      </Grid>
       <ButtonsCrud
-        id={id}
+        idItem={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
+        closeDataForm={closeDataForm}
+        cloneDataForm={cloneDataForm}
+        action={action}
       />
     </>
   );

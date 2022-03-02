@@ -1,14 +1,13 @@
 import React from 'react';
 import Header from '@pathHeader';
-import General from '@pathGeneral';
-
-function Dashboard() {
+import MainShare from '../layout/MainShare';
+function Share() {
   return (
     <>
       <Header />
-      <General />
+      <MainShare />
     </>
   );
 }
 
-export default Dashboard;
+export default Share;

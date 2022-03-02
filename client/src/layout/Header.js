@@ -5,12 +5,9 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { ThemeProvider } from '@mui/material/styles';
 import CreateTheme from '../styles/index';
@@ -19,6 +16,7 @@ import InputBase from '@mui/material/InputBase';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SearchIcon from '@mui/icons-material/Search';
 import UserContext from '../context/UserContext';
+import { Outlet, NavLink } from 'react-router-dom';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -58,14 +56,23 @@ export default function AccountMenu() {
               height: '60px',
             }}
           >
-            <Typography sx={{ ...navButtomStyle }}>Home</Typography>
-            <Typography sx={{ ...navButtomStyle, marginLeft: '-10rem' }}>
-              Settings
-            </Typography>
-            <Typography sx={{ ...navButtomStyle, marginLeft: '-10rem' }}>
-              Share
-            </Typography>
-
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                columnGap: '45px',
+              }}
+            >
+              <NavLink to="/" style={{ textDecoration: 'none' }}>
+                <Typography sx={{ ...navButtomStyle }}>Home</Typography>
+              </NavLink>
+              <NavLink to="/settings" style={{ textDecoration: 'none' }}>
+                <Typography sx={{ ...navButtomStyle }}>Settings</Typography>
+              </NavLink>
+              <NavLink to="/share" style={{ textDecoration: 'none' }}>
+                <Typography sx={{ ...navButtomStyle }}>Share</Typography>
+              </NavLink>
+            </Box>
             <Paper
               component="form"
               sx={{

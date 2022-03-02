@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box } from '@mui/system';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import StarIcon from '@mui/icons-material/Star';
@@ -8,37 +8,36 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Menu, MenuItem } from '@mui/material';
-import { SendPutContainer } from '../../services/SendPut';
-import { SendDelete } from '../../services/SendDelete';
+import { SendPutContainer } from '@pathSendPut';
+import { SendDelete } from '@pathSendDelete';
 import Modal from '@mui/material/Modal';
 import ContainerModal from '../modal/ContainerModal';
 import Swal from 'sweetalert2';
+import ListContext from '@pathListContext';
 
 function Container({ data, reRender }) {
   const { name, id, favorite } = data;
+  const {
+    nameContainer,
+    selectContainerName,
+    rootIdContainer,
+    selectContainer,
+  } = useContext(ListContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isfavorite, setIsFavorite] = React.useState(favorite);
+  const [isFavorite, setIsFavorite] = React.useState(favorite);
+  const UserId = localStorage.getItem('UserId');
   const [dataContainer, SetDataContainer] = React.useState({
     name: name,
     favorite: favorite,
+    userId: UserId,
   });
+  const [action, setAction] = React.useState('Show');
   const [openMainModal, setOpenMainModal] = React.useState(false);
-
   const open = Boolean(anchorEl);
-
   const handleCloseMainModal = () => {
     setOpenMainModal(false);
     reRender();
   };
-
-  const handleFavorite = () => {
-    setIsFavorite(!isfavorite);
-    SetDataContainer({ ...dataContainer, favorite: !isfavorite });
-  };
-  useEffect(() => {
-    SendPutContainer(dataContainer, id);
-  }, [isfavorite]);
-
   const handleClickMore = (event) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
@@ -47,7 +46,16 @@ function Container({ data, reRender }) {
     e.stopPropagation();
     setAnchorEl(null);
   };
+
+  const handleFavorite = (event) => {
+    event.stopPropagation();
+    setIsFavorite(!isFavorite);
+    reRender();
+    SendPutContainer({ ...dataContainer, favorite: !favorite }, id);
+  };
+
   const handleChangeNameItem = () => {
+    setAction('Edit');
     setOpenMainModal(true);
   };
   const handleRemoveItem = () => {
@@ -69,22 +77,45 @@ function Container({ data, reRender }) {
       }
     });
   };
+  useEffect(() => {
+    if (nameContainer == 'Root') {
+      rootIdContainer(id);
+    }
+  }, []);
 
+  const handleSelectContainer = () => {
+    selectContainer(id);
+    selectContainerName(name);
+  };
   return (
     <Box
-      sx={{
-        bgcolor: 'quaternary.light',
-        '&:hover': {
-          bgcolor: 'primary.main',
-        },
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: '40px',
-        width: '100%',
-        mt: '10px',
-        padding: '30px 20px',
-      }}
+      sx={
+        name == nameContainer
+          ? {
+              bgcolor: 'primary.main',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              height: '40px',
+              width: '100%',
+              mt: '10px',
+              padding: '30px 20px',
+            }
+          : {
+              bgcolor: 'quaternary.light',
+              '&:hover': {
+                bgcolor: 'primary.main',
+              },
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              height: '40px',
+              width: '100%',
+              mt: '10px',
+              padding: '30px 20px',
+            }
+      }
+      onClick={handleSelectContainer}
     >
       <Box
         sx={{
@@ -96,7 +127,7 @@ function Container({ data, reRender }) {
         {name}
       </Box>
       <Box sx={{ display: 'flex', columnGap: '15px' }}>
-        {isfavorite ? (
+        {favorite ? (
           <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
             <IconButton onClick={handleFavorite}>
               <StarIcon
@@ -175,8 +206,9 @@ function Container({ data, reRender }) {
           <ContainerModal
             name={name}
             favorite={favorite}
-            id={id}
+            idItem={id}
             closeModal={handleCloseMainModal}
+            action={action}
           />
         </Box>
       </Modal>

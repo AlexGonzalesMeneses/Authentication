@@ -2,58 +2,91 @@ import { Box, Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
+import ListContext from '@pathListContext';
+import { PostInformation } from '@pathPost';
+import { PutInformation } from '@pathPut';
 
-function CreditCardsForm({ data, closeModal }) {
+function CreditCardsForm({ idItem, data, closeModal, action }) {
+  const { encryptionSelected, idContainer } = React.useContext(ListContext);
   const {
-    id,
     name,
-    container,
     type,
     favorite,
     description,
     tags,
+    encryptionType,
     number,
+    issuer,
+    cardName,
     expiration,
     cvv,
   } = data;
 
+  let tagsResponse = '';
+  let expirationResponse = '';
+  if (action != 'Add') {
+    tagsResponse = tags.toString();
+    let expirationResponseFormat = expiration.split('T');
+    expirationResponse = expirationResponseFormat[0];
+  }
+  let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
+
   const [creditCardData, setCreditCardData] = useState({
-    name: name || '',
-    container: container || '',
-    type: type || '',
-    favorite: favorite || true,
+    name: nameResponse || '',
+    containerId: idContainer || '',
+    type: 'CreditCard',
+    favorite: favorite == undefined ? true : favorite,
     description: description || '',
-    tags: tags || '',
+    tags: tagsResponse || '',
+    encryptionType: encryptionType || encryptionSelected,
     number: number || '',
-    expiration: expiration || '',
+    issuer: issuer || '',
+    cardName: cardName || '',
+    expiration: expirationResponse || '',
     cvv: cvv || '',
   });
   const addDataForm = () => {
-    //SendPostContainer(containerData);
+    PostInformation(idContainer, creditCardData, 'CreditCard');
     closeModal();
   };
   const updateDataForm = () => {
+    PutInformation(idContainer, creditCardData, 'CreditCard', idItem);
+    closeModal();
+  };
+  const cloneDataForm = () => {
+    PostInformation(idContainer, creditCardData, 'CreditCard');
+    closeModal();
+  };
+  const closeDataForm = () => {
     //SendPutContainer(containerData, id);
     closeModal();
   };
   const updateInputs = (input) => (e) => {
-    setCreditCardData({ [input]: e.target.value });
+    setCreditCardData({ ...creditCardData, [input]: e.target.value });
   };
   const values = {
     name,
-    container,
+    idContainer,
     type,
     favorite,
     description,
     tags,
+    encryptionType,
     number,
+    issuer,
+    cardName,
     expiration,
     cvv,
   };
   return (
     <>
-      <InformationForm values={values} updateInputs={updateInputs} />
-      <Grid item xs={12}>
+      <InformationForm
+        type={'CreditCard'}
+        values={values}
+        updateInputs={updateInputs}
+        action={action}
+      />
+      <Grid item xs={6}>
         <TextField
           margin="normal"
           required
@@ -71,9 +104,22 @@ function CreditCardsForm({ data, closeModal }) {
           margin="normal"
           required
           fullWidth
+          id="issuer"
+          label="Issuer:"
+          defaultValue={issuer}
+          onChange={(e) =>
+            setCreditCardData({ ...creditCardData, issuer: e.target.value })
+          }
+        />
+      </Grid>
+      <Grid item xs={6}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
           id="expiration"
           label="Expiration:"
-          defaultValue={expiration}
+          defaultValue={expirationResponse}
           onChange={(e) =>
             setCreditCardData({
               ...creditCardData,
@@ -100,9 +146,12 @@ function CreditCardsForm({ data, closeModal }) {
         />
       </Grid>
       <ButtonsCrud
-        id={id}
+        idItem={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
+        closeDataForm={closeDataForm}
+        cloneDataForm={cloneDataForm}
+        action={action}
       />
     </>
   );

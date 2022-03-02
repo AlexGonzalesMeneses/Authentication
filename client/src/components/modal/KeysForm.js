@@ -2,55 +2,69 @@ import { Box, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
+import ListContext from '@pathListContext';
+import { PostInformation } from '@pathPost';
+import { PutInformation } from '@pathPut';
 
-function KeysForm({ data, closeModal }) {
-  const {
-    id,
-    name,
-    container,
-    type,
-    favorite,
-    description,
-    tags,
-    serial,
-    urls,
-  } = data;
+function KeysForm({ idItem, data, closeModal, action }) {
+  const { encryptionSelected, idContainer } = React.useContext(ListContext);
+  const { name, type, favorite, description, tags, encryptionType, serial } =
+    data;
+
+  let tagsResponse = '';
+  if (action != 'Add') {
+    tagsResponse = tags.toString();
+  }
+  let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
 
   const [keyData, setKeyData] = useState({
-    name: name || '',
-    container: container || '',
-    type: type || '',
-    favorite: favorite || true,
+    name: nameResponse || '',
+    containerId: idContainer || '',
+    type: 'Key',
+    favorite: favorite == undefined ? true : favorite,
     description: description || '',
-    tags: tags || '',
+    tags: tagsResponse || '',
+    encryptionType: encryptionType || encryptionSelected,
     serial: serial || '',
-    urls: urls || '',
   });
+
   const addDataForm = () => {
-    //SendPostContainer(containerData);
+    PostInformation(idContainer, keyData, 'Key');
     closeModal();
   };
   const updateDataForm = () => {
-    //SendPutContainer(containerData, id);
+    PutInformation(idContainer, keyData, 'Key', idItem);
+    closeModal();
+  };
+  const cloneDataForm = () => {
+    PostInformation(idContainer, keyData, 'Key');
+    closeModal();
+  };
+  const closeDataForm = () => {
     closeModal();
   };
   const updateInputs = (input) => (e) => {
-    setKeyData({ [input]: e.target.value });
+    setKeyData({ ...keyData, [input]: e.target.value });
   };
   const values = {
     name,
-    container,
+    idContainer,
     type,
     favorite,
     description,
     tags,
+    encryptionType,
     serial,
-    urls,
   };
 
   return (
     <>
-      <InformationForm values={values} updateInputs={updateInputs} />
+      <InformationForm
+        type={'Key'}
+        values={values}
+        updateInputs={updateInputs}
+        action={action}
+      />
       <Grid item xs={12}>
         <TextField
           margin="normal"
@@ -62,26 +76,13 @@ function KeysForm({ data, closeModal }) {
           onChange={(e) => setKeyData({ ...keyData, serial: e.target.value })}
         />
       </Grid>
-      <Grid item xs={6}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="urls"
-          label="Urls:"
-          defaultValue={urls}
-          onChange={(e) =>
-            setKeyData({
-              ...keyData,
-              urls: e.target.value,
-            })
-          }
-        />
-      </Grid>
       <ButtonsCrud
-        id={id}
+        idItem={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
+        closeDataForm={closeDataForm}
+        cloneDataForm={cloneDataForm}
+        action={action}
       />
     </>
   );

@@ -1,15 +1,22 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
 
-function ButtonsCrud({ id, addDataForm, updateDataForm }) {
+function ButtonsCrud({
+  addDataForm,
+  updateDataForm,
+  cloneDataForm,
+  closeDataForm,
+  shareDataForm,
+  action,
+}) {
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-      {id == null ? (
+      {action == 'Add' && (
         <Button
           sx={{
             bgcolor: 'tertiary.main',
             color: 'quaternary.light',
-            width: '50%',
+            width: '40%',
             margin: '20px auto',
             '&:hover': {
               bgcolor: 'tertiary.dark',
@@ -20,12 +27,13 @@ function ButtonsCrud({ id, addDataForm, updateDataForm }) {
         >
           Add
         </Button>
-      ) : (
+      )}
+      {action == 'Edit' && (
         <Button
           sx={{
             bgcolor: 'tertiary.main',
             color: 'quaternary.light',
-            width: '50%',
+            width: '40%',
             margin: '20px auto',
             '&:hover': {
               bgcolor: 'tertiary.dark',
@@ -37,6 +45,56 @@ function ButtonsCrud({ id, addDataForm, updateDataForm }) {
           Save
         </Button>
       )}
+      {action == 'Clone' && (
+        <Button
+          sx={{
+            bgcolor: 'tertiary.main',
+            color: 'quaternary.light',
+            width: '40%',
+            margin: '20px auto',
+            '&:hover': {
+              bgcolor: 'tertiary.dark',
+            },
+          }}
+          variant="contained"
+          onClick={cloneDataForm}
+        >
+          Clone
+        </Button>
+      )}
+      {action == 'Share' && (
+        <Button
+          sx={{
+            bgcolor: 'tertiary.main',
+            color: 'quaternary.light',
+            width: '40%',
+            margin: '20px auto',
+            '&:hover': {
+              bgcolor: 'tertiary.dark',
+            },
+          }}
+          variant="contained"
+          onClick={shareDataForm}
+        >
+          Share
+        </Button>
+      )}
+
+      <Button
+        sx={{
+          bgcolor: 'tertiary.main',
+          color: 'quaternary.light',
+          width: '40%',
+          margin: '20px auto',
+          '&:hover': {
+            bgcolor: 'tertiary.dark',
+          },
+        }}
+        variant="contained"
+        onClick={closeDataForm}
+      >
+        Close
+      </Button>
     </Box>
   );
 }

@@ -1,9 +1,9 @@
-export const SendGet = async (idContainer) => {
+export const GetInformation = async (idContainer, type, idInformation) => {
   const isToken = localStorage.getItem('token');
   const UserId = localStorage.getItem('UserId');
 
   const getData = await fetch(
-    `http://localhost:5000/api/users/${UserId}/Container/${idContainer}`,
+    `http://localhost:5000/api/users/${UserId}/containers/${idContainer}/${type}/${idInformation}`,
     {
       method: 'GET',
       headers: new Headers({
@@ -12,7 +12,7 @@ export const SendGet = async (idContainer) => {
       }),
     }
   )
-    .then((resp) => resp.json())
+    .then(async (resp) => await resp.json())
     .catch((error) => console.log(error));
 
   return getData;

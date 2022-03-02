@@ -1,43 +1,67 @@
-import { Box, Grid, TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import ButtonsCrud from './ButtonsCrud';
 import InformationForm from './InformationForm';
+import ListContext from '@pathListContext';
+import { PostInformation } from '@pathPost';
+import { PutInformation } from '@pathPut';
 
-function NotesForm({ data, closeModal }) {
-  const { id, name, container, type, favorite, description, tags, text } = data;
-  const [keyData, setKeyData] = useState({
-    name: name || '',
-    container: container || '',
-    type: type || '',
-    favorite: favorite || true,
-    description: description || '',
-    tags: tags || '',
+function NotesForm({ idItem, data, closeModal, action }) {
+  const { encryptionSelected, idContainer } = React.useContext(ListContext);
+  const { text, name, tags, favorite, description, type, encryptionType } =
+    data;
+  let tagsResponse = '';
+  if (action != 'Add') {
+    tagsResponse = tags.toString();
+  }
+  let nameResponse = action == 'Clone' ? `${name} -Clone` : name;
+  const [noteData, setNoteData] = useState({
     text: text || '',
+    containerId: idContainer,
+    name: nameResponse || '',
+    tags: tagsResponse || '',
+    favorite: favorite == undefined ? true : favorite,
+    description: description || '',
+    type: 'Note',
+    encryptionType: encryptionType || encryptionSelected,
   });
-
   const addDataForm = () => {
-    //SendPostContainer(containerData);
+    PostInformation(idContainer, noteData, 'Note');
     closeModal();
   };
   const updateDataForm = () => {
+    PutInformation(idContainer, noteData, 'Note', idItem);
+    closeModal();
+  };
+  const cloneDataForm = () => {
+    PostInformation(idContainer, noteData, 'Note');
+    closeModal();
+  };
+  const closeDataForm = () => {
     //SendPutContainer(containerData, id);
     closeModal();
   };
   const updateInputs = (input) => (e) => {
-    setCreditCardData({ [input]: e.target.value });
+    setNoteData({ ...noteData, [input]: e.target.value });
   };
   const values = {
-    name,
-    container,
-    type,
-    favorite,
+    idContainer,
     description,
+    encryptionType,
+    favorite,
+    name,
     tags,
     text,
+    type,
   };
   return (
     <>
-      <InformationForm values={values} updateInputs={updateInputs} />
+      <InformationForm
+        type={'Note'}
+        values={values}
+        updateInputs={updateInputs}
+        action={action}
+      />
       <Grid item xs={12}>
         <TextField
           margin="normal"
@@ -46,13 +70,16 @@ function NotesForm({ data, closeModal }) {
           id="text"
           label="Text:"
           defaultValue={text}
-          onChange={(e) => setKeyData({ ...keyData, text: e.target.value })}
+          onChange={(e) => setNoteData({ ...noteData, text: e.target.value })}
         />
       </Grid>
       <ButtonsCrud
-        id={id}
+        idItem={idItem}
         addDataForm={addDataForm}
         updateDataForm={updateDataForm}
+        closeDataForm={closeDataForm}
+        cloneDataForm={cloneDataForm}
+        action={action}
       />
     </>
   );
