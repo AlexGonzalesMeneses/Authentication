@@ -3,7 +3,6 @@ using Dev33.UltimateTeam.Api.Services.LoggerService;
 using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Dtos;
 using Dev33.UltimateTeam.Application.Helpers;
-using Dev33.UltimateTeam.Domain;
 using Dev33.UltimateTeam.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

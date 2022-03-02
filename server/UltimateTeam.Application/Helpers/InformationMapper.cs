@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Dev33.UltimateTeam.Application.Dtos;
-using Dev33.UltimateTeam.Domain;
 using Dev33.UltimateTeam.Domain.Enums;
+using Dev33.UltimateTeam.Domain.Models;
 using UltimateTeam.Application.Dtos;
 using UltimateTeam.Application.Helpers;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Dev33.UltimateTeam.Domain
+namespace Dev33.UltimateTeam.Domain.Models
 {
     public partial class User
     {
@@ -18,6 +18,7 @@ namespace Dev33.UltimateTeam.Domain
         public string Password { get; set; }
         public string FullName { get; set; }
 
+        public virtual ShareInformation ShareInformation { get; set; }
         public virtual ICollection<Container> Containers { get; set; }
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
-using Dev33.UltimateTeam.Domain;
-using Dev33.UltimateTeam.Infrastructure;
+using Dev33.UltimateTeam.Domain.Models;
+using Dev33.UltimateTeam.Infrastructure.Context;
 using Dev33.UltimateTeam.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 

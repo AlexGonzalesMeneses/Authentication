@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Dtos;
-using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Domain.Models;
 
 namespace Dev33.UltimateTeam.Application.Services
 {
