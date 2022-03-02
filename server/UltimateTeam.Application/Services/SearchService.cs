@@ -7,7 +7,6 @@ using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Domain.Enums;
 using Dev33.UltimateTeam.Domain.Models;
-using UltimateTeam.Application.Contracts.Services;
 
 namespace UltimateTeam.Application.Services
 {
@@ -93,10 +92,24 @@ namespace UltimateTeam.Application.Services
 
         private bool SearchTermIsValid(object itemEvaluated, string searchTerm)
         {
+            if (itemEvaluated == null)
+            {
+                return false;
+            }
             var properties = itemEvaluated.GetType().GetProperties();
 
             foreach (var property in properties)
             {
+                if (property.PropertyType.IsClass)
+                {
+                    var value = property.GetValue(itemEvaluated);
+                    var valueIsValid = SearchTermIsValid(value, searchTerm);
+
+                    if (valueIsValid)
+                    {
+                        return true;
+                    }
+                }
                 if (!property.PropertyType.IsGenericType)
                 {
                     if (property.GetCustomAttributes<DisplayAttribute>()?.FirstOrDefault()?.Encrypted == false)
@@ -118,6 +131,7 @@ namespace UltimateTeam.Application.Services
 
             return false;
         }
+
 
         private bool EvaluateGenericProperty(PropertyInfo property, object itemEvaluated, string searchTerm)
         {
