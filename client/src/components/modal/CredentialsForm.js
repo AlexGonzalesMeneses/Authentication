@@ -76,6 +76,7 @@ function CredentialsForm({ idItem, data, closeModal, action }) {
         type={'Credential'}
         values={values}
         updateInputs={updateInputs}
+        action={action}
       />
       <Grid item xs={6}>
         <TextField

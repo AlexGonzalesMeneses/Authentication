@@ -60,6 +60,7 @@ function NotesForm({ idItem, data, closeModal, action }) {
         type={'Note'}
         values={values}
         updateInputs={updateInputs}
+        action={action}
       />
       <Grid item xs={12}>
         <TextField

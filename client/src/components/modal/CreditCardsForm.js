@@ -84,6 +84,7 @@ function CreditCardsForm({ idItem, data, closeModal, action }) {
         type={'CreditCard'}
         values={values}
         updateInputs={updateInputs}
+        action={action}
       />
       <Grid item xs={6}>
         <TextField

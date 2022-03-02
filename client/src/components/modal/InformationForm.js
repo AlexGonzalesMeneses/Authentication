@@ -9,7 +9,7 @@ import {
 import React, { useContext, useState } from 'react';
 import ListContext from '@pathListContext';
 
-function InformationForm({ type, values, updateInputs }) {
+function InformationForm({ type, values, updateInputs, action }) {
   const { nameContainer, encryptionSelected } = useContext(ListContext);
   const encryptionType =
     values.encryptionType == undefined
@@ -29,17 +29,21 @@ function InformationForm({ type, values, updateInputs }) {
           onChange={updateInputs('name')}
         />
       </Grid>
-      <Grid item xs={6}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="container"
-          label="Container:"
-          value={nameContainer}
-        />
-      </Grid>
-      <Grid item xs={4}>
+      {action != 'ShowShare' ? (
+        <Grid item xs={6}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="container"
+            label="Container:"
+            value={nameContainer}
+          />
+        </Grid>
+      ) : (
+        ''
+      )}
+      <Grid item xs={action != 'ShowShare' ? 4 : 6}>
         <TextField
           margin="normal"
           required
@@ -61,24 +65,28 @@ function InformationForm({ type, values, updateInputs }) {
           onChange={updateInputs('description')}
         />
       </Grid>
-      <Grid item xs={3}>
-        <FormControl fullWidth sx={{ mt: '16px' }}>
-          <InputLabel id="demo-simple-select-autowidth-label">
-            Favorite
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-autowidth-label"
-            id="demo-simple-select-autowidth"
-            defaultValue={favoriteSelect}
-            label="Favorite"
-            onChange={updateInputs('favorite')}
-          >
-            <MenuItem value={true}>True</MenuItem>
-            <MenuItem value={false}>False</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item xs={3}>
+      {action != 'ShowShare' ? (
+        <Grid item xs={3}>
+          <FormControl fullWidth sx={{ mt: '16px' }}>
+            <InputLabel id="demo-simple-select-autowidth-label">
+              Favorite
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-autowidth-label"
+              id="demo-simple-select-autowidth"
+              defaultValue={favoriteSelect}
+              label="Favorite"
+              onChange={updateInputs('favorite')}
+            >
+              <MenuItem value={true}>True</MenuItem>
+              <MenuItem value={false}>False</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      ) : (
+        ''
+      )}
+      <Grid item xs={action != 'ShowShare' ? 3 : 4}>
         <FormControl fullWidth sx={{ mt: '16px' }}>
           <InputLabel id="typeencryption-label">Type Encryption</InputLabel>
           <Select
@@ -95,7 +103,7 @@ function InformationForm({ type, values, updateInputs }) {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={action != 'ShowShare' ? 6 : 12}>
         <TextField
           margin="normal"
           required

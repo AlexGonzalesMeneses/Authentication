@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Grid, TextField } from '@mui/material';
 import ButtonsCrud from './ButtonsCrud';
 import { ShareInformation } from '@pathShare';
+import ListContext from '../../context/ListContext';
 
 function ShareForm({ idItem, data, closeModal, action }) {
-  //Userid
-  //data
-  //email o username
+  const { idContainer } = useContext(ListContext);
+  const [shareData, setShareData] = useState({
+    username: '',
+    email: '',
+  });
 
   const closeDataForm = () => {
     closeModal();
   };
   const shareDataForm = () => {
-    console.log('Shared');
-    //To do
-    ShareInformation();
+    ShareInformation(shareData, idItem);
     closeModal();
   };
   return (
@@ -22,19 +23,27 @@ function ShareForm({ idItem, data, closeModal, action }) {
       <Grid item xs={6}>
         <TextField
           margin="normal"
+          required
           fullWidth
           id="name"
           label="Name :"
           value={data.name}
+          onChange={(e) =>
+            setShareData({ ...shareData, username: e.target.value })
+          }
         />
       </Grid>
       <Grid item xs={12}>
         <TextField
           id="outlined-multiline-static"
           fullWidth
+          id="text"
           label="Users"
           multiline
           rows={4}
+          onChange={(e) =>
+            setShareData({ ...shareData, email: e.target.value })
+          }
         />
       </Grid>
 

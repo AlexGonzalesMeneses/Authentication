@@ -4,16 +4,23 @@ import { GetInformation } from '../services/information/Get';
 
 const ListContext = createContext();
 function ListProvider({ children }) {
-  const [idRootContainer] = useState('f287438b-d035-4b76-8184-bd13f3ae55a0');
+  const [idRootContainer, setIdRootContainer] = useState('');
   const [idContainer, setIdContainer] = useState(idRootContainer);
   const [nameContainer, setNameContainer] = useState('Root');
 
+  const rootIdContainer = (id) => {
+    setIdRootContainer(id);
+  };
   const selectContainer = (id) => {
     setIdContainer(id);
   };
   const selectContainerName = (name) => {
     setNameContainer(name);
   };
+  useEffect(() => {
+    setIdContainer(idRootContainer);
+  }, [idRootContainer]);
+
   const [encryptionSelected, setEncryptionSelected] = useState('Binary');
 
   const selectEncryption = () => {};
@@ -31,6 +38,7 @@ function ListProvider({ children }) {
 
   const dataContainer = {
     idRootContainer,
+    rootIdContainer,
     idContainer,
     selectContainer,
     selectContainerName,

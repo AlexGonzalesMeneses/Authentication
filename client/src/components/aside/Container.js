@@ -17,8 +17,12 @@ import ListContext from '@pathListContext';
 
 function Container({ data, reRender }) {
   const { name, id, favorite } = data;
-  const { nameContainer, selectContainerName, selectContainer } =
-    useContext(ListContext);
+  const {
+    nameContainer,
+    selectContainerName,
+    rootIdContainer,
+    selectContainer,
+  } = useContext(ListContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isFavorite, setIsFavorite] = React.useState(favorite);
   const UserId = localStorage.getItem('UserId');
@@ -73,6 +77,12 @@ function Container({ data, reRender }) {
       }
     });
   };
+  useEffect(() => {
+    if (nameContainer == 'Root') {
+      rootIdContainer(id);
+    }
+  }, []);
+
   const handleSelectContainer = () => {
     selectContainer(id);
     selectContainerName(name);

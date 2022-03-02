@@ -4,6 +4,7 @@ import Item from '../list/Item';
 import Pagination from '../helpers/Pagination';
 import { SendGet } from '@pathSendGet';
 import ListContext from '@pathListContext';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 function List() {
   const { addItem, idContainer, filterSelected } = useContext(ListContext);
@@ -11,9 +12,8 @@ function List() {
   const [render, setRender] = React.useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-
+  let indexOfLastPost = currentPage * postsPerPage;
+  let indexOfFirstPost = indexOfLastPost - postsPerPage;
   let listfilter = [];
   if (filterSelected == 'All') {
     listfilter = information && information;
@@ -55,11 +55,16 @@ function List() {
       });
   }
 
-  const currentPosts = listfilter
-    .sort(SortArrayName)
-    .sort(SortArrayFavorite)
-    .slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts =
+    listfilter &&
+    listfilter
+      .sort(SortArrayName)
+      .sort(SortArrayFavorite)
+      .slice(indexOfFirstPost, indexOfLastPost);
 
+  const numberPostsPerPage = (number) => {
+    setPostsPerPage(number);
+  };
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber + 1);
   };
@@ -76,6 +81,9 @@ function List() {
     setRender(render);
     noteList();
   }, [idContainer, render, addItem, filterSelected]);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterSelected]);
 
   function SortArrayName(x, y) {
     if (x.name < y.name) {
@@ -96,7 +104,14 @@ function List() {
     return 0;
   }
   return (
-    <Box sx={{ width: '80%', margin: 'auto' }}>
+    <Box
+      sx={{
+        width: '80%',
+        margin: 'auto',
+        overflowY: 'auto',
+        height: 'calc(100vh - 180px)',
+      }}
+    >
       {information && (
         <>
           <Box>
@@ -108,6 +123,7 @@ function List() {
             postsPerPage={postsPerPage}
             totalPosts={listfilter.length}
             paginate={paginate}
+            numberPostsPerPage={numberPostsPerPage}
           />
         </>
       )}

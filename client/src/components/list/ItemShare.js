@@ -5,16 +5,39 @@ import { Box, IconButton, Modal } from '@mui/material';
 import GroupIcon from '@mui/icons-material/Group';
 import MainModal from '../modal/MainModal';
 import ItemsIcons from './ItemsIcons';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
 
 function ItemShare({ data }) {
   const [openMainModal, setOpenMainModal] = React.useState(false);
+  console.log(data);
   const [action, setAction] = React.useState('Show');
   const handleOpenMainModal = () => {
-    setAction('Show');
+    setAction('ShowShare');
     setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {
     setOpenMainModal(false);
+  };
+  const removeItem = (e) => {
+    e.stopPropagation();
+    Swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCloseButton: true,
+      showConfirmButton: true,
+      showDenyButton: true,
+      confirmButtonText: 'Deleted',
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        DeleteInformation(idContainer, informationType, data.id);
+        Swal.fire('Deleted!', '', 'success');
+        reRender();
+      } else if (result.isDenied) {
+        Swal.fire('Deleted canceled', '', 'info');
+      }
+    });
   };
   return (
     <Box
@@ -46,7 +69,7 @@ function ItemShare({ data }) {
       >
         <Box
           sx={{
-            flex: '0 0 75%',
+            flex: '0 0 70%',
             pt: '25px',
             pb: '25px',
           }}
@@ -55,22 +78,26 @@ function ItemShare({ data }) {
         </Box>
         <Box
           sx={{
-            flex: '0 0 15%',
-            flex: '0 0 15%',
+            flex: '0 0 25%',
             display: 'flex',
             justifyContent: 'space-between',
           }}
         >
-          <ItemsIcons informationType={data.type} />
+          <ItemsIcons informationType={data.informationType} />
           <Tooltip
-            title={data.user}
+            title={data.username}
             enterDelay={500}
             leaveDelay={200}
-            placement="right"
+            placement="bottom"
           >
             <IconButton>
               <ReplyIcon />
               <GroupIcon fontSize="large" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete" disableInteractive placement="right">
+            <IconButton onClick={removeItem} sx={{ padding: '0px' }}>
+              <DeleteIcon />
             </IconButton>
           </Tooltip>
         </Box>
@@ -78,11 +105,11 @@ function ItemShare({ data }) {
       <Modal open={openMainModal} onClose={handleCloseMainModal}>
         <Box>
           <MainModal
-            data={data}
-            idItem={data.id}
+            data=""
+            idItem={data.informationId}
             action={action}
             closeModal={handleCloseMainModal}
-            typeSelect={data.type}
+            typeSelect={data.informationType}
           />
         </Box>
       </Modal>

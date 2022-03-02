@@ -1,7 +1,7 @@
-export const ShareInformation = (data) => {
+export const ShareInformation = (data, ItemId) => {
   const isToken = localStorage.getItem('token');
   const UserId = localStorage.getItem('UserId');
-  fetch(`http://localhost:5000/api/users/${UserId}/share`, {
+  fetch(`http://localhost:5000/api/users/${UserId}/Shared/items/${ItemId}`, {
     method: 'POST',
     headers: new Headers({
       Authorization: `Bearer ${isToken}`,

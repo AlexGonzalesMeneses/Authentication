@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import ContentModal from './ContentModal';
+import ListContext from '../../context/ListContext';
+import { GetInformation } from '../../services/information/Get';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -20,6 +22,16 @@ export default function MainModal({
   closeModal,
   typeSelect,
 }) {
+  const [itemShare, setItemShare] = React.useState('');
+  React.useEffect(() => {
+    const getItem = () => {
+      GetInformation(idItem, typeSelect, idItem).then((data) => {
+        setItemShare(data);
+      });
+    };
+    getItem();
+  }, []);
+  console.log(itemShare);
   return (
     <Box sx={style} id="ModalMain">
       <Box
@@ -42,13 +54,26 @@ export default function MainModal({
           maxHeight: '70vh',
         }}
       >
-        <ContentModal
-          data={data}
-          idItem={idItem}
-          action={action}
-          closeModal={closeModal}
-          typeSelect={typeSelect}
-        />
+        {action != 'ShowShare' ? (
+          <ContentModal
+            data={data}
+            idItem={idItem}
+            action={action}
+            closeModal={closeModal}
+            typeSelect={typeSelect}
+          />
+        ) : (
+          itemShare && (
+            <ContentModal
+              data={data}
+              idItem={idItem}
+              action={action}
+              closeModal={closeModal}
+              typeSelect={typeSelect}
+              itemShare={itemShare}
+            />
+          )
+        )}
       </Box>
     </Box>
   );

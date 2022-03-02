@@ -15,9 +15,13 @@ export default function ContentModal({
   action,
   closeModal,
   typeSelect,
+  itemShare,
 }) {
   const { informationType } = data;
   const { idContainer } = React.useContext(ListContext);
+  if (action == 'ShowShare') {
+    data = itemShare;
+  }
   const formType = () => {
     switch (informationType || typeSelect) {
       case 'Note':

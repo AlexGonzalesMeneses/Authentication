@@ -63,6 +63,7 @@ function KeysForm({ idItem, data, closeModal, action }) {
         type={'Key'}
         values={values}
         updateInputs={updateInputs}
+        action={action}
       />
       <Grid item xs={12}>
         <TextField

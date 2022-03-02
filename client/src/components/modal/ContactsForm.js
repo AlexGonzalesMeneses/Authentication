@@ -121,6 +121,7 @@ function ContactsForm({ idItem, data, closeModal, action }) {
         type={'Contact'}
         values={values}
         updateInputs={updateInputs}
+        action={action}
       />
       <Grid item xs={6}>
         <TextField
