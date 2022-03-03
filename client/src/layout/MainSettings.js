@@ -22,19 +22,18 @@ function MainSettings() {
     >
       <Grid item xs={6}>
         <FormControl fullWidth sx={{ mt: '16px' }}>
-          <InputLabel id="typeencryption-label">Type Encryption</InputLabel>
+          <InputLabel id='typeencryption-label'>Type Encryption</InputLabel>
           <Select
-            labelId="typeencryption-label"
-            id="typeencryption"
+            labelId='typeencryption-label'
+            id='typeencryption'
             defaultValue={encryptionSelected}
-            label="Type Encryption"
+            label='Type Encryption'
             onChange={(e) => selectEncryption(e.target.value)}
           >
             <MenuItem value={'Binary'}>Binary</MenuItem>
             <MenuItem value={'Base64'}>Base64</MenuItem>
             <MenuItem value={'Hex'}>Hex</MenuItem>
             <MenuItem value={'Aes'}>Aes</MenuItem>
-            <MenuItem value={'Rsa'}>Rsa</MenuItem>
           </Select>
         </FormControl>
       </Grid>

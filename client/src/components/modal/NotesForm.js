@@ -38,7 +38,6 @@ function NotesForm({ idItem, data, closeModal, action }) {
     closeModal();
   };
   const closeDataForm = () => {
-    //SendPutContainer(containerData, id);
     closeModal();
   };
   const updateInputs = (input) => (e) => {

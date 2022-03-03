@@ -57,8 +57,7 @@ function CreditCardsForm({ idItem, data, closeModal, action }) {
     PostInformation(idContainer, creditCardData, 'CreditCard');
     closeModal();
   };
-  const closeDataForm = () => {
-    //SendPutContainer(containerData, id);
+  const closeDataForm = () => {    
     closeModal();
   };
   const updateInputs = (input) => (e) => {

@@ -136,7 +136,7 @@ function Container({ data, reRender }) {
       {name != 'Root' && (
         <Box sx={{ display: 'flex', columnGap: '15px' }}>
           {favorite ? (
-            <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
+            <Tooltip title='No favorite' enterDelay={500} leaveDelay={200}>
               <IconButton onClick={handleFavorite}>
                 <StarIcon
                   sx={{
@@ -149,7 +149,7 @@ function Container({ data, reRender }) {
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
+            <Tooltip title='No favorite' enterDelay={500} leaveDelay={200}>
               <IconButton onClick={handleFavorite}>
                 <StarBorderIcon
                   sx={{
@@ -162,19 +162,19 @@ function Container({ data, reRender }) {
               </IconButton>
             </Tooltip>
           )}
-          <Tooltip title="Options" enterDelay={500} disableInteractive>
+          <Tooltip title='Options' enterDelay={500} disableInteractive>
             <IconButton onClick={handleClickMore}>
               <MoreHorizIcon
-                id="basic-button"
+                id='basic-button'
                 aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
+                aria-haspopup='true'
                 aria-expanded={open ? 'true' : undefined}
                 sx={{ cursor: 'pointer' }}
               />
             </IconButton>
           </Tooltip>
           <Menu
-            id="basic-menu"
+            id='basic-menu'
             anchorEl={anchorEl}
             open={open}
             onClose={handleCloseMore}
@@ -190,7 +190,7 @@ function Container({ data, reRender }) {
               horizontal: 'center',
             }}
           >
-            <Tooltip title="Edit" placement="right" disableInteractive>
+            <Tooltip title='Edit' placement='right' disableInteractive>
               <MenuItem onClick={handleCloseMore}>
                 <IconButton
                   onClick={handleChangeNameItem}
@@ -200,7 +200,7 @@ function Container({ data, reRender }) {
                 </IconButton>
               </MenuItem>
             </Tooltip>
-            <Tooltip title="Delete" placement="right" disableInteractive>
+            <Tooltip title='Delete' placement='right' disableInteractive>
               <MenuItem onClick={handleCloseMore}>
                 <IconButton onClick={handleRemoveItem} sx={{ padding: '0px' }}>
                   <DeleteIcon />
