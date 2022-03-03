@@ -10,7 +10,7 @@ namespace Dev33.UltimateTeam.Application.Helpers
 {
     public static class HandleSearch
     {
-        public static  bool HandleSearchBasic(object itemEvaluated, string searchTerm)
+        public static bool HandleSearchBasic(object itemEvaluated, string searchTerm)
         {
             if (itemEvaluated == null)
             {
@@ -62,6 +62,58 @@ namespace Dev33.UltimateTeam.Application.Helpers
                 if (HandleSearchBasic(propertyInGeneric, searchTerm))
                 {
                     return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool HandleSearchAdvanced(object itemEvaluated, string searchTerm, string fieldProperty)
+        {
+            if (itemEvaluated == null || string.IsNullOrEmpty(searchTerm) || string.IsNullOrEmpty(fieldProperty))
+            {
+                return false;
+            }
+
+            var properties = itemEvaluated.GetType().GetProperties();
+            var field = properties.FirstOrDefault(x => x.Name.ToLower() == searchTerm.ToLower());
+
+            if (field == null || field.PropertyType.GetCustomAttributes<DisplayAttribute>()?.FirstOrDefault()?.Sensitive == true)
+            {
+                return false;
+            }
+            else
+            {
+                var value = field.GetValue(itemEvaluated);
+
+                if (value == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    if (value.GetType().IsGenericType)
+                    {
+                        var genericValue = value as IEnumerable<object>;
+
+                        foreach (var item in genericValue)
+                        {
+                            var itemBuilded = item.GetType().GetProperties();
+                            if (itemBuilded.Any(x =>
+                            {
+                                var property = x.GetValue(item);
+                                return property != null && property.ToString().ToLower().Contains(fieldProperty.ToLower());
+                            }))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    if (value.ToString().ToLower().Contains(fieldProperty.ToLower()))
+                    {
+                        return true;
+                    }
                 }
             }
 

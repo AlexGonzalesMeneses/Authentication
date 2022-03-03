@@ -4,14 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using Dev33.UltimateTeam.Application.Contracts.Services;
+using Dev33.UltimateTeam.Application.Encyptors;
 using Dev33.UltimateTeam.Application.Helpers;
 using Dev33.UltimateTeam.Domain.Enums;
 using Dev33.UltimateTeam.Domain.Models;
+using UltimateTeam.Application.Helpers.Factories;
 
 namespace UltimateTeam.Application.Services
 {
     public class SearchService : ISearchService
     {
+        private IEncryptor encryptor;
         private readonly IUnitOfWork unitOfWork;
 
         public SearchService(IUnitOfWork unitOfWork)
@@ -40,6 +43,20 @@ namespace UltimateTeam.Application.Services
                     if (HandleSearch.HandleSearchBasic(item, searchTerm))
                     {
                         response.Add(item);
+                    }
+                    else if (searchTerm.Contains(":"))
+                    {
+                        var field = searchTerm.Split(':').First();
+                        var value = searchTerm.Split(':').Last();
+                        encryptor = FactoryEncryptor.Create(item.EncryptionType.ToString());
+                        var informationAux = await BuildInformation(item.Type, item.Id);
+                        var decryptedValue = HandleEncryption.HandleEncryptData(informationAux, encryptor, encrypt: false);
+                        AddInformation(item, decryptedValue);
+
+                        if (HandleSearch.HandleSearchAdvanced(decryptedValue, field, value))
+                        {
+                            response.Add(item);
+                        }
                     }
                 }
             }
@@ -80,9 +97,17 @@ namespace UltimateTeam.Application.Services
                 case InformationType.Key:
                     return await unitOfWork.KeyRepository.GetByIdAsync(id);
                 case InformationType.Credential:
-                    return await unitOfWork.CredentialRepository.GetByIdAsync(id);
+                    var credential = await unitOfWork.CredentialRepository.GetByIdAsync(id);
+                    credential.Urls = (ICollection<Url>)await unitOfWork.UrlRepository.GetUrlsByCredentialId(credential.InformationsId);
+                    return credential;
+                    break;
                 case InformationType.Contact:
-                    return await unitOfWork.ContactRepository.GetByIdAsync(id);
+                    var contact = await unitOfWork.ContactRepository.GetByIdAsync(id);
+                    contact.Phones = (ICollection<Phone>)await unitOfWork.PhoneRepository.GetPhonesByContactId(contact.InformationsId);
+                    contact.Emails = (ICollection<Email>)await unitOfWork.EmailRepository.GetEmailsByContactId(contact.InformationsId);
+                    contact.Addresses = (ICollection<Address>)await unitOfWork.AddressRepository.GetAddressesByContactId(contact.InformationsId);
+                    return contact;
+                    break;
                 case InformationType.CreditCard:
                     return await unitOfWork.CreditCardRepository.GetByIdAsync(id);
                 default:
