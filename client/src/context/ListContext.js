@@ -36,6 +36,10 @@ function ListProvider({ children }) {
     setFilterSelected(filter);
   };
 
+  const [dataSearch, SetDataSearch] = useState('');
+  const SearchList = (list) => {
+    SetDataSearch(list);
+  };
   const dataContainer = {
     idRootContainer,
     rootIdContainer,
@@ -49,6 +53,8 @@ function ListProvider({ children }) {
     addItemselected,
     filterSelected,
     selectFilter,
+    dataSearch,
+    SearchList,
   };
   return (
     <ListContext.Provider value={dataContainer}>

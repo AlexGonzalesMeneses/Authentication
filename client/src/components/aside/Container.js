@@ -23,6 +23,7 @@ function Container({ data, reRender }) {
     idRootContainer,
     rootIdContainer,
     selectContainer,
+    SearchList,
   } = useContext(ListContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isFavorite, setIsFavorite] = React.useState(favorite);
@@ -89,6 +90,9 @@ function Container({ data, reRender }) {
   const handleSelectContainer = () => {
     selectContainer(id);
     selectContainerName(name);
+    SearchList('');
+    const formSearch = document.querySelector('#FormSearchInput');
+    formSearch.value = '';
   };
   return (
     <Box
@@ -129,83 +133,83 @@ function Container({ data, reRender }) {
       >
         {name}
       </Box>
-      {name != 'Root' && 
-      <Box sx={{ display: 'flex', columnGap: '15px' }}>
-        {favorite ? (
-          <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
-            <IconButton onClick={handleFavorite}>
-              <StarIcon
-                sx={{
-                  color: 'secondary.dark',
-                  '&:hover': {
-                    color: 'secondary.main',
-                  },
-                }}
+      {name != 'Root' && (
+        <Box sx={{ display: 'flex', columnGap: '15px' }}>
+          {favorite ? (
+            <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
+              <IconButton onClick={handleFavorite}>
+                <StarIcon
+                  sx={{
+                    color: 'secondary.dark',
+                    '&:hover': {
+                      color: 'secondary.main',
+                    },
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
+              <IconButton onClick={handleFavorite}>
+                <StarBorderIcon
+                  sx={{
+                    color: 'secondary.dark',
+                    '&:hover': {
+                      color: 'secondary.main',
+                    },
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
+          )}
+          <Tooltip title="Options" enterDelay={500} disableInteractive>
+            <IconButton onClick={handleClickMore}>
+              <MoreHorizIcon
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                sx={{ cursor: 'pointer' }}
               />
             </IconButton>
           </Tooltip>
-        ) : (
-          <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
-            <IconButton onClick={handleFavorite}>
-              <StarBorderIcon
-                sx={{
-                  color: 'secondary.dark',
-                  '&:hover': {
-                    color: 'secondary.main',
-                  },
-                }}
-              />
-            </IconButton>
-          </Tooltip>
-        )}
-        <Tooltip title="Options" enterDelay={500} disableInteractive>
-          <IconButton onClick={handleClickMore}>
-            <MoreHorizIcon
-              id="basic-button"
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              sx={{ cursor: 'pointer' }}
-            />
-          </IconButton>
-        </Tooltip>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleCloseMore}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <Tooltip title="Edit" placement="right" disableInteractive>
-            <MenuItem onClick={handleCloseMore}>
-              <IconButton
-                onClick={handleChangeNameItem}
-                sx={{ padding: '0px' }}
-              >
-                <EditIcon />
-              </IconButton>
-            </MenuItem>
-          </Tooltip>
-          <Tooltip title="Delete" placement="right" disableInteractive>
-            <MenuItem onClick={handleCloseMore}>
-              <IconButton onClick={handleRemoveItem} sx={{ padding: '0px' }}>
-                <DeleteIcon />
-              </IconButton>
-            </MenuItem>
-          </Tooltip>
-        </Menu>
-      </Box>
-      }
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleCloseMore}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Tooltip title="Edit" placement="right" disableInteractive>
+              <MenuItem onClick={handleCloseMore}>
+                <IconButton
+                  onClick={handleChangeNameItem}
+                  sx={{ padding: '0px' }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </MenuItem>
+            </Tooltip>
+            <Tooltip title="Delete" placement="right" disableInteractive>
+              <MenuItem onClick={handleCloseMore}>
+                <IconButton onClick={handleRemoveItem} sx={{ padding: '0px' }}>
+                  <DeleteIcon />
+                </IconButton>
+              </MenuItem>
+            </Tooltip>
+          </Menu>
+        </Box>
+      )}
       <Modal open={openMainModal} onClose={handleCloseMainModal}>
         <Box>
           <ContainerModal

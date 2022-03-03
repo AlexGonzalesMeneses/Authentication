@@ -18,11 +18,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import UserContext from '../context/UserContext';
 import { Outlet, NavLink } from 'react-router-dom';
 import ListContext from '@pathListContext';
+import { GetItemsSearches } from '../services/information/Search';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { logout } = useContext(UserContext);
-  const { selectContainer, idRootContainer } = useContext(ListContext);
+  const { selectContainer, idRootContainer, dataSearch, SearchList } =
+    useContext(ListContext);
+  const [valueInputSearch, setValueInputSearch] = React.useState('');
+  const [buttom, setButtom] = React.useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,7 +37,18 @@ export default function AccountMenu() {
   const handleLogout = (event) => {
     logout();
     selectContainer('');
-    
+  };
+  const handleSearchValue = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    GetItemsSearches(valueInputSearch).then((data) => {
+      SearchList(data);
+    });
+  };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setValueInputSearch(e.target.value);
   };
 
   const navButtomStyle = {
@@ -86,11 +101,15 @@ export default function AccountMenu() {
                 width: 400,
                 height: '65%',
               }}
+              id="FormSearch"
+              onSubmit={handleSearchValue}
             >
               <InputBase
                 sx={{ ml: 1, flex: 1 }}
                 placeholder="Search"
                 inputProps={{ 'aria-label': 'search' }}
+                id="FormSearchInput"
+                onChange={handleSearch}
               />
               <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
                 <SearchIcon />
