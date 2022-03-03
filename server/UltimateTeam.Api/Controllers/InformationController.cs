@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Dev33.UltimateTeam.Api.Services.LoggerService;
 using Dev33.UltimateTeam.Application.Contracts.Services;
+using Dev33.UltimateTeam.Application.Helpers;
 using Dev33.UltimateTeam.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -33,8 +34,8 @@ namespace UltimateTeam.Api.Controllers
         {
             try
             {
-                var informations =  await searchService.Search(userId, searchTerm);
-                var response = mapper.Map<IEnumerable<InformationResponseDto>>(informations);
+                var informations = await searchService.Search(userId, searchTerm);
+                var response = InformationMapper.Map(informations);
 
                 return response;
             }
