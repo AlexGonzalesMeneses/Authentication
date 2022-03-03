@@ -5,7 +5,7 @@ import InformationForm from './InformationForm';
 import ListContext from '@pathListContext';
 import { PostInformation } from '@pathPost';
 import { PutInformation } from '@pathPut';
-import { validateEmail, validateDate } from '../../helpers/validateEmail';
+import { validateEmail, validateDate } from '../../helpers/validateForms';
 import Swal from 'sweetalert2';
 
 function ContactsForm({ idItem, data, closeModal, action }) {
@@ -119,6 +119,7 @@ function ContactsForm({ idItem, data, closeModal, action }) {
     <>
       <InformationForm
         type={'Contact'}
+        nameResponse = {nameResponse}
         values={values}
         updateInputs={updateInputs}
         action={action}

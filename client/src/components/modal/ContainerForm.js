@@ -6,7 +6,7 @@ import {
   MenuItem,
   NativeSelect,
   Select,
-  TextField,
+  TextField
 } from '@mui/material';
 import Swal from 'sweetalert2';
 import React, { useContext, useState } from 'react';
@@ -15,26 +15,37 @@ import Button from '@mui/material/Button';
 import { SendPostContainer } from '@pathSendPost';
 import { SendPutContainer } from '@pathSendPut';
 import ButtonsCrud from './ButtonsCrud';
+import { ValidateContainerName } from '../../helpers/validateForms';
 
 function ContainerForm({ name, favorite, idItem, closeModal, action }) {
   const UserId = localStorage.getItem('UserId');
   const [containerData, setContainerData] = useState({
     name: name || '',
     favorite: favorite == undefined ? true : favorite,
-    userId: UserId,
+    userId: UserId
   });
   const handleSubmit = (event) => {
     event.stopPropagation();
   };
   const addDataForm = () => {
-    SendPostContainer(containerData);
-    Swal.fire({
-      title: 'Container added',
-      icon: 'success',
-      showCloseButton: true,
-      timer: '2500',
-    });
-    closeModal();
+    let containerName = ValidateContainerName(containerData.name);
+    if (containerName) {
+      SendPostContainer(containerData);
+      Swal.fire({
+        title: 'Container added',
+        icon: 'success',
+        showCloseButton: true,
+        timer: '2500'
+      });
+      closeModal();
+    } else {
+      Swal.fire({
+        target: document.getElementById('ContainerModal'),
+        title: 'Root is not a valid name',
+        icon: 'warning',
+        showCloseButton: true
+      });
+    }
   };
 
   const updateDataForm = () => {
@@ -43,7 +54,7 @@ function ContainerForm({ name, favorite, idItem, closeModal, action }) {
       title: 'Container updated',
       icon: 'success',
       showCloseButton: true,
-      timer: '2500',
+      timer: '2500'
     });
     closeModal();
   };
@@ -62,9 +73,9 @@ function ContainerForm({ name, favorite, idItem, closeModal, action }) {
         spacing={2}
         sx={{
           '& > .MuiGrid-item': {
-            pt: '0px',
+            pt: '0px'
           },
-          mt: '0px',
+          mt: '0px'
         }}
       >
         <Grid item xs={12}>
@@ -93,7 +104,7 @@ function ContainerForm({ name, favorite, idItem, closeModal, action }) {
               onChange={(e) =>
                 setContainerData({
                   ...containerData,
-                  favorite: e.target.value,
+                  favorite: e.target.value
                 })
               }
               label="Favorite"

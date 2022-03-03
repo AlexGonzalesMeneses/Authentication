@@ -58,6 +58,7 @@ function NotesForm({ idItem, data, closeModal, action }) {
     <>
       <InformationForm
         type={'Note'}
+        nameResponse = {nameResponse}
         values={values}
         updateInputs={updateInputs}
         action={action}

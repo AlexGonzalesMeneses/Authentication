@@ -9,7 +9,7 @@ import {
 import React, { useContext, useState } from 'react';
 import ListContext from '@pathListContext';
 
-function InformationForm({ type, values, updateInputs, action }) {
+function InformationForm({ type, nameResponse,values, updateInputs, action }) {
   const { nameContainer, encryptionSelected } = useContext(ListContext);
   const encryptionType =
     values.encryptionType == undefined
@@ -25,7 +25,7 @@ function InformationForm({ type, values, updateInputs, action }) {
           fullWidth
           id="name"
           label="Name :"
-          defaultValue={values.name}
+          defaultValue={nameResponse}
           onChange={updateInputs('name')}
         />
       </Grid>

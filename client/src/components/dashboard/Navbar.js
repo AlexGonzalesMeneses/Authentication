@@ -72,9 +72,9 @@ function Navbar() {
     >
       <Box
         sx={{
-          width: '90%',
+          width: '80%',
           display: 'flex',
-          justifyContent: 'space-around',
+          justifyContent: 'space-between',
           alignItems: 'center',
           margin: 'auto',
           height: '100%',

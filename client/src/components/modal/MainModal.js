@@ -31,7 +31,6 @@ export default function MainModal({
     };
     getItem();
   }, []);
-  console.log(itemShare);
   return (
     <Box sx={style} id="ModalMain">
       <Box

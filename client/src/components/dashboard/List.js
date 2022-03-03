@@ -7,7 +7,8 @@ import ListContext from '@pathListContext';
 import { ConstructionOutlined } from '@mui/icons-material';
 
 function List() {
-  const { addItem, idContainer, filterSelected } = useContext(ListContext);
+  const { addItem, idContainer, filterSelected, dataSearch } =
+    useContext(ListContext);
   const [information, setInformation] = useState([]);
   const [render, setRender] = React.useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,43 +17,67 @@ function List() {
   let indexOfFirstPost = indexOfLastPost - postsPerPage;
   let listfilter = [];
   if (filterSelected == 'All') {
-    listfilter = information && information;
+    listfilter = dataSearch != '' ? dataSearch : information && information;
   } else if (filterSelected == 'Notes') {
     listfilter =
-      information &&
-      information.filter(function (el) {
-        return el.informationType == 'Note';
-      });
+      dataSearch != ''
+        ? dataSearch.filter(function (el) {
+            return el.informationType == 'Note';
+          })
+        : information &&
+          information.filter(function (el) {
+            return el.informationType == 'Note';
+          });
   } else if (filterSelected == 'Credentials') {
     listfilter =
-      information &&
-      information.filter(function (el) {
-        return el.informationType == 'Credential';
-      });
+      dataSearch != ''
+        ? dataSearch.filter(function (el) {
+            return el.informationType == 'Credential';
+          })
+        : information &&
+          information.filter(function (el) {
+            return el.informationType == 'Credential';
+          });
   } else if (filterSelected == 'Keys') {
     listfilter =
-      information &&
-      information.filter(function (el) {
-        return el.informationType == 'Key';
-      });
+      dataSearch != ''
+        ? dataSearch.filter(function (el) {
+            return el.informationType == 'Key';
+          })
+        : information &&
+          information.filter(function (el) {
+            return el.informationType == 'Key';
+          });
   } else if (filterSelected == 'CreditCards') {
     listfilter =
-      information &&
-      information.filter(function (el) {
-        return el.informationType == 'CreditCard';
-      });
+      dataSearch != ''
+        ? dataSearch.filter(function (el) {
+            return el.informationType == 'CreditCard';
+          })
+        : information &&
+          information.filter(function (el) {
+            return el.informationType == 'CreditCard';
+          });
   } else if (filterSelected == 'Contacts') {
     listfilter =
-      information &&
-      information.filter(function (el) {
-        return el.informationType == 'Contact';
-      });
+      dataSearch != ''
+        ? dataSearch.filter(function (el) {
+            return el.informationType == 'Contact';
+          })
+        : information &&
+          information.filter(function (el) {
+            return el.informationType == 'Contact';
+          });
   } else if (filterSelected == 'Favorites') {
     listfilter =
-      information &&
-      information.filter(function (el) {
-        return el.favorite == true;
-      });
+      dataSearch != ''
+        ? dataSearch.filter(function (el) {
+            return el.favorite == true;
+          })
+        : information &&
+          information.filter(function (el) {
+            return el.favorite == true;
+          });
   }
 
   const currentPosts =
@@ -80,16 +105,16 @@ function List() {
     };
     setRender(render);
     noteList();
-  }, [idContainer, render, addItem, filterSelected]);
+  }, [idContainer, render, addItem, filterSelected, dataSearch]);
   useEffect(() => {
     setCurrentPage(1);
   }, [filterSelected]);
 
   function SortArrayName(x, y) {
-    if (x.name < y.name) {
+    if (x.name.toLowerCase() < y.name.toLowerCase()) {
       return -1;
     }
-    if (x.name > y.name) {
+    if (x.name.toLowerCase() > y.name.toLowerCase()) {
       return 1;
     }
     return 0;

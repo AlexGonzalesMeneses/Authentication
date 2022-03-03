@@ -25,8 +25,8 @@ const iconStyle = {
   '&:hover': {
     bgcolor: 'primary.contrastText',
     transform: 'scale(1.5)',
-    borderRadius: '12px',
-  },
+    borderRadius: '12px'
+  }
 };
 function Accordion() {
   const [information, setInformation] = useState([]);
@@ -42,7 +42,6 @@ function Accordion() {
   const handleClickNoContainers = () => {
     setOpenNoContainer(!openNoContainer);
   };
-
   const handleOpenMainModal = () => {
     setOpenMainModal(true);
   };
@@ -61,11 +60,30 @@ function Accordion() {
     };
     containerList();
   }, [render]);
+
+  function SortArrayName(x, y) {
+    if (x.name.toLowerCase() < y.name.toLowerCase()) {
+      return -1;
+    }
+    if (x.name.toLowerCase() > y.name.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  }
+  function SortArrayFavorite(x, y) {
+    if (x.favorite > y.favorite) {
+      return -1;
+    }
+    if (x.favorite < y.favorite) {
+      return 1;
+    }
+    return 0;
+  }
   return (
     <List
       sx={{
         width: '100%',
-        bgcolor: 'secondary.main',
+        bgcolor: 'secondary.main'
       }}
       component="nav"
       aria-labelledby="nested-list-subheader"
@@ -78,17 +96,17 @@ function Accordion() {
             pb: '20px',
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center',
+            alignItems: 'center'
           }}
         >
-          <ListItemText>Containers</ListItemText>
+          <Box sx={{ fontSize: '20px', fontWeight: '400' }}>Containers</Box>
           <Tooltip title="Add" enterDelay={500} leaveDelay={200}>
             <IconButton onClick={handleOpenMainModal}>
               <AddCircleOutlineIcon
                 title="Add"
                 sx={{
                   ...iconStyle,
-                  fontSize: '50px',
+                  fontSize: '50px'
                 }}
               />
             </IconButton>
@@ -137,11 +155,11 @@ function Accordion() {
         timeout="auto"
         unmountOnExit
         sx={{
-          height: '55vh',
+          height: 'calc(50vh - 30px + (6vh - 60px))',
           overflow: 'hidden',
           '& > div': {
-            height: '55vh',
-          },
+            height: 'calc(50vh - 30px + (6vh - 60px))'
+          }
         }}
       >
         <List
@@ -153,34 +171,37 @@ function Accordion() {
 
             '&::-webkit-scrollbar': {
               bgcolor: 'secondary.dark',
-              borderRadius: '12px',
+              borderRadius: '12px'
             },
             '&::-webkit-scrollbar-thumb': {
               bgcolor: 'quaternary.contrastText',
               borderRadius: '12px',
-              border: '2px solid #d3928e',
-            },
+              border: '2px solid #d3928e'
+            }
           }}
         >
           {information ? (
-            information.map((container) => {
-              if (container.name != 'Root') {
-                return (
-                  <Container
-                    data={container}
-                    reRender={reRender}
-                    key={container.id}
-                  />
-                );
-              }
-            })
+            information
+              .sort(SortArrayName)
+              .sort(SortArrayFavorite)
+              .map((container) => {
+                if (container.name != 'Root') {
+                  return (
+                    <Container
+                      data={container}
+                      reRender={reRender}
+                      key={container.id}
+                    />
+                  );
+                }
+              })
           ) : (
             <h1>Loading .....</h1>
           )}
         </List>
       </Collapse>
       <Modal open={openMainModal} onClose={handleCloseMainModal}>
-        <Box>
+        <Box id="ContainerModal">
           <ContainerModal
             name=""
             favorite={true}
