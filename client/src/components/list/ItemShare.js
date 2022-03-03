@@ -10,7 +10,6 @@ import Swal from 'sweetalert2';
 
 function ItemShare({ data }) {
   const [openMainModal, setOpenMainModal] = React.useState(false);
-  console.log(data);
   const [action, setAction] = React.useState('Show');
   const handleOpenMainModal = () => {
     setAction('ShowShare');

@@ -16,7 +16,7 @@ const style = {
 
 function ContainerModal({ name, favorite, idItem, closeModal, action }) {
   return (
-    <Box sx={style}>
+    <Box sx={style} >
       <Box
         sx={{
           width: '100%',
@@ -26,6 +26,7 @@ function ContainerModal({ name, favorite, idItem, closeModal, action }) {
           justifyContent: 'center',
           borderBotton: '3px solid quaternary.dark',
         }}
+        
       >
         {action.toUpperCase()}
       </Box>

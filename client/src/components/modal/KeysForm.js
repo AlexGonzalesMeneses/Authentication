@@ -61,6 +61,7 @@ function KeysForm({ idItem, data, closeModal, action }) {
     <>
       <InformationForm
         type={'Key'}
+        nameResponse = {nameResponse}
         values={values}
         updateInputs={updateInputs}
         action={action}

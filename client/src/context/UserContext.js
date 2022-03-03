@@ -3,6 +3,8 @@ import { createContext, useState } from 'react';
 import { authenticate, register } from '../services/login';
 import Swal from 'sweetalert2';
 
+import { SendPostContainer } from '@pathSendPost';
+
 const UserContext = createContext();
 const isToken = localStorage.getItem('token');
 const InitialUser = isToken == null || isToken.length < 600 ? null : true;
@@ -38,6 +40,7 @@ const UserProvider = ({ children }) => {
       const user = await register({ email, password, fullName, userName });
       localStorage.setItem('token', user.token);
       localStorage.setItem('UserId', user.id);
+      SendPostContainer({name: 'Root', favorite: true, userId: user.id});
       setUser(true);
     } catch (error) {
       Swal.fire({

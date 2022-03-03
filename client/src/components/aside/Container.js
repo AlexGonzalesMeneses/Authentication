@@ -20,6 +20,7 @@ function Container({ data, reRender }) {
   const {
     nameContainer,
     selectContainerName,
+    idRootContainer,
     rootIdContainer,
     selectContainer,
   } = useContext(ListContext);
@@ -34,6 +35,7 @@ function Container({ data, reRender }) {
   const [action, setAction] = React.useState('Show');
   const [openMainModal, setOpenMainModal] = React.useState(false);
   const open = Boolean(anchorEl);
+
   const handleCloseMainModal = () => {
     setOpenMainModal(false);
     reRender();
@@ -71,6 +73,8 @@ function Container({ data, reRender }) {
       if (result.isConfirmed) {
         SendDelete(id);
         Swal.fire('Deleted!', '', 'success');
+        selectContainer(idRootContainer);
+        selectContainerName('Root');
         reRender();
       } else if (result.isDenied) {
         Swal.fire('Deleted canceled', '', 'info');
@@ -78,11 +82,10 @@ function Container({ data, reRender }) {
     });
   };
   useEffect(() => {
-    if (nameContainer == 'Root') {
+    if (name == 'Root') {
       rootIdContainer(id);
     }
   }, []);
-
   const handleSelectContainer = () => {
     selectContainer(id);
     selectContainerName(name);
@@ -126,6 +129,7 @@ function Container({ data, reRender }) {
       >
         {name}
       </Box>
+      {name != 'Root' && 
       <Box sx={{ display: 'flex', columnGap: '15px' }}>
         {favorite ? (
           <Tooltip title="No favorite" enterDelay={500} leaveDelay={200}>
@@ -201,6 +205,7 @@ function Container({ data, reRender }) {
           </Tooltip>
         </Menu>
       </Box>
+      }
       <Modal open={openMainModal} onClose={handleCloseMainModal}>
         <Box>
           <ContainerModal

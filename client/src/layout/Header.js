@@ -17,10 +17,12 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SearchIcon from '@mui/icons-material/Search';
 import UserContext from '../context/UserContext';
 import { Outlet, NavLink } from 'react-router-dom';
+import ListContext from '@pathListContext';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { logout } = useContext(UserContext);
+  const { selectContainer, idRootContainer } = useContext(ListContext);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,6 +32,8 @@ export default function AccountMenu() {
   };
   const handleLogout = (event) => {
     logout();
+    selectContainer('');
+    
   };
 
   const navButtomStyle = {
