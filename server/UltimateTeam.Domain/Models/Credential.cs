@@ -1,10 +1,9 @@
-﻿using Dev33.UltimateTeam.Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 #nullable disable
 
-namespace Dev33.UltimateTeam.Domain
+namespace Dev33.UltimateTeam.Domain.Models
 {
     public partial class Credential
     {
@@ -18,6 +17,7 @@ namespace Dev33.UltimateTeam.Domain
         public string UserName { get; set; }
         [Display(Encrypted = true, Sensitive = false)]
         public string Password { get; set; }
+
 
         public virtual Information Informations { get; set; }
         public virtual ICollection<Url> Urls { get; set; }

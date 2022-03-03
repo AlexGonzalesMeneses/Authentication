@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Dev33.UltimateTeam.Domain
+namespace Dev33.UltimateTeam.Domain.Models
 {
     public partial class Information
     {
         public Information()
         {
+            ShareInformations = new HashSet<ShareInformation>();
             Tags = new HashSet<Tag>();
         }
 
@@ -26,6 +27,7 @@ namespace Dev33.UltimateTeam.Domain
         public virtual Credential Credential { get; set; }
         public virtual Key Key { get; set; }
         public virtual Note Note { get; set; }
+        public virtual ICollection<ShareInformation> ShareInformations { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
     }
 }

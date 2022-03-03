@@ -1,10 +1,9 @@
-﻿using Dev33.UltimateTeam.Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 #nullable disable
 
-namespace Dev33.UltimateTeam.Domain
+namespace Dev33.UltimateTeam.Domain.Models
 {
     public partial class Phone
     {

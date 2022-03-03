@@ -3,6 +3,7 @@ using Dev33.UltimateTeam.Application.Contracts.Services;
 using Dev33.UltimateTeam.Application.Encyptors;
 using Dev33.UltimateTeam.Application.Helpers;
 using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,10 +63,10 @@ namespace Dev33.UltimateTeam.Application.Services
         public async Task<NoteResponseDto> GetNoteById(Guid id)
         {
             var information = await unitOfWork.InformationRepository.GetByIdAsync(id);
-            var tags = await unitOfWork.TagRepository.GetTagsAsync(information.Id);
-            information.Tags = (List<Tag>)tags;
             var note = await unitOfWork.NoteRepository.GetByIdAsync(id);
             ValidateExistence(note, information);
+            var tags = await unitOfWork.TagRepository.GetTagsAsync(information.Id);
+            information.Tags = (List<Tag>)tags;
             encryptor = FactoryEncryptor.Create(information.EncryptionType.ToString());
             var noteDecrypted = HandleEncryption.HandleEncryptData(note, encryptor, false);
 

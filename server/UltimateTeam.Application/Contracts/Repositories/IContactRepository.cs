@@ -1,4 +1,5 @@
-﻿using Dev33.UltimateTeam.Domain;
+﻿
+using Dev33.UltimateTeam.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

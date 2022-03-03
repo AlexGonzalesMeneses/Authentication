@@ -1,10 +1,9 @@
-﻿using Dev33.UltimateTeam.Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 #nullable disable
 
-namespace Dev33.UltimateTeam.Domain
+namespace Dev33.UltimateTeam.Domain.Models
 {
     public partial class Container
     {
@@ -14,7 +13,6 @@ namespace Dev33.UltimateTeam.Domain
         }
 
         public Guid Id { get; set; }
-        [Display(Encrypted = true, Sensitive = false)]
         public string Name { get; set; }
         public bool Favorite { get; set; }
         public Guid UserId { get; set; }

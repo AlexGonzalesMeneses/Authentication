@@ -11,5 +11,4 @@ namespace Dev33.UltimateTeam.Domain.Models
         public bool Encrypted { get; set; }
         public bool Sensitive { get; set; }
     }
-
 }

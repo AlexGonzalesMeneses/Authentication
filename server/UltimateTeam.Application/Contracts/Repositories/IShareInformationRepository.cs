@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Dev33.UltimateTeam.Application.Contracts.Repositories
 {
-    public interface IKeyRepository : IAsyncRepository<Key>
+    public interface IShareInformationRepository : IAsyncRepository<ShareInformation>
     {
+        Task<ICollection<ShareInformation>> GetByUserId(Guid userId);
     }
 }

@@ -1,10 +1,9 @@
-﻿using Dev33.UltimateTeam.Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 #nullable disable
 
-namespace Dev33.UltimateTeam.Domain
+namespace Dev33.UltimateTeam.Domain.Models
 {
     public partial class CreditCard
     {
@@ -18,5 +17,6 @@ namespace Dev33.UltimateTeam.Domain
         public string Cvv { get; set; }
         [Display(Encrypted = true, Sensitive = false)]
         public string Issuer { get; set; }
+
     }
 }

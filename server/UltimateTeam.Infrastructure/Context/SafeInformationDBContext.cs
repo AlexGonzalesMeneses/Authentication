@@ -1,11 +1,11 @@
 ﻿using System;
-using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Dev33.UltimateTeam.Infrastructure
+namespace Dev33.UltimateTeam.Infrastructure.Context
 {
     public partial class SafeInformationDBContext : DbContext
     {
@@ -28,6 +28,7 @@ namespace Dev33.UltimateTeam.Infrastructure
         public virtual DbSet<Key> Keys { get; set; }
         public virtual DbSet<Note> Notes { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
+        public virtual DbSet<ShareInformation> ShareInformations { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Url> Urls { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -38,7 +39,7 @@ namespace Dev33.UltimateTeam.Infrastructure
 
             modelBuilder.Entity<Address>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.Contact)
                     .WithMany(p => p.Addresses)
@@ -61,7 +62,7 @@ namespace Dev33.UltimateTeam.Infrastructure
             {
                 entity.ToTable("Container");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -104,7 +105,7 @@ namespace Dev33.UltimateTeam.Infrastructure
 
             modelBuilder.Entity<Email>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.Contact)
                     .WithMany(p => p.Emails)
@@ -159,7 +160,7 @@ namespace Dev33.UltimateTeam.Infrastructure
 
             modelBuilder.Entity<Phone>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.Contact)
                     .WithMany(p => p.Phones)
@@ -167,9 +168,27 @@ namespace Dev33.UltimateTeam.Infrastructure
                     .HasConstraintName("FK_Phones_Contacts_InformationsId");
             });
 
+            modelBuilder.Entity<ShareInformation>(entity =>
+            {
+                entity.HasKey(e => e.GuessId)
+                    .HasName("PK__ShareInf__0B84EA59B59511F1");
+
+                entity.Property(e => e.GuessId).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Guess)
+                    .WithOne(p => p.ShareInformation)
+                    .HasForeignKey<ShareInformation>(d => d.GuessId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.Information)
+                    .WithMany(p => p.ShareInformations)
+                    .HasForeignKey(d => d.InformationId)
+                    .HasConstraintName("FK_ShareInformations_Informations_InformationsId");
+            });
+
             modelBuilder.Entity<Tag>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -183,7 +202,7 @@ namespace Dev33.UltimateTeam.Infrastructure
 
             modelBuilder.Entity<Url>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.Credential)
                     .WithMany(p => p.Urls)
@@ -193,7 +212,7 @@ namespace Dev33.UltimateTeam.Infrastructure
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Email)
                     .IsRequired()

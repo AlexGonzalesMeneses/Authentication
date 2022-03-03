@@ -1,14 +1,11 @@
 ﻿using Dev33.UltimateTeam.Application.Contracts.Repositories;
 using Dev33.UltimateTeam.Application.Contracts.Services;
-using Dev33.UltimateTeam.Application.Dtos;
-using Dev33.UltimateTeam.Application.Helpers;
-using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UltimateTeam.Application.Dtos;
 
 namespace Dev33.UltimateTeam.Application.Services
 {

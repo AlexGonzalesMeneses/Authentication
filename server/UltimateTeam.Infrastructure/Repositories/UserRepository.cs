@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Dev33.UltimateTeam.Domain.Models;
 using Dev33.UltimateTeam.Application.Contracts.Repositories;
-using Dev33.UltimateTeam.Domain;
+using Dev33.UltimateTeam.Infrastructure.Context;
 
 namespace Dev33.UltimateTeam.Infrastructure.Repositories
 {

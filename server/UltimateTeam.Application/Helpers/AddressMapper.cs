@@ -1,4 +1,5 @@
-using Dev33.UltimateTeam.Domain;
+
+using Dev33.UltimateTeam.Domain.Models;
 using System;
 using System.Collections.Generic;
 
@@ -21,7 +22,6 @@ namespace UltimateTeam.Application.Helpers
             {
                 addressList.Add(new Address
                 {
-                    Id = Guid.NewGuid(),
                     ContactId = id,
                     Location = address
                 });
