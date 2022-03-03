@@ -24,7 +24,6 @@ namespace UltimateTeam.Api.Controllers
             this.loggerManager = loggerManager;
         }
 
-
         [HttpPost("items/{itemId:guid}")]
         public async Task<ActionResult<InformationResponseDto>> Create(Guid itemId, [FromBody] GuessDto guess)
         {
