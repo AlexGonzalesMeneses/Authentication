@@ -17,9 +17,9 @@ namespace Dev33.UltimateTeam.Domain.Models
         public Guid InformationsId { get; set; }
         [Display(Encrypted = true, Sensitive = false)]
         public string FullName { get; set; }
-        [Display(Encrypted = true, Sensitive = false)]
+        [Display(Encrypted = false, Sensitive = false)]
         public string FirstName { get; set; }
-        [Display(Encrypted = true, Sensitive = false)]
+        [Display(Encrypted = false, Sensitive = false)]
         public string LastName { get; set; }
         [Display(Encrypted = true, Sensitive = false)]
         public string Business { get; set; }

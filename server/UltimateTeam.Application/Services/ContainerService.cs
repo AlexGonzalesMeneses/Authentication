@@ -53,7 +53,7 @@ namespace Dev33.UltimateTeam.Application.Services
 
             return container;
         }
-
+        
         public async Task<IEnumerable<Container>> GetContainersByUserId(Guid request)
         {
             var user = await unitOfWork.UserRepository.GetByIdAsync(request);

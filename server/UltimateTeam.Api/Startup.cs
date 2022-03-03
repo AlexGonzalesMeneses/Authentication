@@ -77,6 +77,7 @@ namespace Dev33.UltimateTeam.Api
             services.AddTransient<IContainerService, ContainerService>();
             services.AddTransient<INoteService, NoteService>();
             services.AddTransient<ISharedInformation, SharedInformation>();
+            services.AddTransient<ISearchService, SearchService>();
             services.AddTransient<IInformationRepository, InformationRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
