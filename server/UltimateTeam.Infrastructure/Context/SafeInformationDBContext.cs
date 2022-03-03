@@ -101,6 +101,10 @@ namespace Dev33.UltimateTeam.Infrastructure.Context
                 entity.Property(e => e.Name).IsUnicode(false);
 
                 entity.Property(e => e.Number).IsUnicode(false);
+
+                entity.HasOne(d => d.Informations)
+                    .WithOne(p => p.CreditCard)
+                    .HasForeignKey<CreditCard>(d => d.InformationsId);
             });
 
             modelBuilder.Entity<Email>(entity =>

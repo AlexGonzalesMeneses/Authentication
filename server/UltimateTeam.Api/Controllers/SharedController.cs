@@ -10,7 +10,7 @@ using UltimateTeam.Application.Dtos;
 
 namespace UltimateTeam.Api.Controllers
 {
-    [Route("api/users/{userId:guid}/items/[controller]")]
+    [Route("api/users/{userId:guid}/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     public class SharedController : ControllerBase
@@ -24,7 +24,7 @@ namespace UltimateTeam.Api.Controllers
             this.loggerManager = loggerManager;
         }
 
-        [HttpPost("{itemId:guid}")]
+        [HttpPost("items/{itemId:guid}")]
         public async Task<ActionResult<InformationResponseDto>> Create(Guid itemId, [FromBody] GuessDto guess)
         {
             try
