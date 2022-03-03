@@ -11,6 +11,21 @@ function ButtonsCrud({
 }) {
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <Button
+        sx={{
+          bgcolor: 'secondary.main',
+          color: 'quaternary.light',
+          width: '40%',
+          margin: '20px auto',
+          '&:hover': {
+            bgcolor: 'secondary.dark',
+          },
+        }}
+        variant='contained'
+        onClick={closeDataForm}
+      >
+        Close
+      </Button>
       {action == 'Add' && (
         <Button
           sx={{
@@ -22,7 +37,7 @@ function ButtonsCrud({
               bgcolor: 'tertiary.dark',
             },
           }}
-          variant="contained"
+          variant='contained'
           onClick={addDataForm}
         >
           Add
@@ -39,7 +54,7 @@ function ButtonsCrud({
               bgcolor: 'tertiary.dark',
             },
           }}
-          variant="contained"
+          variant='contained'
           onClick={updateDataForm}
         >
           Save
@@ -56,7 +71,7 @@ function ButtonsCrud({
               bgcolor: 'tertiary.dark',
             },
           }}
-          variant="contained"
+          variant='contained'
           onClick={cloneDataForm}
         >
           Clone
@@ -73,28 +88,12 @@ function ButtonsCrud({
               bgcolor: 'tertiary.dark',
             },
           }}
-          variant="contained"
+          variant='contained'
           onClick={shareDataForm}
         >
           Share
         </Button>
       )}
-
-      <Button
-        sx={{
-          bgcolor: 'tertiary.main',
-          color: 'quaternary.light',
-          width: '40%',
-          margin: '20px auto',
-          '&:hover': {
-            bgcolor: 'tertiary.dark',
-          },
-        }}
-        variant="contained"
-        onClick={closeDataForm}
-      >
-        Close
-      </Button>
     </Box>
   );
 }

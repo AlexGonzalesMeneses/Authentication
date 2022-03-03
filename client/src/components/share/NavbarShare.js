@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import { Box } from '@mui/system';
 import IconNav from '../navbar/IconNav';
 import { iconsShareNavbar } from '../navbar/ListIconsNavbar';
+import ListContext from '@pathListContext';
+
 function NavbarShare() {
-  const [filterSelected, setFilterSelected] = useState('All');
+  const { selectFilterShare, filterSelectedShare } = useContext(ListContext);
   const navClick = (e, title) => {
-    setFilterSelected(title);
+    selectFilterShare(title);
   };
 
   return (
@@ -28,7 +30,7 @@ function NavbarShare() {
       >
         {iconsShareNavbar.map(({ elementActive, element, title, id }) => (
           <IconNav
-            filterSelected={filterSelected}
+            filterSelectedShare={filterSelectedShare}
             elementActive={elementActive}
             element={element}
             title={title}

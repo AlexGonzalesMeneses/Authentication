@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Pagination from '../helpers/Pagination';
 import ItemShare from '../list/ItemShare';
 import { GetShareInformation } from '../../services/information/GetShare';
+import ListContext from '@pathListContext';
 
 function ListShare() {
   const [information, setInformation] = useState([]);
@@ -10,9 +11,56 @@ function ListShare() {
   const [postsPerPage, setPostsPerPage] = useState(4);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const { filterSelectedShare } = React.useContext(ListContext);
+
+  let listfilter = [];
+  if (filterSelectedShare == 'All') {
+    listfilter = information && information;
+  } else if (filterSelectedShare == 'Notes') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.informationType == 'Note';
+      });
+  } else if (filterSelectedShare == 'Credentials') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.informationType == 'Credential';
+      });
+  } else if (filterSelectedShare == 'Keys') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.informationType == 'Key';
+      });
+  } else if (filterSelectedShare == 'CreditCards') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.informationType == 'CreditCard';
+      });
+  } else if (filterSelectedShare == 'Contacts') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.informationType == 'Contact';
+      });
+  } else if (filterSelectedShare == 'Favorites') {
+    listfilter =
+      information &&
+      information.filter(function (el) {
+        return el.favorite == true;
+      });
+  }
 
   const currentPosts =
-    information && information.slice(indexOfFirstPost, indexOfLastPost);
+    listfilter &&
+    listfilter
+      .sort(SortArrayName)
+      .sort(SortArrayFavorite)
+      .slice(indexOfFirstPost, indexOfLastPost);
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber + 1);
   };
@@ -25,6 +73,25 @@ function ListShare() {
     };
     ShareList();
   }, []);
+
+  function SortArrayName(x, y) {
+    if (x.name.toLowerCase() < y.name.toLowerCase()) {
+      return -1;
+    }
+    if (x.name.toLowerCase() > y.name.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  }
+  function SortArrayFavorite(x, y) {
+    if (x.favorite > y.favorite) {
+      return -1;
+    }
+    if (x.favorite < y.favorite) {
+      return 1;
+    }
+    return 0;
+  }
 
   return (
     <Box sx={{ width: '45%', margin: 'auto' }}>

@@ -32,7 +32,7 @@ export default function MainModal({
     getItem();
   }, []);
   return (
-    <Box sx={style} id="ModalMain">
+    <Box sx={style} id='ModalMain'>
       <Box
         sx={{
           width: '100%',
@@ -41,6 +41,7 @@ export default function MainModal({
           display: 'flex',
           justifyContent: 'center',
           borderBotton: '3px solid quaternary.dark',
+          color: 'secondary.light',
         }}
       >
         {action.toUpperCase()}

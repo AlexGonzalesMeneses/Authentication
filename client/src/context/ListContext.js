@@ -36,6 +36,11 @@ function ListProvider({ children }) {
     setFilterSelected(filter);
   };
 
+  const [filterSelectedShare, setFilterSelectedShare] = useState('All');
+  const selectFilterShare = (filter) => {
+    setFilterSelectedShare(filter);
+  };
+
   const [dataSearch, SetDataSearch] = useState('');
   const SearchList = (list) => {
     SetDataSearch(list);
@@ -54,6 +59,8 @@ function ListProvider({ children }) {
     addItemselected,
     filterSelected,
     selectFilter,
+    filterSelectedShare,
+    selectFilterShare,
     dataSearch,
     SearchList,
   };

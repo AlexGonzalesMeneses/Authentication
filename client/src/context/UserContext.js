@@ -4,7 +4,6 @@ import { authenticate, register } from '../services/login';
 import Swal from 'sweetalert2';
 
 import { SendPostContainer } from '@pathSendPost';
-
 const UserContext = createContext();
 const isToken = localStorage.getItem('token');
 const InitialUser = isToken == null || isToken.length < 600 ? null : true;
