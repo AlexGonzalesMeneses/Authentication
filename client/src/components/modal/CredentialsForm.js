@@ -74,6 +74,7 @@ function CredentialsForm({ idItem, data, closeModal, action }) {
     <>
       <InformationForm
         type={'Credential'}
+        nameResponse={nameResponse}
         values={values}
         updateInputs={updateInputs}
         action={action}

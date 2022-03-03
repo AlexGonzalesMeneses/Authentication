@@ -15,3 +15,10 @@ export function validateDate(date) {
   }
   return true;
 }
+
+export function ValidateContainerName(name) {
+  if (name == 'Root') {
+    return false;
+  }
+  return true;
+}

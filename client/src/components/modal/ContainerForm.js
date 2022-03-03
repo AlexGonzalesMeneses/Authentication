@@ -15,6 +15,7 @@ import Button from '@mui/material/Button';
 import { SendPostContainer } from '@pathSendPost';
 import { SendPutContainer } from '@pathSendPut';
 import ButtonsCrud from './ButtonsCrud';
+import { ValidateContainerName } from '../../helpers/validateForms';
 
 function ContainerForm({ name, favorite, idItem, closeModal, action }) {
   const UserId = localStorage.getItem('UserId');
@@ -27,14 +28,24 @@ function ContainerForm({ name, favorite, idItem, closeModal, action }) {
     event.stopPropagation();
   };
   const addDataForm = () => {
-    SendPostContainer(containerData);
-    Swal.fire({
-      title: 'Container added',
-      icon: 'success',
-      showCloseButton: true,
-      timer: '2500',
-    });
-    closeModal();
+    let containerName = ValidateContainerName(containerData.name);
+    if (containerName) {
+      SendPostContainer(containerData);
+      Swal.fire({
+        title: 'Container added',
+        icon: 'success',
+        showCloseButton: true,
+        timer: '2500',
+      });
+      closeModal();
+    } else {
+      Swal.fire({
+        target: document.getElementById('ContainerModal'),
+        title: 'Root is not a valid name',
+        icon: 'warning',
+        showCloseButton: true,
+      });
+    }
   };
 
   const updateDataForm = () => {

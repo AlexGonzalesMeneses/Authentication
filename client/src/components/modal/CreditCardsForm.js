@@ -82,6 +82,7 @@ function CreditCardsForm({ idItem, data, closeModal, action }) {
     <>
       <InformationForm
         type={'CreditCard'}
+        nameResponse={nameResponse}
         values={values}
         updateInputs={updateInputs}
         action={action}
